@@ -108,10 +108,9 @@ test.describe("Keyword Research navigation", () => {
     await expect
       .poll(() => new URL(page.url()).searchParams.get("q"))
       .toBe("rankmyseo");
-    await expect(page.getByRole("tab", { name: /^rankmyseo/i })).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
+    await expect(
+      page.getByRole("tab", { name: /^rankmyseo/i }),
+    ).toHaveAttribute("aria-selected", "true");
     await expect(
       page.locator(`[data-search-tab-id="${closedTabId}"]`),
     ).toHaveCount(0);

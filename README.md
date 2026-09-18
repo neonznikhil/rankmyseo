@@ -80,37 +80,37 @@ projects — see [Local Development](./docs/LOCAL_DEVELOPMENT.md#website-and-bad
 
 ## Environment variables
 
-| Variable | Required | What for |
-|---|---|---|
-| `DATAFORSEO_API_KEY` | Yes (SEO data) | Base64 `login:password` for DataForSEO |
-| `AUTH_MODE` | Yes | `local_noauth` (local), `cloudflare_access` (self-host), `hosted` |
-| `OPENROUTER_API_KEY` | For Ranky | AI agent + AI features |
-| `OPENROUTER_MODEL` | No | Override the default chat model |
-| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | For GSC/GA4 | Search Console + Analytics OAuth |
-| `BETTER_AUTH_SECRET` (+ `BETTER_AUTH_URL`) | Hosted / GSC | Sessions + OAuth token encryption |
-| `TEAM_DOMAIN` / `POLICY_AUD` | `cloudflare_access` | Cloudflare Access JWT validation |
-| `RANKMYSEO_IMAGE` | Docker | Image tag override for self-hosting |
-| `RANKMYSEO_TELEMETRY_DISABLED=1` (or `DO_NOT_TRACK=1`) | No | Disable the anonymous self-host heartbeat |
-| `POSTHOG_PUBLIC_KEY` / `POSTHOG_HOST` | Hosted | Product analytics |
-| `LOOPS_API_KEY` + `LOOPS_TRANSACTIONAL_*` | Hosted | Transactional email |
+| Variable                                               | Required            | What for                                                          |
+| ------------------------------------------------------ | ------------------- | ----------------------------------------------------------------- |
+| `DATAFORSEO_API_KEY`                                   | Yes (SEO data)      | Base64 `login:password` for DataForSEO                            |
+| `AUTH_MODE`                                            | Yes                 | `local_noauth` (local), `cloudflare_access` (self-host), `hosted` |
+| `OPENROUTER_API_KEY`                                   | For Ranky           | AI agent + AI features                                            |
+| `OPENROUTER_MODEL`                                     | No                  | Override the default chat model                                   |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`            | For GSC/GA4         | Search Console + Analytics OAuth                                  |
+| `BETTER_AUTH_SECRET` (+ `BETTER_AUTH_URL`)             | Hosted / GSC        | Sessions + OAuth token encryption                                 |
+| `TEAM_DOMAIN` / `POLICY_AUD`                           | `cloudflare_access` | Cloudflare Access JWT validation                                  |
+| `RANKMYSEO_IMAGE`                                      | Docker              | Image tag override for self-hosting                               |
+| `RANKMYSEO_TELEMETRY_DISABLED=1` (or `DO_NOT_TRACK=1`) | No                  | Disable the anonymous self-host heartbeat                         |
+| `POSTHOG_PUBLIC_KEY` / `POSTHOG_HOST`                  | Hosted              | Product analytics                                                 |
+| `LOOPS_API_KEY` + `LOOPS_TRANSACTIONAL_*`              | Hosted              | Transactional email                                               |
 
 See [`.env.example`](./.env.example), [`.env.selfhost.example`](./.env.selfhost.example),
 and [`.env.production.example`](./.env.production.example).
 
 ## Scripts
 
-| Command | What it does |
-|---|---|
-| `pnpm run dev` / `pnpm dev:agents` | Local dev server |
-| `pnpm run build` | Production build + typecheck |
-| `pnpm run types:check` | `tsc --noEmit` |
-| `pnpm run lint` / `pnpm run lint:fix` | oxlint (type-aware) |
-| `pnpm run format:check` / `pnpm run format:write` | prettier |
-| `pnpm test` / `pnpm test:ci` | vitest unit tests |
-| `pnpm test:e2e` | Playwright e2e (needs `AUTH_MODE=local_noauth`) |
-| `pnpm run db:migrate:local` | Apply D1 migrations locally |
-| `pnpm sync-plugin-skills` | Re-sync `plugins/rankmyseo/skills/` from `.agents/skills/` |
-| `pnpm ci:check` | format + knip + typecheck + lint + skills sync check |
+| Command                                           | What it does                                               |
+| ------------------------------------------------- | ---------------------------------------------------------- |
+| `pnpm run dev` / `pnpm dev:agents`                | Local dev server                                           |
+| `pnpm run build`                                  | Production build + typecheck                               |
+| `pnpm run types:check`                            | `tsc --noEmit`                                             |
+| `pnpm run lint` / `pnpm run lint:fix`             | oxlint (type-aware)                                        |
+| `pnpm run format:check` / `pnpm run format:write` | prettier                                                   |
+| `pnpm test` / `pnpm test:ci`                      | vitest unit tests                                          |
+| `pnpm test:e2e`                                   | Playwright e2e (needs `AUTH_MODE=local_noauth`)            |
+| `pnpm run db:migrate:local`                       | Apply D1 migrations locally                                |
+| `pnpm sync-plugin-skills`                         | Re-sync `plugins/rankmyseo/skills/` from `.agents/skills/` |
+| `pnpm ci:check`                                   | format + knip + typecheck + lint + skills sync check       |
 
 ## Self-hosting
 

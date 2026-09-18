@@ -170,7 +170,12 @@ function handleFetch(
     (authMode === "cloudflare_access" || authMode === "local_noauth") &&
     pathname === MCP_ROUTE
   ) {
-    return handleSelfHostedRankmyseoMcpRequest(publicRequest, authMode, env, ctx);
+    return handleSelfHostedRankmyseoMcpRequest(
+      publicRequest,
+      authMode,
+      env,
+      ctx,
+    );
   }
 
   return appFetch(request);

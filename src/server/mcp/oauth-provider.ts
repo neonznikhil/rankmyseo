@@ -447,7 +447,11 @@ export function createRankmyseoOAuthProvider(appFetch: AppFetch) {
     (provider ??= createProvider(appFetch, getMcpResource(getHostedBaseUrl())));
 
   return {
-    async fetch(request: Request, env: RankmyseoOAuthEnv, ctx: ExecutionContext) {
+    async fetch(
+      request: Request,
+      env: RankmyseoOAuthEnv,
+      ctx: ExecutionContext,
+    ) {
       const url = new URL(request.url);
 
       const apiKeyResponse = await handleMcpApiKeyRequest(request, env, ctx);

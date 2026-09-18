@@ -29,8 +29,8 @@ function PrivacyPage() {
         {/* TODO: update operator name and support email to your own. */}
         <p>
           badseo.dev is operated by Every App, Inc. as a public test site for
-          RANKMYSEO. The site has no accounts, forms, purchases, or user-submitted
-          content. Privacy questions and requests can be sent to{" "}
+          RANKMYSEO. The site has no accounts, forms, purchases, or
+          user-submitted content. Privacy questions and requests can be sent to{" "}
           <a href="mailto:support@rankmyseo.com">support@rankmyseo.com</a>.
         </p>
 

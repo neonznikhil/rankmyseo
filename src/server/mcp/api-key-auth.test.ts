@@ -91,7 +91,9 @@ describe("handleMcpApiKeyRequest", () => {
       "user-1",
     );
     expect(mocks.recordMcpAuthorized).toHaveBeenCalledWith("org-1");
-    expect(mocks.handleAuthenticatedRankmyseoMcpRequest).toHaveBeenCalledTimes(1);
+    expect(mocks.handleAuthenticatedRankmyseoMcpRequest).toHaveBeenCalledTimes(
+      1,
+    );
     const [passedRequest, props, passedEnv, passedCtx] =
       mocks.handleAuthenticatedRankmyseoMcpRequest.mock.calls[0];
     expect(passedRequest).toBe(mcpRequest);

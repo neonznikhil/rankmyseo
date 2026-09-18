@@ -277,7 +277,10 @@ export class SamTelemetry {
     // next turn can start while the final credit deduction is still pending.
     await billing;
     properties.credits = turn.credits;
-    console.log("[ranky] turn", { session_id: this.sessionId(), ...properties });
+    console.log("[ranky] turn", {
+      session_id: this.sessionId(),
+      ...properties,
+    });
     await this.capture("sam:turn", properties);
     if (trace) {
       await this.capture("$ai_trace", trace);

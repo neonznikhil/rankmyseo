@@ -16,9 +16,9 @@ function OpenrouterApiKeyHelpPage() {
               Set up your OpenRouter API key
             </h1>
             <p className="text-sm text-base-content/70">
-              RANKMYSEO needs the <code>OPENROUTER_API_KEY</code> secret before AI
-              features like RANKY, the in-app SEO agent, can run. It is optional —
-              everything else in RANKMYSEO works without it.
+              RANKMYSEO needs the <code>OPENROUTER_API_KEY</code> secret before
+              AI features like RANKY, the in-app SEO agent, can run. It is
+              optional — everything else in RANKMYSEO works without it.
             </p>
           </div>
         </div>
