@@ -1,0 +1,29 @@
+{
+  "name": "rankmyseo",
+  "displayName": "RANKMYSEO",
+  "version": "1.0.0",
+  "description": "Without good data, your agent gives generic advice. Keyword research, competitor research, backlinks, and site audits. All for $10/month.",
+  "author": {
+    "name": "RANKMYSEO",
+    "url": "https://rankmyseo.com"
+  },
+  "homepage": "https://rankmyseo.com",
+  "repository": "https://github.com/rankmyseo/rankmyseo",
+  "license": "MIT",
+  "keywords": [
+    "seo",
+    "keyword-research",
+    "serp",
+    "site-audit",
+    "backlinks",
+    "search-console",
+    "rank-tracking",
+    "local-seo"
+  ],
+  "mcpServers": {
+    "rankmyseo": {
+      "type": "http",
+      "url": "https://app.rankmyseo.com/mcp"
+    }
+  }
+}

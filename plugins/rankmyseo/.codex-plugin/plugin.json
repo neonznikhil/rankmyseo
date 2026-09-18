@@ -1,0 +1,44 @@
+{
+  "name": "rankmyseo",
+  "version": "1.0.0",
+  "description": "Without good data, your agent gives generic advice. Keyword research, competitor research, backlinks, and site audits. All for $10/month.",
+  "author": {
+    "name": "RANKMYSEO",
+    "url": "https://rankmyseo.com"
+  },
+  "homepage": "https://rankmyseo.com",
+  "repository": "https://github.com/rankmyseo/rankmyseo",
+  "license": "MIT",
+  "keywords": [
+    "seo",
+    "keyword-research",
+    "serp",
+    "site-audit",
+    "backlinks",
+    "search-console",
+    "rank-tracking",
+    "local-seo"
+  ],
+  "skills": "./skills/",
+  "mcpServers": {
+    "rankmyseo": {
+      "url": "https://app.rankmyseo.com/mcp"
+    }
+  },
+  "interface": {
+    "displayName": "RANKMYSEO",
+    "shortDescription": "Without good data, your agent gives generic advice. Keyword research, competitor research, backlinks, and site audits. All for $10/month.",
+    "longDescription": "Without good data, your agent gives generic advice. Keyword research, competitor research, backlinks, and site audits. All for $10/month.",
+    "developerName": "RANKMYSEO",
+    "category": "Productivity",
+    "capabilities": ["Interactive"],
+    "websiteURL": "https://rankmyseo.com",
+    "privacyPolicyURL": "https://rankmyseo.com/privacy",
+    "termsOfServiceURL": "https://rankmyseo.com/terms-and-conditions",
+    "defaultPrompt": [
+      "Research keywords for my site and shortlist the best opportunities.",
+      "Audit my site and give me a one-page report with a single next action.",
+      "Track my rankings for these keywords and summarize what changed."
+    ]
+  }
+}

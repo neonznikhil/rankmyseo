@@ -1,0 +1,25 @@
+{
+  "name": "rankmyseo",
+  "version": "1.0.0",
+  "description": "SEO made simple. Research keywords and competitors, audit sites, track rankings, and use Search Console data from your agent.",
+  "author": {
+    "name": "Every App, Inc",
+    "email": "support@rankmyseo.com"
+  },
+  "homepage": "https://rankmyseo.com",
+  "repository": "https://github.com/rankmyseo/rankmyseo",
+  "license": "MIT",
+  "keywords": [
+    "seo",
+    "keyword-research",
+    "competitor-research",
+    "site-audit",
+    "backlinks",
+    "search-console",
+    "rank-tracking",
+    "local-seo"
+  ],
+  "logo": "https://raw.githubusercontent.com/rankmyseo/rankmyseo/main/public/transparent-logo.png",
+  "skills": "skills",
+  "mcpServers": "mcp.json"
+}

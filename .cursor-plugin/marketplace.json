@@ -1,0 +1,17 @@
+{
+  "name": "rankmyseo",
+  "owner": {
+    "name": "Every App, Inc",
+    "email": "support@rankmyseo.com"
+  },
+  "metadata": {
+    "description": "RANKMYSEO's official Cursor plugin marketplace."
+  },
+  "plugins": [
+    {
+      "name": "rankmyseo",
+      "source": "plugins/rankmyseo",
+      "description": "SEO made simple. Research keywords and competitors, audit sites, track rankings, and use Search Console data from your agent."
+    }
+  ]
+}
