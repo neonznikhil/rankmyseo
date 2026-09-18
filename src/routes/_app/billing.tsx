@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useCustomer } from "autumn-js/react";
 import { useState } from "react";
 import { useSession } from "@/lib/auth-client";
@@ -25,15 +25,38 @@ import {
 } from "@/shared/billing";
 
 export const Route = createFileRoute("/_app/billing")({
-  beforeLoad: () => {
-    if (!isHostedClientAuthMode()) {
-      throw notFound();
-    }
-  },
   component: BillingPage,
 });
 
 function BillingPage() {
+  // The route stays registered in every mode; self-hosted instances have no
+  // plans or credits, so they get an explanatory state instead of the hosted
+  // checkout UI below (which is untouched).
+  if (!isHostedClientAuthMode()) {
+    return <SelfHostedBillingNotice />;
+  }
+
+  return <HostedBillingPage />;
+}
+
+function SelfHostedBillingNotice() {
+  return (
+    <div className="mx-auto w-full max-w-2xl space-y-4 p-4 py-10 md:p-6 md:py-12">
+      <h1 className="text-xl font-semibold">Billing</h1>
+      <div className="rounded-xl border border-base-300 bg-base-100 p-5 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+        <p className="text-sm font-medium">
+          Not applicable in self-hosted mode.
+        </p>
+        <p className="mt-1 text-sm text-base-content/60">
+          This instance has no plans, subscriptions, or credits. SEO data is
+          billed directly by DataForSEO on your own API key.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function HostedBillingPage() {
   const { data: session, isPending: isSessionPending } = useSession();
   const [topUpAmount, setTopUpAmount] = useState("20");
   const [isPending, setIsPending] = useState(false);
