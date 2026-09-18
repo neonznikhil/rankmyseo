@@ -95,9 +95,9 @@ function AiPage() {
               <section className="rounded-xl border border-base-300 p-5 sm:p-6">
                 <h2 className="text-base font-semibold">Set up your agent</h2>
                 <p className="mt-2 text-sm leading-relaxed text-base-content/60">
-                  Paste the setup prompt into your agent to connect RANKMYSEO and
-                  install its SEO skills. It will guide you through any manual
-                  steps.
+                  Paste the setup prompt into your agent to connect RANKMYSEO
+                  and install its SEO skills. It will guide you through any
+                  manual steps.
                 </p>
                 <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
                   {AGENTS.map(({ name, Icon }) => (
@@ -149,8 +149,8 @@ function AiPage() {
                 <h2 className="text-base font-semibold">Update your skills</h2>
                 <p className="mt-2 text-sm leading-relaxed text-base-content/60">
                   Already connected? Paste the update prompt into your agent to
-                  get the latest RANKMYSEO skills while preserving your connection
-                  settings and personal edits.
+                  get the latest RANKMYSEO skills while preserving your
+                  connection settings and personal edits.
                 </p>
                 <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 [&>button]:h-11 [&>button]:gap-2 [&>button]:text-sm">
                   <CopyButton
@@ -214,16 +214,29 @@ function AiPage() {
               {SKILLS.map(([name, blurb]) => (
                 <li
                   key={name}
-                  className="flex flex-col gap-0.5 sm:flex-row sm:gap-3"
+                  className="flex flex-col gap-0.5 sm:flex-row sm:items-start sm:gap-3"
                 >
-                  <a
-                    href={`https://rankmyseo.com/docs/skills/${name}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="shrink-0 font-mono text-[13px] text-base-content underline decoration-base-content/25 underline-offset-4 hover:decoration-base-content sm:w-48"
-                  >
-                    /{name}
-                  </a>
+                  <span className="flex shrink-0 items-center gap-1 sm:w-52">
+                    <a
+                      href={`https://rankmyseo.com/docs/skills/${name}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-mono text-[13px] text-base-content underline decoration-base-content/25 underline-offset-4 hover:decoration-base-content"
+                    >
+                      /{name}
+                    </a>
+                    <CopyButton
+                      iconOnly
+                      value={`/rankmyseo:${name}`}
+                      label={`Copy /rankmyseo:${name} invocation`}
+                      successMessage="Skill invocation copied"
+                      onCopy={() =>
+                        captureClientEvent("mcp:skill_invocation_copy", {
+                          skill: name,
+                        })
+                      }
+                    />
+                  </span>
                   <span className="text-base-content/60">{blurb}</span>
                 </li>
               ))}

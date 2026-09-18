@@ -15,6 +15,7 @@ import {
   extractPathname,
   HttpStatusBadge,
 } from "@/client/features/audit/shared";
+import { SerpPreviewButton } from "@/client/features/audit/results/SerpPreview";
 import type { AuditResultsData } from "@/client/features/audit/results/types";
 import {
   countActiveFilters,
@@ -179,6 +180,17 @@ function buildPagesColumns({
         );
       },
       sortingFn: nullableNumberSort,
+    }),
+    pageColumnHelper.display({
+      id: "serp",
+      header: () => <span className="font-medium">SERP</span>,
+      cell: ({ row }) =>
+        hasAnalyzedContent(row.original) ? (
+          <SerpPreviewButton page={row.original} />
+        ) : (
+          <EmptyCell />
+        ),
+      enableSorting: false,
     }),
   ];
 }
