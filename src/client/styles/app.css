@@ -25,10 +25,10 @@
   default: true;
   prefersdark: false;
   color-scheme: light;
-  --color-base-100: oklch(100% 0 0);
-  --color-base-200: oklch(97% 0 0);
-  --color-base-300: oklch(92% 0 0);
-  --color-base-content: oklch(20% 0 0);
+  --color-base-100: #ffffff;
+  --color-base-200: #f5f5f7;
+  --color-base-300: #d2d2d7;
+  --color-base-content: #1d1d1f;
   --color-primary: oklch(50% 0.12 262);
   --color-primary-content: oklch(100% 0 0);
   --color-secondary: oklch(55% 0.15 145);
@@ -45,8 +45,8 @@
   --color-warning-content: oklch(100% 0 0);
   --color-error: oklch(65% 0.2 25);
   --color-error-content: oklch(100% 0 0);
-  --radius-selector: 0.5rem;
-  --radius-field: 0.5rem;
+  --radius-selector: 0.625rem;
+  --radius-field: 0.625rem;
   --radius-box: 0.75rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
@@ -80,8 +80,8 @@
   --color-warning-content: oklch(100% 0 0);
   --color-error: oklch(65% 0.2 25);
   --color-error-content: oklch(100% 0 0);
-  --radius-selector: 0.5rem;
-  --radius-field: 0.5rem;
+  --radius-selector: 0.625rem;
+  --radius-field: 0.625rem;
   --radius-box: 0.75rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
@@ -93,6 +93,9 @@
 html,
 body {
   @apply m-0 bg-base-200;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
@@ -369,4 +372,39 @@ html[data-theme="rankmyseo-dark"] .alert-success {
 
 html[data-theme="rankmyseo-dark"] .alert-error {
   @apply border-error/60 bg-error/20;
+}
+
+/* RANKMYSEO polish: subtle Apple-style refinement. Theme colors above stay
+   the single source of truth; this only softens surfaces and motion. */
+
+/* Soft elevation for cards in light mode only — dark mode stays flat so
+   shadows never read as gray glow. */
+html[data-theme="rankmyseo"] .card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* A touch more whitespace inside cards (daisyUI default is 1.5rem).
+   Page-specific layouts that set their own padding keep working — this only
+   lifts the shared default. */
+.card-body {
+  padding: 1.75rem;
+}
+
+/* 150–200ms hover/focus motion on interactive elements. */
+.btn,
+a,
+.tab,
+.menu a,
+.menu button {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 180ms ease;
+}
+
+/* One consistent keyboard focus ring, in the theme's primary accent. */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
