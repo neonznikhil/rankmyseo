@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 import { RotateCcw } from "lucide-react";
 import { findLast } from "remeda";
 import { ChatComposer } from "@/client/features/ranky/ChatComposer";
-import { invalidateSamSessions } from "@/client/features/ranky/samQueries";
+import { invalidateRankySessions } from "@/client/features/ranky/rankyQueries";
 import { captureClientEvent } from "@/client/lib/posthog";
 import {
   ChatMessage,
@@ -22,17 +22,17 @@ const SUGGESTIONS = [
   "Find quick-win keywords I already rank for",
 ];
 
-export function SamConversation({
+export function RankyConversation({
   projectId,
   sessionId,
 }: {
   projectId: string;
   sessionId: string;
 }) {
-  // The conversation lives in the SamChatAgent Durable Object, keyed by the
+  // The conversation lives in the RankyChatAgent Durable Object, keyed by the
   // session id. The WebSocket is authorized in the Worker (src/server.ts) before
   // it reaches the DO; billing gates come back as normal assistant messages.
-  const agent = useAgent({ agent: "sam-chat", name: sessionId });
+  const agent = useAgent({ agent: "ranky-chat", name: sessionId });
   // RANKY streams dense tool-input deltas; unthrottled per-chunk store fanout
   // re-renders the transcript per delta and trips React #185 (cloudflare/agents#1361).
   const {
@@ -54,14 +54,14 @@ export function SamConversation({
     messages,
     status,
   );
-  // Client-side send counts, to set against the server's sam:turn events: a
+  // Client-side send counts, to set against the server's ranky:turn events: a
   // send with no matching turn is a message that never reached the DO.
   const sendText = (
     text: string,
     source: "composer" | "suggestion" | "edit" | "retry" = "composer",
   ) => {
     pinToBottom();
-    captureClientEvent("sam:message_send", {
+    captureClientEvent("ranky:message_send", {
       session_id: sessionId,
       project_id: projectId,
       source,
@@ -72,10 +72,10 @@ export function SamConversation({
 
   // What the user sees as a failure: the turn-level error banner below, or
   // the socket dropping (code/reason from the close frame). The server side
-  // of the same failure is the sam:turn event with status "error".
+  // of the same failure is the ranky:turn event with status "error".
   useEffect(() => {
     if (status !== "error" && !connectionError) return;
-    captureClientEvent("sam:client_error", {
+    captureClientEvent("ranky:client_error", {
       session_id: sessionId,
       project_id: projectId,
       kind: connectionError ? "connection" : "turn",
@@ -90,14 +90,14 @@ export function SamConversation({
   // an aborted turn may have persisted (or removed) more than we can see, and
   // on Think setMessages is local-only, so this is a pure view update.
   const rewindTo = async (messageId: string) => {
-    const response = await fetch(`/agents/sam-chat/${sessionId}/rewind`, {
+    const response = await fetch(`/agents/ranky-chat/${sessionId}/rewind`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ messageId }),
     });
     if (!response.ok) return false;
     const fresh = await fetch(
-      `/agents/sam-chat/${sessionId}/get-messages`,
+      `/agents/ranky-chat/${sessionId}/get-messages`,
     ).then((res) => (res.ok ? res.json() : null));
     if (Array.isArray(fresh)) setMessages(fresh);
     return true;
@@ -135,7 +135,7 @@ export function SamConversation({
     }
     if (wasBusyRef.current) {
       wasBusyRef.current = false;
-      invalidateSamSessions(projectId);
+      invalidateRankySessions(projectId);
     }
   }, [isBusy, projectId]);
 

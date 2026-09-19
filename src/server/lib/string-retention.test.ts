@@ -23,7 +23,7 @@ describe("retained string memory", () => {
           `
           import assert from "node:assert/strict";
           import { readPages } from ${JSON.stringify(new URL("./scrape.ts", import.meta.url).href)};
-          import { capToolOutput } from ${JSON.stringify(new URL("../features/ranky/samToolOutput.ts", import.meta.url).href)};
+          import { capToolOutput } from ${JSON.stringify(new URL("../features/ranky/rankyToolOutput.ts", import.meta.url).href)};
           const scenario = ${JSON.stringify(scenario)};
           const title = "Example memory regression 🌱";
           globalThis.fetch = async () => {

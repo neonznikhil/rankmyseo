@@ -10,7 +10,7 @@ Qualitative knowledge about a project — what the business does, the current
 goal, positioning, writing preferences, competitors, which pages matter — is
 scattered across surfaces that cannot see each other:
 
-- **RANKY** keeps it in `sam_project_memory`, two free-form markdown blobs
+- **RANKY** keeps it in `ranky_project_memory`, two free-form markdown blobs
   (`memory`, `research_log`) per project, writable only by the model via
   Think's `set_context`. There is no UI; users cannot see or correct what RANKY
   believes.
@@ -32,7 +32,7 @@ project.
 One project-scoped memory store, shared by RANKY, the MCP server, and a new
 settings UI. Hybrid shape: a fixed set of typed sections with real schemas,
 plus agent-creatable custom sections for anything that doesn't fit yet. It
-replaces `sam_project_memory` entirely.
+replaces `ranky_project_memory` entirely.
 
 ### Data model
 
@@ -48,7 +48,7 @@ project_context_sections
   title        text?       -- custom sections only
   content      text        -- markdown
   updated_at   text
-  updated_by   text        -- "user" | "sam" | "mcp"
+  updated_by   text        -- "user" | "ranky" | "mcp"
   PK (project_id, key)
 
 project_competitors
@@ -72,7 +72,7 @@ project_research_log
   id, project_id FK (cascade)
   entry_date   text        -- YYYY-MM-DD, server-stamped
   summary      text        -- "<what>: <inputs>. Verdict: <conclusion>"
-  created_by   text        -- "user" | "sam" | "mcp"
+  created_by   text        -- "user" | "ranky" | "mcp"
 ```
 
 Typed section keys: `business_overview` (what the business does, who it's
@@ -117,7 +117,7 @@ settings page. Writes record `updated_by: "mcp"`. Register in
 
 ### RANKY integration
 
-`sam_project_memory` is removed; the `SamChatAgent` block provider seam is
+`ranky_project_memory` is removed; the `RankyChatAgent` block provider seam is
 where the swap happens:
 
 - The writable `memory`/`research_log` blocks are replaced by a single
@@ -125,14 +125,14 @@ where the swap happens:
   (refreshed after each turn, as today, so cross-session writes land).
 - RANKY writes through the same adapted `update_project_context` tool that
   MCP clients use (via `adaptMcpTool`, projectId injected), recorded as
-  `updated_by: "sam"`. One write path, one validation surface.
+  `updated_by: "ranky"`. One write path, one validation surface.
 - The system prompt keeps its contract but points at the typed sections:
   intake mode triggers when `business_overview` is empty; the bootstrap flow
   (read site, infer, confirm, write) now writes typed sections and
   competitors instead of a prose blob; the 30-day research-staleness rule
   reads `project_research_log`.
 
-**Migration:** none. RANKY usage is low, so `sam_project_memory` is dropped
+**Migration:** none. RANKY usage is low, so `ranky_project_memory` is dropped
 outright (schema removal + drop migration); existing RANKY memories are
 discarded and RANKY re-runs its intake flow on next use.
 
@@ -188,7 +188,7 @@ Hand-maintained lists to update when skills change: `src/routes/_app/ai.tsx`
 
 ### Rollout
 
-1. **Schema + service + MCP tools** (with the `sam_project_memory` drop) —
+1. **Schema + service + MCP tools** (with the `ranky_project_memory` drop) —
    the store exists, Claude Code users can use it end-to-end.
 2. **RANKY cutover** — block provider swap, prompt update, tool adaptation.
 3. **UI** — switcher gear, settings sub-pages, Context page.

@@ -35,7 +35,7 @@ export const reports = sqliteTable(
     // deleted template must not delete or block the reports written from it,
     // and every read of the name is project-scoped anyway.
     templateId: text("template_id"),
-    // The client half of attribution: free text ("Claude Code", "Codex", "SAM",
+    // The client half of attribution: free text ("Claude Code", "Codex", "RANKY",
     // "API key", a sanitized UA token). Self-reported, so nothing authorizes,
     // filters or bills on it. Stamped at create and never re-stamped.
     createdBy: text("created_by").notNull(),

@@ -49,7 +49,7 @@ import { Route as ApiGa4OauthCallbackRouteImport } from './routes/api/ga4/oauth/
 import { Route as ProjectPProjectIdSettingsRouteImport } from './routes/_project/p/$projectId/settings'
 import { Route as ProjectPProjectIdSearchPerformanceRouteImport } from './routes/_project/p/$projectId/search-performance'
 import { Route as ProjectPProjectIdSavedRouteImport } from './routes/_project/p/$projectId/saved'
-import { Route as ProjectPProjectIdSamRouteImport } from './routes/_project/p/$projectId/sam'
+import { Route as ProjectPProjectIdRankyRouteImport } from './routes/_project/p/$projectId/ranky'
 import { Route as ProjectPProjectIdRankTrackingRouteImport } from './routes/_project/p/$projectId/rank-tracking'
 import { Route as ProjectPProjectIdPromptExplorerRouteImport } from './routes/_project/p/$projectId/prompt-explorer'
 import { Route as ProjectPProjectIdKeywordsRouteImport } from './routes/_project/p/$projectId/keywords'
@@ -270,9 +270,9 @@ const ProjectPProjectIdSavedRoute = ProjectPProjectIdSavedRouteImport.update({
   path: '/saved',
   getParentRoute: () => ProjectPProjectIdRouteRoute,
 } as any)
-const ProjectPProjectIdSamRoute = ProjectPProjectIdSamRouteImport.update({
-  id: '/sam',
-  path: '/sam',
+const ProjectPProjectIdRankyRoute = ProjectPProjectIdRankyRouteImport.update({
+  id: '/ranky',
+  path: '/ranky',
   getParentRoute: () => ProjectPProjectIdRouteRoute,
 } as any)
 const ProjectPProjectIdRankTrackingRoute =
@@ -421,7 +421,7 @@ export interface FileRoutesByFullPath {
   '/p/$projectId/keywords': typeof ProjectPProjectIdKeywordsRoute
   '/p/$projectId/prompt-explorer': typeof ProjectPProjectIdPromptExplorerRoute
   '/p/$projectId/rank-tracking': typeof ProjectPProjectIdRankTrackingRouteWithChildren
-  '/p/$projectId/sam': typeof ProjectPProjectIdSamRoute
+  '/p/$projectId/ranky': typeof ProjectPProjectIdRankyRoute
   '/p/$projectId/saved': typeof ProjectPProjectIdSavedRoute
   '/p/$projectId/search-performance': typeof ProjectPProjectIdSearchPerformanceRoute
   '/p/$projectId/settings': typeof ProjectPProjectIdSettingsRouteWithChildren
@@ -474,7 +474,7 @@ export interface FileRoutesByTo {
   '/p/$projectId/domain': typeof ProjectPProjectIdDomainRoute
   '/p/$projectId/keywords': typeof ProjectPProjectIdKeywordsRoute
   '/p/$projectId/prompt-explorer': typeof ProjectPProjectIdPromptExplorerRoute
-  '/p/$projectId/sam': typeof ProjectPProjectIdSamRoute
+  '/p/$projectId/ranky': typeof ProjectPProjectIdRankyRoute
   '/p/$projectId/saved': typeof ProjectPProjectIdSavedRoute
   '/p/$projectId/search-performance': typeof ProjectPProjectIdSearchPerformanceRoute
   '/api/ga4/oauth/callback': typeof ApiGa4OauthCallbackRoute
@@ -535,7 +535,7 @@ export interface FileRoutesById {
   '/_project/p/$projectId/keywords': typeof ProjectPProjectIdKeywordsRoute
   '/_project/p/$projectId/prompt-explorer': typeof ProjectPProjectIdPromptExplorerRoute
   '/_project/p/$projectId/rank-tracking': typeof ProjectPProjectIdRankTrackingRouteWithChildren
-  '/_project/p/$projectId/sam': typeof ProjectPProjectIdSamRoute
+  '/_project/p/$projectId/ranky': typeof ProjectPProjectIdRankyRoute
   '/_project/p/$projectId/saved': typeof ProjectPProjectIdSavedRoute
   '/_project/p/$projectId/search-performance': typeof ProjectPProjectIdSearchPerformanceRoute
   '/_project/p/$projectId/settings': typeof ProjectPProjectIdSettingsRouteWithChildren
@@ -594,7 +594,7 @@ export interface FileRouteTypes {
     | '/p/$projectId/keywords'
     | '/p/$projectId/prompt-explorer'
     | '/p/$projectId/rank-tracking'
-    | '/p/$projectId/sam'
+    | '/p/$projectId/ranky'
     | '/p/$projectId/saved'
     | '/p/$projectId/search-performance'
     | '/p/$projectId/settings'
@@ -647,7 +647,7 @@ export interface FileRouteTypes {
     | '/p/$projectId/domain'
     | '/p/$projectId/keywords'
     | '/p/$projectId/prompt-explorer'
-    | '/p/$projectId/sam'
+    | '/p/$projectId/ranky'
     | '/p/$projectId/saved'
     | '/p/$projectId/search-performance'
     | '/api/ga4/oauth/callback'
@@ -707,7 +707,7 @@ export interface FileRouteTypes {
     | '/_project/p/$projectId/keywords'
     | '/_project/p/$projectId/prompt-explorer'
     | '/_project/p/$projectId/rank-tracking'
-    | '/_project/p/$projectId/sam'
+    | '/_project/p/$projectId/ranky'
     | '/_project/p/$projectId/saved'
     | '/_project/p/$projectId/search-performance'
     | '/_project/p/$projectId/settings'
@@ -1030,11 +1030,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectPProjectIdSavedRouteImport
       parentRoute: typeof ProjectPProjectIdRouteRoute
     }
-    '/_project/p/$projectId/sam': {
-      id: '/_project/p/$projectId/sam'
-      path: '/sam'
-      fullPath: '/p/$projectId/sam'
-      preLoaderRoute: typeof ProjectPProjectIdSamRouteImport
+    '/_project/p/$projectId/ranky': {
+      id: '/_project/p/$projectId/ranky'
+      path: '/ranky'
+      fullPath: '/p/$projectId/ranky'
+      preLoaderRoute: typeof ProjectPProjectIdRankyRouteImport
       parentRoute: typeof ProjectPProjectIdRouteRoute
     }
     '/_project/p/$projectId/rank-tracking': {
@@ -1272,7 +1272,7 @@ interface ProjectPProjectIdRouteRouteChildren {
   ProjectPProjectIdKeywordsRoute: typeof ProjectPProjectIdKeywordsRoute
   ProjectPProjectIdPromptExplorerRoute: typeof ProjectPProjectIdPromptExplorerRoute
   ProjectPProjectIdRankTrackingRoute: typeof ProjectPProjectIdRankTrackingRouteWithChildren
-  ProjectPProjectIdSamRoute: typeof ProjectPProjectIdSamRoute
+  ProjectPProjectIdRankyRoute: typeof ProjectPProjectIdRankyRoute
   ProjectPProjectIdSavedRoute: typeof ProjectPProjectIdSavedRoute
   ProjectPProjectIdSearchPerformanceRoute: typeof ProjectPProjectIdSearchPerformanceRoute
   ProjectPProjectIdSettingsRoute: typeof ProjectPProjectIdSettingsRouteWithChildren
@@ -1293,7 +1293,7 @@ const ProjectPProjectIdRouteRouteChildren: ProjectPProjectIdRouteRouteChildren =
     ProjectPProjectIdPromptExplorerRoute: ProjectPProjectIdPromptExplorerRoute,
     ProjectPProjectIdRankTrackingRoute:
       ProjectPProjectIdRankTrackingRouteWithChildren,
-    ProjectPProjectIdSamRoute: ProjectPProjectIdSamRoute,
+    ProjectPProjectIdRankyRoute: ProjectPProjectIdRankyRoute,
     ProjectPProjectIdSavedRoute: ProjectPProjectIdSavedRoute,
     ProjectPProjectIdSearchPerformanceRoute:
       ProjectPProjectIdSearchPerformanceRoute,

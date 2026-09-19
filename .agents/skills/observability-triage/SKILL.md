@@ -63,7 +63,7 @@ Entries land here only after an investigation proved there is **no first-party e
 ### 1. RANKY chat Durable Object lifecycle (close code 1006)
 
 - **Messages** (one phenomenon, counted three ways): `Connection closed: this Durable Object instance is no longer active. Reconnect or retry the request.` (hibernation/eviction), `Durable Object reset because its code was updated.` (deploy), plus the paired invocation summary whose `$metadata.error` is `close`.
-- **Identify by**: `eventType: "hibernatableWebSocket"`, entrypoint `SamChatAgent`/`OnboardingChatAgent`, `webSocketType: "close", code: 1006, wasClean: false`, `outcome: "exception"`, single-digit `wallTimeMs`, `cpuTimeMs: 0`, no stack. Fingerprints `3aa4cac26653d09a0a41100a33d413ae` (exception), `0ae15457af49b4d9a117eeecf66b040a` (summary).
+- **Identify by**: `eventType: "hibernatableWebSocket"`, entrypoint `RankyChatAgent`/`OnboardingChatAgent`, `webSocketType: "close", code: 1006, wasClean: false`, `outcome: "exception"`, single-digit `wallTimeMs`, `cpuTimeMs: 0`, no stack. Fingerprints `3aa4cac26653d09a0a41100a33d413ae` (exception), `0ae15457af49b4d9a117eeecf66b040a` (summary).
 - **Why unfixable**: the DO is destroyed under the JS — its IoContext is already aborted when workerd delivers `webSocketClose`, so the first `await` never settles. `partyserver` already try/catches the whole close path; an `onClose` override would catch nothing.
 - **Nothing breaks**: transcripts persist per message in DO SQLite, PartySocket reconnects unconditionally, and credit metering (`onChatResponse`) never fires on an aborted turn.
 - **Real signal**: a sustained rise that does **not** correlate with a deploy (would mean mid-conversation evictions beyond hibernation).

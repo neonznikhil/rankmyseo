@@ -19,7 +19,7 @@ type SamAccessStatus = {
 // Gates the in-app AI agent (RANKY) on an OpenRouter key being configured, the
 // same way backlinks/AI-search gate on their DataForSEO subscriptions. Hosted
 // deployments always have the key provisioned, so only self-hosted is checked.
-export const getSamAccessSetupStatus = createServerFn({ method: "GET" })
+export const getRankyAccessSetupStatus = createServerFn({ method: "GET" })
   .middleware(requireProjectContext)
   .validator(projectScopedSchema)
   .handler(async (): Promise<SamAccessStatus> => {

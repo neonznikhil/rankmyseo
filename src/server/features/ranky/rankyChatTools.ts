@@ -59,7 +59,7 @@ import {
 } from "@/server/mcp/tools/search-console-tools";
 import { whoamiTool } from "@/server/mcp/tools/whoami";
 import { discoverSiteUrls, readPages, readSite } from "@/server/lib/scrape";
-import { capToolOutput } from "@/server/features/ranky/samToolOutput";
+import { capToolOutput } from "@/server/features/ranky/rankyToolOutput";
 import rankmyseoFactSheet from "@/server/features/ranky/rankmyseo-fact-sheet.md?raw";
 
 // Enough pages for RANKY to work out what a business does, sells, and positions
@@ -310,7 +310,7 @@ function scrapeTools(projectDomain: string | null): ToolSet {
  * weeks once (audit + GA4 + rank-tracker management were MCP-only) before
  * anyone noticed.
  */
-export function buildSamMcpTools(
+export function buildRankyMcpTools(
   authContext: ToolAuthContext,
   project: { id: string; domain: string | null },
   turnId?: string,
@@ -361,7 +361,7 @@ export function buildSamMcpTools(
     whoami: adaptTool(whoamiTool),
     // Writes only: the project's memory is already injected into every turn as
     // a read-only context block, so get_project_context would just re-fetch it.
-    update_project_context: adaptTool(buildUpdateProjectContextTool("sam")),
+    update_project_context: adaptTool(buildUpdateProjectContextTool("ranky")),
     list_saved_keywords: adaptTool(listSavedKeywordsTool),
     research_keywords: adaptTool(researchKeywordsTool),
     save_keywords: adaptTool(saveKeywordsTool),

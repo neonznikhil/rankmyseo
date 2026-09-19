@@ -39,7 +39,7 @@ beforeAll(async () => {
 
   // The tables come from the real migration, so the unique indexes the
   // upserts' ON CONFLICT clauses resolve against can't drift from production
-  // DDL. The sam_project_memory DROP is skipped (nothing created it here);
+  // DDL. The ranky_project_memory DROP is skipped (nothing created it here);
   // a stub projects table satisfies the FKs.
   await client.executeMultiple(
     [

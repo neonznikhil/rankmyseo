@@ -45,8 +45,8 @@
   "durable_objects": {
     "bindings": [
       {
-        "name": "SAM_CHAT",
-        "class_name": "SamChatAgent",
+        "name": "RANKY_CHAT",
+        "class_name": "RankyChatAgent",
       },
     ],
   },
@@ -91,6 +91,15 @@
       "tag": "v5",
       "deleted_classes": ["OnboardingChatAgent"],
     },
+    // Rebrand: the SAM chat agent was renamed to RankyChatAgent. Old
+    // transcripts live under the deleted SamChatAgent namespace; dropping it
+    // is the intent — chat history does not carry across the rebrand, and
+    // the session registry rows are renamed by migration 0048.
+    {
+      "tag": "v6",
+      "new_sqlite_classes": ["RankyChatAgent"],
+      "deleted_classes": ["SamChatAgent"],
+    },
   ],
   "triggers": {
     // Every 5 min: rank checks + stale-audit reconcile. Daily: OAuth KV GC.
@@ -119,9 +128,7 @@
   "d1_databases": [
     {
       "binding": "DB",
-      // Keep the original database name/id: miniflare derives local storage
-      // filenames from the id, and renaming orphans existing databases.
-      "database_name": "open-seo",
+      "database_name": "rankmyseo",
       "database_id": "37bee90a-e1aa-404f-b01e-b0d1d479bda1",
       "migrations_dir": "drizzle",
     },
@@ -144,8 +151,7 @@
   // ],
   "r2_buckets": [
     {
-      // Keep the original bucket name so existing stored objects stay reachable.
-      "bucket_name": "open-seo",
+      "bucket_name": "rankmyseo",
       "binding": "R2",
     },
   ],

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ShieldAlert, Wrench } from "lucide-react";
 
-export function SamSetupGate({
+export function RankySetupGate({
   errorMessage,
   isRefetching,
   onRetry,

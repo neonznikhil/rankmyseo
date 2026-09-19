@@ -2,22 +2,22 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Suspense, useCallback, useEffect } from "react";
 import { Brain, Loader2, Plus, Wrench } from "lucide-react";
-import { createSamSession } from "@/serverFunctions/ranky";
+import { createRankySession } from "@/serverFunctions/ranky";
 import {
-  invalidateSamSessions,
-  samSessionsQueryOptions,
-} from "@/client/features/ranky/samQueries";
-import { useSamAccess } from "./useSamAccess";
-import { SamSetupGate } from "./SamSetupGate";
-import { SamConversation } from "./SamConversation";
+  invalidateRankySessions,
+  rankySessionsQueryOptions,
+} from "@/client/features/ranky/rankyQueries";
+import { useRankyAccess } from "./useRankyAccess";
+import { RankySetupGate } from "./RankySetupGate";
+import { RankyConversation } from "./RankyConversation";
 
 /**
  * The RANKY route's content: the active conversation, full-width. The chat
- * history list lives in the app sidebar's Chat tab (SamSidebarPanel); this
+ * history list lives in the app sidebar's Chat tab (RankySidebarPanel); this
  * component only auto-selects the most recent session on landing and shows the
  * start-a-chat empty state when the project has none.
  */
-export function SamChat({
+export function RankyChat({
   projectId,
   activeSessionId,
 }: {
@@ -25,14 +25,14 @@ export function SamChat({
   activeSessionId: string | undefined;
 }) {
   const navigate = useNavigate();
-  const access = useSamAccess(projectId);
-  const sessionsQuery = useQuery(samSessionsQueryOptions(projectId));
+  const access = useRankyAccess(projectId);
+  const sessionsQuery = useQuery(rankySessionsQueryOptions(projectId));
   const sessions = sessionsQuery.data ?? [];
 
   const goToSession = useCallback(
     (sessionId: string) =>
       void navigate({
-        to: "/p/$projectId/sam",
+        to: "/p/$projectId/ranky",
         params: { projectId },
         search: { s: sessionId },
         replace: true,
@@ -41,9 +41,9 @@ export function SamChat({
   );
 
   const createSession = useMutation({
-    mutationFn: () => createSamSession({ data: { projectId } }),
+    mutationFn: () => createRankySession({ data: { projectId } }),
     onSuccess: ({ id }) => {
-      invalidateSamSessions(projectId);
+      invalidateRankySessions(projectId);
       goToSession(id);
     },
   });
@@ -64,7 +64,7 @@ export function SamChat({
     return (
       <div className="overflow-auto px-4 py-4 md:px-6 md:py-6">
         <div className="mx-auto max-w-3xl">
-          <SamSetupGate
+          <RankySetupGate
             errorMessage={access.errorMessage}
             isRefetching={access.isRefetching}
             onRetry={access.onRetry}
@@ -107,7 +107,7 @@ export function SamChat({
               </div>
             }
           >
-            <SamConversation
+            <RankyConversation
               key={activeSessionId}
               projectId={projectId}
               sessionId={activeSessionId}

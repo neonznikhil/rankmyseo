@@ -21,7 +21,7 @@ import {
   getProjectNavGroups,
 } from "@/client/navigation/items";
 import { ProjectSwitcher } from "@/client/features/projects/ProjectSwitcher";
-import { SamSidebarPanel } from "@/client/features/ranky/SamSidebarPanel";
+import { RankySidebarPanel } from "@/client/features/ranky/RankySidebarPanel";
 import { ThemePreferenceMenuItems } from "@/client/components/ThemePreferenceMenuItems";
 import { closeDropdown } from "@/client/lib/dropdown";
 import { signOutAndRedirect, useSession } from "@/lib/auth-client";
@@ -87,25 +87,25 @@ export function Sidebar({ projectId, onNavigate, onClose }: SidebarProps) {
     : [connectNavGroup];
   const navigate = useNavigate();
   const location = useLocation();
-  const onSamRoute = location.pathname.includes("/sam");
+  const onRankyRoute = location.pathname.includes("/ranky");
 
   // PostHog-style sidebar tabs: Browse shows the regular nav, Chat shows the
   // RANKY chat history. The tab is view state (switching to Browse leaves the
   // conversation open in the content panel), but the route wins: landing on
-  // /sam selects Chat, navigating anywhere else flips back to Browse.
+  // /ranky selects Chat, navigating anywhere else flips back to Browse.
   const [view, setView] = useState<"browse" | "chat">(
-    onSamRoute ? "chat" : "browse",
+    onRankyRoute ? "chat" : "browse",
   );
   useEffect(() => {
-    setView(onSamRoute ? "chat" : "browse");
-  }, [onSamRoute]);
+    setView(onRankyRoute ? "chat" : "browse");
+  }, [onRankyRoute]);
 
   const openChat = () => {
     setView("chat");
     if (!projectId) return;
-    if (!onSamRoute) {
+    if (!onRankyRoute) {
       void navigate({
-        to: "/p/$projectId/sam",
+        to: "/p/$projectId/ranky",
         params: { projectId },
         search: {},
       });
@@ -117,7 +117,7 @@ export function Sidebar({ projectId, onNavigate, onClose }: SidebarProps) {
   // conversation filling the content panel next to a Browse nav.
   const openBrowse = () => {
     setView("browse");
-    if (!projectId || !onSamRoute) return;
+    if (!projectId || !onRankyRoute) return;
     void navigate({ to: "/p/$projectId", params: { projectId } });
     onNavigate?.();
   };
@@ -177,7 +177,7 @@ export function Sidebar({ projectId, onNavigate, onClose }: SidebarProps) {
       ) : null}
 
       {view === "chat" && projectId ? (
-        <SamSidebarPanel projectId={projectId} onNavigate={onNavigate} />
+        <RankySidebarPanel projectId={projectId} onNavigate={onNavigate} />
       ) : (
         <nav className="min-h-0 flex-1 overflow-y-auto px-2 py-2">
           {navGroups.map((group) => (

@@ -1,16 +1,16 @@
 import { and, desc, eq, isNull } from "drizzle-orm";
 import { db } from "@/db";
-import { samSessions } from "@/db/schema";
+import { rankySessions } from "@/db/schema";
 
-type CreateSamSessionInput = {
+type CreateRankySessionInput = {
   projectId: string;
   userId: string;
 };
 
-async function createSession(input: CreateSamSessionInput) {
+async function createSession(input: CreateRankySessionInput) {
   const id = crypto.randomUUID();
   const [row] = await db
-    .insert(samSessions)
+    .insert(rankySessions)
     .values({
       id,
       projectId: input.projectId,
@@ -25,31 +25,31 @@ async function createSession(input: CreateSamSessionInput) {
 async function listSessionsForProject(projectId: string, userId: string) {
   return db
     .select({
-      id: samSessions.id,
-      title: samSessions.title,
-      createdAt: samSessions.createdAt,
-      updatedAt: samSessions.updatedAt,
+      id: rankySessions.id,
+      title: rankySessions.title,
+      createdAt: rankySessions.createdAt,
+      updatedAt: rankySessions.updatedAt,
     })
-    .from(samSessions)
+    .from(rankySessions)
     .where(
       and(
-        eq(samSessions.projectId, projectId),
-        eq(samSessions.userId, userId),
-        isNull(samSessions.archivedAt),
+        eq(rankySessions.projectId, projectId),
+        eq(rankySessions.userId, userId),
+        isNull(rankySessions.archivedAt),
       ),
     )
-    .orderBy(desc(samSessions.updatedAt), desc(samSessions.id));
+    .orderBy(desc(rankySessions.updatedAt), desc(rankySessions.id));
 }
 
-// Look up a session by id alone (no scoping). Only for the SamChatAgent
+// Look up a session by id alone (no scoping). Only for the RankyChatAgent
 // Durable Object, whose connections are authorized in the Worker before they
 // reach the DO; the DO derives its project/user (and, via the project, its
 // org) from this row.
 async function getSessionById(id: string) {
   const [row] = await db
     .select()
-    .from(samSessions)
-    .where(eq(samSessions.id, id))
+    .from(rankySessions)
+    .where(eq(rankySessions.id, id))
     .limit(1);
   return row ?? null;
 }
@@ -63,12 +63,12 @@ async function getSessionById(id: string) {
 async function getActiveSession(id: string, userId: string) {
   const [row] = await db
     .select()
-    .from(samSessions)
+    .from(rankySessions)
     .where(
       and(
-        eq(samSessions.id, id),
-        eq(samSessions.userId, userId),
-        isNull(samSessions.archivedAt),
+        eq(rankySessions.id, id),
+        eq(rankySessions.userId, userId),
+        isNull(rankySessions.archivedAt),
       ),
     )
     .limit(1);
@@ -79,27 +79,27 @@ async function getActiveSession(id: string, userId: string) {
 // sorts to the top of the side-panel. Called by the DO on the first turn.
 async function setTitle(id: string, title: string) {
   await db
-    .update(samSessions)
+    .update(rankySessions)
     .set({ title, updatedAt: new Date().toISOString() })
-    .where(eq(samSessions.id, id));
+    .where(eq(rankySessions.id, id));
 }
 
 async function touch(id: string) {
   await db
-    .update(samSessions)
+    .update(rankySessions)
     .set({ updatedAt: new Date().toISOString() })
-    .where(eq(samSessions.id, id));
+    .where(eq(rankySessions.id, id));
 }
 
 // Callers must have already authorized the session's project.
 async function archiveSession(id: string) {
   await db
-    .update(samSessions)
+    .update(rankySessions)
     .set({ archivedAt: new Date().toISOString() })
-    .where(eq(samSessions.id, id));
+    .where(eq(rankySessions.id, id));
 }
 
-export const SamSessionRepository = {
+export const RankySessionRepository = {
   createSession,
   listSessionsForProject,
   getSessionById,

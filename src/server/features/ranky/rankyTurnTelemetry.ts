@@ -16,7 +16,7 @@ type SamTurnStatus =
 type SamRefusalReason = "no_session" | "credits" | "no_access";
 
 // Tool failures reach the model as a `{ error }` output rather than a thrown
-// error (samChatTools adaptMcpTool / scrapeTools), so Think reports them as
+// error (rankyChatTools adaptMcpTool / scrapeTools), so Think reports them as
 // successful calls; look at the output shape as well as the outcome.
 function toolCallFailed(ctx: ToolCallResultContext): boolean {
   if (!ctx.success) return true;
@@ -31,7 +31,7 @@ function toolCallFailed(ctx: ToolCallResultContext): boolean {
 
 /**
  * Everything one RANKY turn does, accumulated from Think's hooks and flattened
- * into the `sam:turn` event at the end. One instance per turn; `turnId` is the
+ * into the `ranky:turn` event at the end. One instance per turn; `turnId` is the
  * PostHog LLM-analytics trace id, the `turn_id` on every tool call the turn
  * makes, and the join key between the two.
  */
@@ -106,7 +106,7 @@ export class SamTurnStats {
     this.costUsd += costUsd;
   }
 
-  /** The `sam:turn` event body. */
+  /** The `ranky:turn` event body. */
   properties(status: SamTurnStatus): Record<string, unknown> {
     return {
       turn_id: this.turnId,
@@ -166,8 +166,8 @@ function skillName(input: unknown): string | undefined {
 
 /**
  * The RANKY Durable Object's telemetry seam: owns the turn in flight and turns
- * Think's hooks into PostHog events (`sam:turn`, `$ai_generation`/`$ai_trace`
- * for the LLM-analytics UI, `sam:skill_activated`) and error captures. Every
+ * Think's hooks into PostHog events (`ranky:turn`, `$ai_generation`/`$ai_trace`
+ * for the LLM-analytics UI, `ranky:skill_activated`) and error captures. Every
  * event carries `source: "in_app_agent"` plus session/project ids so it
  * filters the same way as the mcp:tool_call events the turn's tools emit.
  *
@@ -221,7 +221,7 @@ export class SamTelemetry {
     this.current?.recordToolCall(ctx);
     if (ctx.toolName !== "activate_skill") return;
     this.waitUntil(
-      this.capture("sam:skill_activated", {
+      this.capture("ranky:skill_activated", {
         skill: skillName(ctx.input),
         success: ctx.success,
         duration_ms: ctx.durationMs,
@@ -231,7 +231,7 @@ export class SamTelemetry {
   }
 
   /**
-   * Emit the turn's `sam:turn` event (and its `$ai_trace` when a model ran),
+   * Emit the turn's `ranky:turn` event (and its `$ai_trace` when a model ran),
    * once per turn. Think fires onChatError before the response hook for a
    * failed turn, so the error path reports and the response hook then finds
    * the turn already reported. `synthesize` is for turns that end with no
@@ -281,7 +281,7 @@ export class SamTelemetry {
       session_id: this.sessionId(),
       ...properties,
     });
-    await this.capture("sam:turn", properties);
+    await this.capture("ranky:turn", properties);
     if (trace) {
       await this.capture("$ai_trace", trace);
     }
@@ -328,7 +328,7 @@ export class SamTelemetry {
         captureServerError(
           error,
           {
-            source: "sam",
+            source: "ranky",
             session_id: this.sessionId(),
             turn_id: this.current?.turnId,
             ...properties,

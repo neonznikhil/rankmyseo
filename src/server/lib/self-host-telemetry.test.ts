@@ -25,7 +25,7 @@ const emptyCounts = {
   rankTrackingKeywordCount: 0,
   savedKeywordCount: 0,
   gscConnected: false,
-  samChatUsed: false,
+  rankyChatUsed: false,
 };
 
 function createHarness(

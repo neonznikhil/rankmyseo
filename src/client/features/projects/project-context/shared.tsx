@@ -50,7 +50,7 @@ export function useContextUpdate(projectId: string) {
 
 const AUTHOR_LABELS: Record<ContextAuthor, string> = {
   user: "you",
-  sam: "RANKY",
+  ranky: "RANKY",
   mcp: "your AI client",
 };
 

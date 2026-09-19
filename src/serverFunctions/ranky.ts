@@ -7,7 +7,7 @@ import {
 } from "@/serverFunctions/middleware";
 import { AppError } from "@/server/lib/errors";
 import { captureServerEvent } from "@/server/lib/posthog";
-import { SamSessionRepository } from "@/server/features/ranky/SamSessionRepository";
+import { RankySessionRepository } from "@/server/features/ranky/RankySessionRepository";
 import { ProjectRepository } from "@/server/features/projects/repositories/ProjectRepository";
 
 // The ensure-user middleware authorizes `projectId` against the caller's org
@@ -15,11 +15,11 @@ import { ProjectRepository } from "@/server/features/projects/repositories/Proje
 const projectScopedSchema = z.object({ projectId: z.string().min(1) });
 
 // Lists the RANKY chat sessions for a project (newest first) for the side-panel.
-export const listSamSessions = createServerFn({ method: "GET" })
+export const listRankySessions = createServerFn({ method: "GET" })
   .middleware(requireProjectContext)
   .validator(projectScopedSchema)
   .handler(async ({ context }) => {
-    return SamSessionRepository.listSessionsForProject(
+    return RankySessionRepository.listSessionsForProject(
       context.projectId,
       context.userId,
     );
@@ -27,11 +27,11 @@ export const listSamSessions = createServerFn({ method: "GET" })
 
 // Creates a new RANKY chat session and returns its id; the client then opens a DO
 // connection keyed by that id.
-export const createSamSession = createServerFn({ method: "POST" })
+export const createRankySession = createServerFn({ method: "POST" })
   .middleware(requireProjectContext)
   .validator(projectScopedSchema)
   .handler(async ({ context }) => {
-    const session = await SamSessionRepository.createSession({
+    const session = await RankySessionRepository.createSession({
       projectId: context.projectId,
       userId: context.userId,
     });
@@ -41,7 +41,7 @@ export const createSamSession = createServerFn({ method: "POST" })
     waitUntil(
       captureServerEvent({
         distinctId: context.userId,
-        event: "sam:session_create",
+        event: "ranky:session_create",
         organizationId: context.organizationId,
         properties: { project_id: context.projectId, session_id: session.id },
       }),
@@ -54,13 +54,13 @@ const archiveSchema = z.object({ sessionId: z.string().min(1) });
 // Archives a RANKY chat session: it disappears from the list and can no longer
 // be opened, but the registry row and the DO's transcript are kept so a future
 // unarchive can restore it. There is no unarchive UI yet.
-export const archiveSamSession = createServerFn({ method: "POST" })
+export const archiveRankySession = createServerFn({ method: "POST" })
   .middleware(requireAuthenticatedContext)
   .validator(archiveSchema)
   .handler(async ({ data, context }) => {
     // Authorize against the session's project (the canonical project-access
     // path), not the caller's org directly.
-    const session = await SamSessionRepository.getActiveSession(
+    const session = await RankySessionRepository.getActiveSession(
       data.sessionId,
       context.userId,
     );
@@ -73,11 +73,11 @@ export const archiveSamSession = createServerFn({ method: "POST" })
     if (!session || !project) {
       throw new AppError("NOT_FOUND", "Chat session not found");
     }
-    await SamSessionRepository.archiveSession(data.sessionId);
+    await RankySessionRepository.archiveSession(data.sessionId);
     waitUntil(
       captureServerEvent({
         distinctId: context.userId,
-        event: "sam:session_archive",
+        event: "ranky:session_archive",
         organizationId: context.organizationId,
         properties: { project_id: project.id, session_id: session.id },
       }),

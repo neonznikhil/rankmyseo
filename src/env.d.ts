@@ -7,7 +7,7 @@ declare namespace Cloudflare {
     OAUTH_KV: KVNamespace;
 
     // Durable Object backing the RANKY in-app agent (see wrangler.jsonc).
-    SAM_CHAT: DurableObjectNamespace;
+    RANKY_CHAT: DurableObjectNamespace;
 
     // Durable Object holding per-audit crawl scratch state (frontier, link
     // edges, page mirror). Bound ONLY in the rankmyseo-audit aux worker;

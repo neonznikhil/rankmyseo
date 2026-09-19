@@ -5,7 +5,7 @@ import {
 import { routeAgentRequest } from "agents";
 import { resolveUserContextFromHeaders } from "@/middleware/ensure-user/resolve";
 import { ProjectRepository } from "@/server/features/projects/repositories/ProjectRepository";
-import { SamSessionRepository } from "@/server/features/ranky/SamSessionRepository";
+import { RankySessionRepository } from "@/server/features/ranky/RankySessionRepository";
 import { runScheduledRankChecks } from "@/server/features/rank-tracking/services/scheduledRankChecks";
 import { reconcileStaleAudits } from "@/server/features/audit/services/auditReconciler";
 import { getOrCreateOrganizationCustomer } from "@/server/billing/subscription";
@@ -69,7 +69,7 @@ const rankmyseoOAuthProvider = createRankmyseoOAuthProvider(appFetch);
 // the same canonical project-access check the rest of the app uses, so the DO
 // can trust its `name` and derive org/project/user from the session row.
 // Returning a Response rejects; void lets it through.
-async function authorizeSamChat(
+async function authorizeRankyChat(
   request: Request,
   sessionId: string,
 ): Promise<Response | undefined> {
@@ -79,7 +79,7 @@ async function authorizeSamChat(
   } catch {
     return new Response("Unauthorized", { status: 401 });
   }
-  const session = await SamSessionRepository.getActiveSession(
+  const session = await RankySessionRepository.getActiveSession(
     sessionId,
     context.userId,
   );
@@ -108,8 +108,8 @@ function authorizeChatAgent(
   request: Request,
   lobby: { className: string; name: string },
 ): Promise<Response | undefined> | Response {
-  if (lobby.className === "SAM_CHAT") {
-    return authorizeSamChat(request, lobby.name);
+  if (lobby.className === "RANKY_CHAT") {
+    return authorizeRankyChat(request, lobby.name);
   }
   return new Response("Forbidden", { status: 403 });
 }
@@ -186,7 +186,7 @@ function handleFetch(
 // (src/audit-worker.ts); this worker reaches them via cross-script bindings.
 export { RankCheckWorkflow } from "./server/workflows/RankCheckWorkflow";
 // Durable Object class for the RANKY in-app agent (Agents SDK).
-export { SamChatAgent } from "./server/features/ranky/SamChatAgent";
+export { RankyChatAgent } from "./server/features/ranky/RankyChatAgent";
 
 // Daily OAuth KV garbage collection; must match a trigger in wrangler.jsonc.
 const MCP_OAUTH_PURGE_CRON = "17 3 * * *";

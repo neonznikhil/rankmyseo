@@ -8,7 +8,7 @@ import {
   gscConnections,
   projects,
   rankTrackingKeywords,
-  samSessions,
+  rankySessions,
   savedKeywords,
   telemetryState,
   user,
@@ -66,7 +66,7 @@ type HeartbeatCounts = {
   rankTrackingKeywordCount: number;
   savedKeywordCount: number;
   gscConnected: boolean;
-  samChatUsed: boolean;
+  rankyChatUsed: boolean;
 };
 
 type HeartbeatProperties = HeartbeatCounts & {
@@ -208,7 +208,7 @@ async function collectCounts(): Promise<HeartbeatCounts> {
     db.select({ value: count() }).from(rankTrackingKeywords),
     db.select({ value: count() }).from(savedKeywords),
     db.select({ value: count() }).from(gscConnections),
-    db.select({ value: count() }).from(samSessions),
+    db.select({ value: count() }).from(rankySessions),
   ]);
 
   return {
@@ -218,7 +218,7 @@ async function collectCounts(): Promise<HeartbeatCounts> {
     rankTrackingKeywordCount: rankKeywordRow?.value ?? 0,
     savedKeywordCount: savedKeywordRow?.value ?? 0,
     gscConnected: (gscRow?.value ?? 0) > 0,
-    samChatUsed: (samRow?.value ?? 0) > 0,
+    rankyChatUsed: (samRow?.value ?? 0) > 0,
   };
 }
 

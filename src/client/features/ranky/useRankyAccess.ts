@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getStandardErrorMessage } from "@/client/lib/error-messages";
 import { isHostedClientAuthMode } from "@/lib/auth-mode";
-import { getSamAccessSetupStatus } from "@/serverFunctions/samAccess";
+import { getRankyAccessSetupStatus } from "@/serverFunctions/rankyAccess";
 
 type SamAccess = {
   // Only true once the setup check has resolved to "no access". It stays false
@@ -15,14 +15,14 @@ type SamAccess = {
   onRetry: () => void;
 };
 
-export function useSamAccess(projectId: string): SamAccess {
+export function useRankyAccess(projectId: string): SamAccess {
   // Hosted deployments always have OPENROUTER_API_KEY provisioned (the server
   // function short-circuits to enabled), so skip the round-trip entirely.
   const isHosted = isHostedClientAuthMode();
 
   const { data, error, isRefetching, refetch } = useQuery({
-    queryKey: ["samAccessStatus", projectId],
-    queryFn: () => getSamAccessSetupStatus({ data: { projectId } }),
+    queryKey: ["rankyAccessStatus", projectId],
+    queryFn: () => getRankyAccessSetupStatus({ data: { projectId } }),
     enabled: !isHosted,
     refetchOnWindowFocus: false,
     staleTime: 60 * 1000,

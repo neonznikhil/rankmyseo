@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { buildSamSkillSource } from "@/server/features/ranky/samSkills";
+import { buildRankySkillSource } from "@/server/features/ranky/rankySkills";
 
-describe("buildSamSkillSource", () => {
+describe("buildRankySkillSource", () => {
   // Guards the real failure modes: a skill whose frontmatter breaks (build
   // throws), an internal repo-dev skill leaking into RANKY, or the public set
   // silently shrinking because a glob or marking change dropped it.
   it("serves exactly the public product skills", async () => {
-    const source = buildSamSkillSource();
+    const source = buildRankySkillSource();
     const names = (await source.list()).map((skill) => skill.name);
 
     expect(names).toEqual([

@@ -2,11 +2,14 @@ import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Archive, Loader2, Plus, X } from "lucide-react";
-import { archiveSamSession, createSamSession } from "@/serverFunctions/ranky";
 import {
-  invalidateSamSessions,
-  samSessionsQueryOptions,
-} from "@/client/features/ranky/samQueries";
+  archiveRankySession,
+  createRankySession,
+} from "@/serverFunctions/ranky";
+import {
+  invalidateRankySessions,
+  rankySessionsQueryOptions,
+} from "@/client/features/ranky/rankyQueries";
 
 const BETA_NOTICE_DISMISSED_KEY = "ranky-beta-notice-dismissed";
 
@@ -66,7 +69,7 @@ function ageLabel(timestamp: string): string {
  * button. Selecting (or creating) a session navigates to the RANKY route; the
  * conversation itself renders in the main content panel.
  */
-export function SamSidebarPanel({
+export function RankySidebarPanel({
   projectId,
   onNavigate,
 }: {
@@ -77,12 +80,12 @@ export function SamSidebarPanel({
   const location = useLocation();
   const activeSessionId = (location.search as { s?: string }).s;
 
-  const sessionsQuery = useQuery(samSessionsQueryOptions(projectId));
+  const sessionsQuery = useQuery(rankySessionsQueryOptions(projectId));
   const sessions = sessionsQuery.data ?? [];
 
   const goToSession = (sessionId: string | undefined) => {
     void navigate({
-      to: "/p/$projectId/sam",
+      to: "/p/$projectId/ranky",
       params: { projectId },
       search: sessionId ? { s: sessionId } : {},
     });
@@ -90,18 +93,18 @@ export function SamSidebarPanel({
   };
 
   const createSession = useMutation({
-    mutationFn: () => createSamSession({ data: { projectId } }),
+    mutationFn: () => createRankySession({ data: { projectId } }),
     onSuccess: ({ id }) => {
-      invalidateSamSessions(projectId);
+      invalidateRankySessions(projectId);
       goToSession(id);
     },
   });
 
   const archiveSession = useMutation({
     mutationFn: (sessionId: string) =>
-      archiveSamSession({ data: { sessionId } }),
+      archiveRankySession({ data: { sessionId } }),
     onSuccess: (_result, sessionId) => {
-      invalidateSamSessions(projectId);
+      invalidateRankySessions(projectId);
       if (sessionId === activeSessionId) {
         goToSession(sessions.find((s) => s.id !== sessionId)?.id);
       }

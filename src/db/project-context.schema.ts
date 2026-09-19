@@ -9,7 +9,7 @@ import { sql } from "drizzle-orm";
 import { projects } from "./app.schema";
 
 // ============================================================================
-// Project memory: the shared AI context every surface (SAM, MCP, settings UI)
+// Project memory: the shared AI context every surface (RANKY, MCP, settings UI)
 // reads and writes. Prose lives in the sections table; list-shaped knowledge is
 // normalized so it stays joinable instead of buried in markdown.
 // ============================================================================
@@ -30,7 +30,7 @@ export const projectContextSections = sqliteTable(
     updatedAt: text("updated_at")
       .notNull()
       .default(sql`(current_timestamp)`),
-    updatedBy: text("updated_by", { enum: ["user", "sam", "mcp"] }).notNull(),
+    updatedBy: text("updated_by", { enum: ["user", "ranky", "mcp"] }).notNull(),
   },
   // The composite PK is project-leading, so it also serves the "load every
   // section for this project" read.
@@ -52,7 +52,7 @@ export const projectCompetitors = sqliteTable(
     updatedAt: text("updated_at")
       .notNull()
       .default(sql`(current_timestamp)`),
-    updatedBy: text("updated_by", { enum: ["user", "sam", "mcp"] }).notNull(),
+    updatedBy: text("updated_by", { enum: ["user", "ranky", "mcp"] }).notNull(),
   },
   (table) => [
     uniqueIndex("project_competitors_project_domain_idx").on(
@@ -78,7 +78,7 @@ export const projectKeyPages = sqliteTable(
     updatedAt: text("updated_at")
       .notNull()
       .default(sql`(current_timestamp)`),
-    updatedBy: text("updated_by", { enum: ["user", "sam", "mcp"] }).notNull(),
+    updatedBy: text("updated_by", { enum: ["user", "ranky", "mcp"] }).notNull(),
   },
   (table) => [
     uniqueIndex("project_key_pages_project_url_idx").on(
@@ -88,7 +88,7 @@ export const projectKeyPages = sqliteTable(
   ],
 );
 
-// What research has already been bought and what it concluded, so SAM and
+// What research has already been bought and what it concluded, so RANKY and
 // Claude Code stop re-buying the same paid research. Pruned to 90 days on
 // append; the date is server-stamped, never supplied by the caller.
 export const projectResearchLog = sqliteTable(
@@ -100,7 +100,7 @@ export const projectResearchLog = sqliteTable(
       .references(() => projects.id, { onDelete: "cascade" }),
     entryDate: text("entry_date").notNull(),
     summary: text("summary").notNull(),
-    createdBy: text("created_by", { enum: ["user", "sam", "mcp"] }).notNull(),
+    createdBy: text("created_by", { enum: ["user", "ranky", "mcp"] }).notNull(),
     // entry_date is a day stamp, so recency needs its own column — same-day
     // entries would otherwise tie-break on a random uuid. The default emits
     // ISO (unlike current_timestamp's space format) because listResearchLog

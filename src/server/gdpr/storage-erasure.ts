@@ -1,5 +1,5 @@
 import { getAuth } from "@/lib/auth";
-import type { SamChatAgent } from "@/server/features/ranky/SamChatAgent";
+import type { RankyChatAgent } from "@/server/features/ranky/RankyChatAgent";
 import { captureServerError } from "@/server/lib/posthog";
 import {
   DUB_REFERRED_ORG_KV_PREFIX,
@@ -192,8 +192,8 @@ async function eraseStorage(env: Env, payload: GdprStorageErasurePayload) {
   // the classes); narrow here so the erasure RPCs are typed.
   const samChat =
     // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- the binding is declared as this class in wrangler.jsonc
-    env.SAM_CHAT as unknown as DurableObjectNamespace<SamChatAgent>;
-  for (const sessionId of payload.samSessionIds) {
+    env.RANKY_CHAT as unknown as DurableObjectNamespace<RankyChatAgent>;
+  for (const sessionId of payload.rankySessionIds) {
     await samChat.get(samChat.idFromName(sessionId)).destroyForErasure();
   }
   for (const auditId of payload.auditIds) {
@@ -230,7 +230,7 @@ async function eraseStorage(env: Env, payload: GdprStorageErasurePayload) {
       rankTerminated: rankWorkflowsTerminated,
     },
     durableObjects: {
-      sam: payload.samSessionIds.length,
+      ranky: payload.rankySessionIds.length,
       auditScratchpads: payload.auditIds.length,
     },
     kv: {

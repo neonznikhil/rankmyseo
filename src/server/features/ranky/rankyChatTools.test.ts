@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { Tool } from "ai";
-import { toModelOutput, waitingAuditStatusTool } from "./samChatTools";
+import { toModelOutput, waitingAuditStatusTool } from "./rankyChatTools";
 
 vi.mock("cloudflare:workers", () => ({
   env: {},

@@ -23,16 +23,16 @@ import {
   openRouterCostUsd,
   staticAssistantModel,
 } from "@/server/lib/chatAgent";
-import { SamSessionRepository } from "@/server/features/ranky/SamSessionRepository";
+import { RankySessionRepository } from "@/server/features/ranky/RankySessionRepository";
 import { ProjectContextService } from "@/server/features/project-context/services/ProjectContextService";
 import { ProjectRepository } from "@/server/features/projects/repositories/ProjectRepository";
-import { buildSamMcpTools } from "@/server/features/ranky/samChatTools";
-import { buildSamSkillSource } from "@/server/features/ranky/samSkills";
-import { buildSamSystemPrompt } from "@/server/features/ranky/samSystemPrompt";
+import { buildRankyMcpTools } from "@/server/features/ranky/rankyChatTools";
+import { buildRankySkillSource } from "@/server/features/ranky/rankySkills";
+import { buildRankySystemPrompt } from "@/server/features/ranky/rankySystemPrompt";
 import {
   SamTelemetry,
   type SamTurnStats,
-} from "@/server/features/ranky/samTurnTelemetry";
+} from "@/server/features/ranky/rankyTurnTelemetry";
 import { buildChatAgentModel } from "@/server/lib/openrouter";
 import {
   getEnvValueSync,
@@ -99,7 +99,7 @@ function firstUserText(messages: UIMessage[]): string {
 
 type SamContext = {
   row: NonNullable<
-    Awaited<ReturnType<typeof SamSessionRepository.getSessionById>>
+    Awaited<ReturnType<typeof RankySessionRepository.getSessionById>>
   >;
   project: NonNullable<
     Awaited<ReturnType<typeof ProjectRepository.getProjectById>>
@@ -115,7 +115,7 @@ type SamContext = {
  * the session id, set by the client (`useAgent({ name: sessionId })`) and
  * authorized in the Worker (`onBeforeConnect`) before any connection reaches
  * here — so the DO trusts that its caller may act on `this.name` and derives
- * project/user from the sam_sessions row (and the org from the project).
+ * project/user from the ranky_sessions row (and the org from the project).
  *
  * Think owns the agentic loop (streaming, persistence, compaction-ready
  * history, context blocks); this subclass contributes the model, the MCP
@@ -124,7 +124,7 @@ type SamContext = {
  * session in the project — and the MCP server and settings UI — reads and
  * writes through ProjectContextService.
  */
-export class SamChatAgent extends Think {
+export class RankyChatAgent extends Think {
   // RANKY's toolset is the MCP tools from beforeTurn; it has no use for Think's
   // workspace bash tool, whose just-bash dependency is stubbed out of the
   // bundle anyway (see vite.config.ts) to keep ~30 MB of eagerly-evaluated
@@ -149,7 +149,7 @@ export class SamChatAgent extends Think {
   private billing: Promise<void> = Promise.resolve();
 
   // Turn telemetry: armed in beforeTurn, fed by the step and tool hooks,
-  // reported once as `sam:turn` when the turn ends by any route (response,
+  // reported once as `ranky:turn` when the turn ends by any route (response,
   // error, or a memory-limit kill surfacing as recovery).
   private readonly telemetry = new SamTelemetry(
     () => this.name,
@@ -207,7 +207,7 @@ export class SamChatAgent extends Think {
   }
 
   override getSkills() {
-    return [buildSamSkillSource()];
+    return [buildRankySkillSource()];
   }
 
   override afterToolCall(ctx: ToolCallResultContext) {
@@ -246,7 +246,7 @@ export class SamChatAgent extends Think {
 
   private async loadSamContext(): Promise<SamContext | null> {
     if (this.samContext) return this.samContext;
-    const row = await SamSessionRepository.getSessionById(this.name);
+    const row = await RankySessionRepository.getSessionById(this.name);
     if (!row) return null;
     const project = await ProjectRepository.getProjectById(row.projectId);
     if (!project) return null;
@@ -272,7 +272,7 @@ export class SamChatAgent extends Think {
       const context = await ProjectContextService.getProjectContext(
         ctx.project.id,
       );
-      return buildSamSystemPrompt(
+      return buildRankySystemPrompt(
         {
           projectId: ctx.project.id,
           projectName: ctx.project.name,
@@ -380,7 +380,7 @@ export class SamChatAgent extends Think {
       };
 
       return {
-        tools: buildSamMcpTools(authContext, ctx.project, turn.turnId),
+        tools: buildRankyMcpTools(authContext, ctx.project, turn.turnId),
         // RANKY runs complex multi-step work in one turn (site-read intake plus
         // a full research chain, multi-competitor sweeps), so the step budget
         // is generous; cost is bounded by per-step metering and the model
@@ -468,11 +468,11 @@ export class SamChatAgent extends Think {
       if (ctx.row.title === "New chat") {
         const title = deriveTitle(firstUserText(this.messages));
         if (title !== "New chat") {
-          await SamSessionRepository.setTitle(ctx.row.id, title);
+          await RankySessionRepository.setTitle(ctx.row.id, title);
           ctx.row.title = title;
         }
       } else {
-        await SamSessionRepository.touch(ctx.row.id);
+        await RankySessionRepository.touch(ctx.row.id);
       }
     });
 

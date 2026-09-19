@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
-import { capToolOutput } from "./samToolOutput";
+import { capToolOutput } from "./rankyToolOutput";
 
 const row = (i: number) => ({ keyword: `keyword ${i}`, volume: i * 10 });
 

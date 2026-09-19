@@ -251,7 +251,7 @@ describe("project context service", () => {
         applyContextUpdates(
           "project_1",
           [{ customSection: "one-too-many", content: "..." }],
-          "sam",
+          "ranky",
         ),
       ).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
       expect(mocks.upsertSection).not.toHaveBeenCalled();
@@ -292,7 +292,7 @@ describe("project context service", () => {
       await applyContextUpdates(
         "project_1",
         [{ appendResearchLog: { summary: "Keyword research. Verdict: go." } }],
-        "sam",
+        "ranky",
       );
 
       expect(mocks.appendResearchLogEntry).toHaveBeenCalledWith(
@@ -301,7 +301,7 @@ describe("project context service", () => {
           projectId: "project_1",
           entryDate: "2026-08-15",
           summary: "Keyword research. Verdict: go.",
-          createdBy: "sam",
+          createdBy: "ranky",
         },
       );
       expect(mocks.pruneResearchLogBefore).toHaveBeenCalledWith(
@@ -354,7 +354,7 @@ describe("project context service", () => {
           id: `log_${index}`,
           entryDate: "2026-08-15",
           summary: "Keyword research.",
-          createdBy: "sam" as const,
+          createdBy: "ranky" as const,
         })),
       });
 

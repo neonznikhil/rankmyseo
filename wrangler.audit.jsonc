@@ -59,8 +59,9 @@
   "d1_databases": [
     {
       "binding": "DB",
-      // Keep the original database name/id (see wrangler.jsonc).
-      "database_name": "open-seo",
+      // Keep the database id: miniflare derives local storage filenames from
+      // it, and changing it orphans existing databases.
+      "database_name": "rankmyseo",
       "database_id": "37bee90a-e1aa-404f-b01e-b0d1d479bda1",
       "migrations_dir": "drizzle",
     },
@@ -77,8 +78,7 @@
   // ],
   "r2_buckets": [
     {
-      // Keep the original bucket name so existing stored objects stay reachable.
-      "bucket_name": "open-seo",
+      "bucket_name": "rankmyseo",
       "binding": "R2",
     },
   ],

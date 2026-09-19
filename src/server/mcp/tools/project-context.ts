@@ -75,7 +75,7 @@ const updateInputSchema = {
 } as const;
 
 /**
- * RANKY writes through this exact tool (adapted in samChatTools), so the author
+ * RANKY writes through this exact tool (adapted in rankyChatTools), so the author
  * recorded on every row is the one difference between the two callers — a
  * parameter here instead of a second write path that could drift.
  */

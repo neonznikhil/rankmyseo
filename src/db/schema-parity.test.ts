@@ -10,7 +10,7 @@ import * as sqliteProjectContext from "./project-context.schema";
 import * as sqliteReports from "./reports.schema";
 import * as sqliteReportTemplates from "./report-templates.schema";
 import * as sqliteAudit from "./audit.schema";
-import * as sqliteSam from "./sam.schema";
+import * as sqliteRanky from "./ranky.schema";
 import * as sqliteAuth from "./better-auth-schema";
 import * as sqliteBilling from "./billing.schema";
 import * as sqliteGa4 from "./ga4.schema";
@@ -21,7 +21,7 @@ import * as pgProjectContext from "./pg/project-context.schema";
 import * as pgReports from "./pg/reports.schema";
 import * as pgReportTemplates from "./pg/report-templates.schema";
 import * as pgAudit from "./pg/audit.schema";
-import * as pgSam from "./pg/sam.schema";
+import * as pgRanky from "./pg/ranky.schema";
 import * as pgAuth from "./pg/better-auth-schema";
 import * as pgBilling from "./pg/billing.schema";
 import * as pgGa4 from "./pg/ga4.schema";
@@ -154,7 +154,7 @@ const sqliteAppTables = tablesFrom(
   sqliteReports,
   sqliteReportTemplates,
   sqliteAudit,
-  sqliteSam,
+  sqliteRanky,
   sqliteBilling,
   sqliteGa4,
   sqliteGsc,
@@ -166,7 +166,7 @@ const pgAppTables = tablesFrom(
   pgReports,
   pgReportTemplates,
   pgAudit,
-  pgSam,
+  pgRanky,
   pgBilling,
   pgGa4,
   pgGsc,

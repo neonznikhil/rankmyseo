@@ -4,7 +4,7 @@
  *
  * `@cloudflare/think` eagerly imports just-bash (~21 MB of source, plus
  * turndown and the 8.6 MB @mixmark-io/domino DOM implementation) at module
- * init, and SamChatAgent is re-exported from src/server.ts, so the whole chain
+ * init, and RankyChatAgent is re-exported from src/server.ts, so the whole chain
  * lands in the main worker's startup module graph — raising every isolate's
  * baseline heap toward the 128 MB limit (production OOM bursts on unrelated
  * routes after each deploy). RANKY only uses its own MCP toolset and disables

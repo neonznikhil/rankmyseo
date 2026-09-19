@@ -146,11 +146,11 @@ async function buildInventory(db: Db, user: UserRow) {
           .orderBy(schema.projects.id);
   const projectIds = projects.map((row) => row.id);
 
-  const samSessions = await db
-    .select({ id: schema.samSessions.id })
-    .from(schema.samSessions)
-    .where(eq(schema.samSessions.userId, user.id))
-    .orderBy(schema.samSessions.id);
+  const rankySessions = await db
+    .select({ id: schema.rankySessions.id })
+    .from(schema.rankySessions)
+    .where(eq(schema.rankySessions.userId, user.id))
+    .orderBy(schema.rankySessions.id);
 
   // Scratchpad DOs self-destroy at finalize and via a 7-day alarm, and the
   // audit-progress KV key has a 30-minute TTL, so older audits have no
@@ -287,7 +287,7 @@ async function buildInventory(db: Db, user: UserRow) {
             )
             .where(inArray(schema.rankCheckRuns.projectId, projectIds))
             .then((rows) => rows[0]?.value ?? 0),
-    sam_sessions: samSessions.length,
+    ranky_sessions: rankySessions.length,
     attributed_audits: await db.$count(
       schema.audits,
       eq(schema.audits.startedByUserId, user.id),
@@ -325,7 +325,7 @@ async function buildInventory(db: Db, user: UserRow) {
 
   return {
     organizations,
-    samSessionIds: samSessions.map((row) => row.id),
+    rankySessionIds: rankySessions.map((row) => row.id),
     auditIds: audits.map((row) => row.id),
     r2Keys,
     googleAccounts,
@@ -609,7 +609,7 @@ async function main() {
       organizations: inventory.organizations,
       databaseCounts: inventory.databaseCounts,
       cloudflare: {
-        samChats: inventory.samSessionIds.length,
+        samChats: inventory.rankySessionIds.length,
         auditScratchpads: inventory.auditIds.length,
         r2Objects: inventory.r2Keys.length,
         activeAuditWorkflows: inventory.activeAuditWorkflowIds.length,
@@ -651,7 +651,7 @@ async function main() {
       userId: user.id,
       email: user.email,
       organizationIds,
-      samSessionIds: inventory.samSessionIds,
+      rankySessionIds: inventory.rankySessionIds,
       auditIds: inventory.auditIds,
       activeAuditWorkflowIds: inventory.activeAuditWorkflowIds,
       activeRankWorkflowIds: inventory.activeRankWorkflowIds,

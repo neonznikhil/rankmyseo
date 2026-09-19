@@ -3,7 +3,7 @@ import type { StepContext, ToolCallResultContext } from "@cloudflare/think";
 import {
   SamTelemetry,
   SamTurnStats,
-} from "@/server/features/ranky/samTurnTelemetry";
+} from "@/server/features/ranky/rankyTurnTelemetry";
 import { captureServerEvent } from "@/server/lib/posthog";
 
 vi.mock("@/server/lib/posthog", () => ({
@@ -124,7 +124,7 @@ describe("SamTelemetry billing completion", () => {
       const events = vi
         .mocked(captureServerEvent)
         .mock.calls.map(([event]) => event);
-      const turns = events.filter((event) => event.event === "sam:turn");
+      const turns = events.filter((event) => event.event === "ranky:turn");
       expect(turns).toHaveLength(1);
       expect(turns[0]?.properties).toMatchObject({
         turn_id: first.turnId,
