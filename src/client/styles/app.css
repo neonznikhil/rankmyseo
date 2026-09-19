@@ -3,10 +3,12 @@
 
 @theme {
   --container-8xl: 88rem;
-  --font-sans: "Inter Variable", system-ui, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-  --font-display: "Inter Variable", system-ui, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  --font-sans:
+    "Inter Variable", system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  --font-display:
+    "Inter Variable", system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
 }
 
 :root {
@@ -32,27 +34,27 @@
   color-scheme: light;
   --color-base-100: #ffffff;
   --color-base-200: #f5f5f7;
-  --color-base-300: #d2d2d7;
+  --color-base-300: #e0e0e0;
   --color-base-content: #1d1d1f;
-  --color-primary: oklch(50% 0.12 262);
-  --color-primary-content: oklch(100% 0 0);
-  --color-secondary: oklch(55% 0.15 145);
-  --color-secondary-content: oklch(100% 0 0);
-  --color-accent: oklch(50% 0.12 262);
-  --color-accent-content: oklch(100% 0 0);
-  --color-neutral: oklch(25% 0 0);
-  --color-neutral-content: oklch(100% 0 0);
-  --color-info: oklch(70% 0.15 230);
-  --color-info-content: oklch(100% 0 0);
-  --color-success: oklch(65% 0.18 145);
-  --color-success-content: oklch(100% 0 0);
-  --color-warning: oklch(80% 0.15 80);
-  --color-warning-content: oklch(100% 0 0);
-  --color-error: oklch(65% 0.2 25);
-  --color-error-content: oklch(100% 0 0);
-  --radius-selector: 0.625rem;
-  --radius-field: 0.625rem;
-  --radius-box: 0.75rem;
+  --color-primary: #0066cc;
+  --color-primary-content: #ffffff;
+  --color-secondary: #0066cc;
+  --color-secondary-content: #ffffff;
+  --color-accent: #0066cc;
+  --color-accent-content: #ffffff;
+  --color-neutral: #1d1d1f;
+  --color-neutral-content: #ffffff;
+  --color-info: #0066cc;
+  --color-info-content: #ffffff;
+  --color-success: #1a7f37;
+  --color-success-content: #ffffff;
+  --color-warning: #9a6700;
+  --color-warning-content: #ffffff;
+  --color-error: #cf222e;
+  --color-error-content: #ffffff;
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1.125rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
   --border: 1px;
@@ -65,29 +67,29 @@
   name: "rankmyseo-dark";
   prefersdark: true;
   color-scheme: dark;
-  --color-base-100: oklch(18% 0 0);
-  --color-base-200: oklch(12% 0 0);
-  --color-base-300: oklch(27% 0 0);
-  --color-base-content: oklch(92% 0 0);
-  --color-primary: oklch(66% 0.12 262);
-  --color-primary-content: oklch(100% 0 0);
-  --color-secondary: oklch(60% 0.15 145);
-  --color-secondary-content: oklch(100% 0 0);
-  --color-accent: oklch(66% 0.12 262);
-  --color-accent-content: oklch(100% 0 0);
-  --color-neutral: oklch(85% 0 0);
-  --color-neutral-content: oklch(20% 0 0);
-  --color-info: oklch(70% 0.15 230);
-  --color-info-content: oklch(100% 0 0);
-  --color-success: oklch(65% 0.18 145);
-  --color-success-content: oklch(100% 0 0);
-  --color-warning: oklch(80% 0.15 80);
-  --color-warning-content: oklch(100% 0 0);
-  --color-error: oklch(65% 0.2 25);
-  --color-error-content: oklch(100% 0 0);
-  --radius-selector: 0.625rem;
-  --radius-field: 0.625rem;
-  --radius-box: 0.75rem;
+  --color-base-100: #272729;
+  --color-base-200: #252527;
+  --color-base-300: #3f3f42;
+  --color-base-content: #ffffff;
+  --color-primary: #0066cc;
+  --color-primary-content: #ffffff;
+  --color-secondary: #2997ff;
+  --color-secondary-content: #1d1d1f;
+  --color-accent: #2997ff;
+  --color-accent-content: #1d1d1f;
+  --color-neutral: #e5e7eb;
+  --color-neutral-content: #1d1d1f;
+  --color-info: #2997ff;
+  --color-info-content: #1d1d1f;
+  --color-success: #3fb950;
+  --color-success-content: #1d1d1f;
+  --color-warning: #d29922;
+  --color-warning-content: #1d1d1f;
+  --color-error: #f85149;
+  --color-error-content: #1d1d1f;
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1.125rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
   --border: 1px;
@@ -393,20 +395,18 @@ html[data-theme="rankmyseo-dark"] .alert-error {
   @apply border-error/60 bg-error/20;
 }
 
-/* RANKMYSEO polish: subtle Apple-style refinement. Theme colors above stay
-   the single source of truth; this only softens surfaces and motion. */
+/* RANKMYSEO identity: flat surfaces separated by hairlines and surface-color
+   change. No shadows on cards, buttons, or text — elevation comes from the
+   light↔dark tile rhythm, never chrome. */
 
-/* Soft elevation for cards in light mode only — dark mode stays flat so
-   shadows never read as gray glow. */
-html[data-theme="rankmyseo"] .card {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+/* The signature action: primary buttons are full pills. */
+.btn-primary {
+  border-radius: 9999px;
 }
 
-/* A touch more whitespace inside cards (daisyUI default is 1.5rem).
-   Page-specific layouts that set their own padding keep working — this only
-   lifts the shared default. */
-.card-body {
-  padding: 1.75rem;
+/* Press state across every button: a physical push, not a color change. */
+.btn:active {
+  transform: scale(0.97);
 }
 
 /* 150–200ms hover/focus motion on interactive elements. */
@@ -419,11 +419,43 @@ a,
     background-color 160ms ease,
     border-color 160ms ease,
     color 160ms ease,
-    box-shadow 180ms ease;
+    transform 160ms ease;
 }
 
-/* One consistent keyboard focus ring, in the theme's primary accent. */
+/* One consistent keyboard focus ring. */
 :focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid #0071e3;
   outline-offset: 2px;
+}
+
+/* Text selection carries the accent. */
+::selection {
+  background-color: #0066cc;
+  color: #ffffff;
+}
+
+/* Thin scrollbars tinted to the hairline token. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-base-300) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-base-300);
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Links on dark tiles use the sky variant so Action Blue never disappears
+   against the tile. */
+html[data-theme="rankmyseo-dark"] .link-primary {
+  color: #2997ff;
+}
+html[data-theme="rankmyseo-dark"] .link-primary:hover {
+  color: #53a8ff;
 }
