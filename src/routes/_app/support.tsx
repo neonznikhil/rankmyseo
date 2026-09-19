@@ -3,7 +3,7 @@ import { Check, Copy } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const SUPPORT_EMAIL = "nikhiladwaan@gmail.com";
+import { SUPPORT_EMAIL } from "@/client/lib/support";
 const GITHUB_URL = "https://github.com/rankmyseo/rankmyseo";
 
 export const Route = createFileRoute("/_app/support")({

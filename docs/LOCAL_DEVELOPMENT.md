@@ -100,6 +100,9 @@ Migrate local DB:
 pnpm run db:migrate:local
 ```
 
+### D1 Multi-Row Inserts Note
+`db.batch()` is required for multi-row inserts — D1 has a 100 bind param limit per statement, so multi-row `INSERT VALUES (...), (...)` breaks. Use individual INSERT statements batched via `db.batch()` (up to 100 statements per call).
+
 ## Postgres backend (optional)
 
 D1 (SQLite) is the default. To run against Postgres locally instead — the opt-in

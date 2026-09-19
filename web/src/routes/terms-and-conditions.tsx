@@ -4,6 +4,7 @@ import TermsAndConditionsContent, {
   frontmatter as termsFrontmatter,
 } from "../../content/legal/terms-and-conditions.md";
 import { LegalPage } from "@/components/legal-page";
+import { SupportEmail } from "@/components/support-email";
 import { buildPageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/terms-and-conditions")({
@@ -23,7 +24,9 @@ function TermsAndConditions() {
       title={termsFrontmatter.title}
       description={termsFrontmatter.description}
     >
-      <TermsAndConditionsContent components={defaultMdxComponents} />
+      <TermsAndConditionsContent
+        components={{ ...defaultMdxComponents, SupportEmail }}
+      />
     </LegalPage>
   );
 }

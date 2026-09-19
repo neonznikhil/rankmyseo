@@ -5,7 +5,7 @@ author: "Jeremy Rivera"
 date: "2026-09-04"
 ---
 
-Last August I published six markdown companion files so AI crawlers would have something cheap and clean to read on my podcast site. Then I ran a control test on my own server and found that unscriptedseo.com was returning 429 to GPTBot on every request, from the same IP that was serving a browser 200 eight times in a row.
+Last August I published six markdown companion files so AI crawlers would have something cheap and clean to read on a test site. Then I ran a control test on the server and found that the site was returning 429 to GPTBot on every request, from the same IP that was serving a browser 200 eight times in a row.
 
 I had spent a week optimising content for a door that was locked.
 
@@ -121,4 +121,4 @@ Optimising content while the crawler gets a 429 is an expensive way to feel prod
 
 ---
 
-*Sources are linked inline. First-party crawler data is from my own servers, August 2026. The panel referenced here was recorded 28 August 2026 for The Unscripted SEO Interview Podcast with [Patrick Stox](https://unscriptedseo.com/patrick-stox-on-building-in-the-geo-era/), Ben Senescu of RANKMYSEO, and [Ben Wills](https://unscriptedseo.com/ben-wills-one-word-prompt-llm-testing/) of OppAlerts. Every cited URL was verified on 2 September 2026.*
+*Sources are linked inline. First-party crawler data is from August 2026. Every cited URL was verified on 2 September 2026.*

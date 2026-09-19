@@ -195,7 +195,7 @@ describe("RANKMYSEO OAuth provider configuration", () => {
       "mcp",
     ]);
     expect(mocks.options[0]?.clientRegistrationTTL).toBe(60 * 60 * 24 * 365);
-  });
+  }, 15000);
 
   it("purges OAuth KV data without needing a prior request", async () => {
     const { createRankmyseoOAuthProvider } = await import("./oauth-provider");

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { buildPageSeo } from "@/lib/seo";
 
-const SUPPORT_EMAIL = "nikhiladwaan@gmail.com";
+import { SUPPORT_EMAIL } from "@/lib/support";
 const GITHUB_ISSUES_URL = "https://github.com/rankmyseo/rankmyseo/issues";
 
 export const Route = createFileRoute("/_marketing/support")({

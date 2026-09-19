@@ -20,10 +20,10 @@ import {
 } from "@/server/lib/runtime-env";
 import { getSetupIssueSummary } from "@/server/lib/setup-status";
 import { isTelemetryOptOutValue } from "@/shared/selfhost-checks";
-
-const SELF_HOST_POSTHOG_KEY =
-  "phc_xaXj4vE4LikxfvR7q6EHemAYNBSZW4hQkqor7fpf8aGT";
-const SELF_HOST_POSTHOG_HOST = "https://us.i.posthog.com";
+async function getSelfHostTelemetryKey(): Promise<string | undefined> {
+  const key = await getOptionalEnvValue("SELF_HOST_POSTHOG_KEY");
+  return key?.trim() || undefined;
+}
 
 const DAILY_HEARTBEAT_INTERVAL_MS = 24 * 60 * 60 * 1000;
 // During the first two hours after install, heartbeat every 5 minutes so the
@@ -226,8 +226,15 @@ async function sendHeartbeat(
   installId: string,
   properties: HeartbeatProperties,
 ) {
-  const client = new PostHog(SELF_HOST_POSTHOG_KEY, {
-    host: SELF_HOST_POSTHOG_HOST,
+  const key = await getSelfHostTelemetryKey();
+  if (!key) return;
+
+  const host =
+    (await getOptionalEnvValue("SELF_HOST_POSTHOG_HOST"))?.trim() ||
+    "https://us.i.posthog.com";
+
+  const client = new PostHog(key, {
+    host,
     flushAt: 1,
     flushInterval: 0,
     disableGeoip: true,
@@ -279,6 +286,12 @@ export async function maybeSendSelfHostHeartbeat(
   options: SelfHostTelemetryOptions = {},
 ) {
   try {
+    if (
+      !options.dependencies?.sendHeartbeat &&
+      !(await getSelfHostTelemetryKey())
+    ) {
+      return;
+    }
     if (await telemetryIsDisabled()) return;
 
     const dependencies = {

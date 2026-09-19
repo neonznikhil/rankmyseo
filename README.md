@@ -8,7 +8,7 @@ enterprise bloat. Bring your own DataForSEO key, pay only for what you use, and
 drive it all from a modern UI or straight from your AI agent via MCP + skills.
 
 - Website: [https://rankmyseo.com](https://rankmyseo.com)
-- Contact: `nikhiladwaan@gmail.com`
+- Support: Configured via `VITE_SUPPORT_EMAIL` (see [Environment variables](#environment-variables))
 
 ## Features
 
@@ -124,8 +124,6 @@ proxies it beyond your own usage.
 - [Set up agent skills](https://rankmyseo.com/docs/skills/setup)
 - Local MCP check: `.agents/skills/verify-local-mcp/SKILL.md`
 
-## Contributing
+## License & Provenance
 
-Clear issues are the best contribution — see
-[`docs/CONTRIBUTING.md`](./docs/CONTRIBUTING.md). Maintainer notes live in
-[`docs/MAINTAINERS.md`](./docs/MAINTAINERS.md).
+RANKMYSEO is distributed under the MIT License (see `LICENSE`). Portions of the core search, ranking, and site-audit engine are MIT-licensed open-source software (Copyright (c) 2026 Ben Senescu); the original copyright and license notice are preserved in the `LICENSE` file. All other third-party packages are declared in `package.json` / `pnpm-lock.yaml`.

@@ -30,7 +30,7 @@ function PrivacyPage() {
           badseo.dev is operated by RANKMYSEO as a public test site for
           RANKMYSEO. The site has no accounts, forms, purchases, or
           user-submitted content. Privacy questions and requests can be sent to{" "}
-          <a href="mailto:nikhiladwaan@gmail.com">nikhiladwaan@gmail.com</a>.
+          <a href="mailto:support@example.com">support@example.com</a>.
         </p>
 
         <h2>Plausible Analytics</h2>

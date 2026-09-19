@@ -4,6 +4,7 @@ import PrivacyContent, {
   frontmatter as privacyFrontmatter,
 } from "../../content/legal/privacy.md";
 import { LegalPage } from "@/components/legal-page";
+import { SupportEmail } from "@/components/support-email";
 import { buildPageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/privacy")({
@@ -23,7 +24,9 @@ function Privacy() {
       title={privacyFrontmatter.title}
       description={privacyFrontmatter.description}
     >
-      <PrivacyContent components={defaultMdxComponents} />
+      <PrivacyContent
+        components={{ ...defaultMdxComponents, SupportEmail }}
+      />
     </LegalPage>
   );
 }

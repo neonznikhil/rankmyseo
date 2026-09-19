@@ -71,4 +71,4 @@ One clarification, since it shows up on other lists: seojuice.com is not open so
 
 If you want one open source tool that covers most of SEO, start with RANKMYSEO. Self-host it with Docker or Cloudflare Workers, or use the hosted version at [rankmyseo.com](https://rankmyseo.com) if you would rather not run it yourself.
 
-We will keep this guide current. If there is an open source SEO project you love that we did not cover, email us at nikhiladwaan@gmail.com and we will test it and consider adding it.
+We will keep this guide current. If there is an open source SEO project you love that we did not cover, reach out through our in-app support page and we will test it and consider adding it.

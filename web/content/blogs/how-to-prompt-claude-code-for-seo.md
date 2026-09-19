@@ -1,7 +1,7 @@
 ---
 title: "How to Prompt Claude Code for SEO"
 description: "Treat Claude Code like an SEO expert with infinite patience: ask every question, give it every idea, and control it so it serves your marketing strategy."
-author: "Ben Senescu"
+author: "RANKMYSEO Team"
 date: "2026-08-19"
 ---
 

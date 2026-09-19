@@ -16,8 +16,7 @@ import {
   AUTUMN_MANAGED_ACCESS_FEATURE_ID,
   AUTUMN_PAID_PLAN_ID,
 } from "@/shared/billing";
-
-const SUPPORT_EMAIL = "nikhiladwaan@gmail.com";
+import { SUPPORT_EMAIL } from "@/client/lib/support";
 
 const PLAN_FEATURES = [
   "Keyword research, backlinks, rank tracking, and site audits",

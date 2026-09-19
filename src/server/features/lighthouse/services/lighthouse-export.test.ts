@@ -7,8 +7,8 @@ const storedPayloadJson = JSON.stringify({
   source: "dataforseo-lighthouse",
   hasIssueDetails: true,
   metadata: {
-    requestedUrl: "https://everyapp.dev/blog/enable-mfa-rdp-ssh",
-    finalUrl: "https://everyapp.dev/blog/enable-mfa-rdp-ssh",
+    requestedUrl: "https://example.com/blog/enable-mfa-rdp-ssh",
+    finalUrl: "https://example.com/blog/enable-mfa-rdp-ssh",
     strategy: "mobile",
     fetchedAt: "2026-03-23T19:27:33.000Z",
     lighthouseVersion: "12.2.0",
@@ -110,7 +110,7 @@ describe("buildLighthouseExportFile", () => {
     const exported = buildLighthouseExportFile({
       idField: "resultId",
       idValue: "result-1",
-      finalUrl: "https://everyapp.dev/blog/enable-mfa-rdp-ssh",
+      finalUrl: "https://example.com/blog/enable-mfa-rdp-ssh",
       strategy: "mobile",
       createdAt: "2026-03-23T19:27:33.000Z",
       payloadJson: storedPayloadJson,
@@ -125,7 +125,7 @@ describe("buildLighthouseExportFile", () => {
     const exported = buildLighthouseExportFile({
       idField: "resultId",
       idValue: "result-1",
-      finalUrl: "https://everyapp.dev/blog/enable-mfa-rdp-ssh",
+      finalUrl: "https://example.com/blog/enable-mfa-rdp-ssh",
       strategy: "mobile",
       createdAt: "2026-03-23T19:27:33.000Z",
       payloadJson: storedPayloadJson,
@@ -148,7 +148,7 @@ describe("buildLighthouseExportFile", () => {
     const exported = buildLighthouseExportFile({
       idField: "resultId",
       idValue: "result-1",
-      finalUrl: "https://everyapp.dev/blog/enable-mfa-rdp-ssh",
+      finalUrl: "https://example.com/blog/enable-mfa-rdp-ssh",
       strategy: "mobile",
       createdAt: "2026-03-23T19:27:33.000Z",
       payloadJson: storedPayloadJson,

@@ -10,6 +10,7 @@ import { NewsletterSignup } from "@/components/newsletter-signup";
 import { ProductHuntLaurel } from "@/components/product-hunt-laurel";
 import { SiteFooter } from "@/components/site-footer";
 import { featurePages } from "@/lib/feature-pages";
+import { SUPPORT_EMAIL } from "@/lib/support";
 import "./landing-page.css";
 
 const SIGNUP_URL = "https://app.rankmyseo.com/sign-up";
@@ -864,7 +865,7 @@ function Footer() {
           className="itc-caption itc-subtle"
           style={{ margin: 0, padding: "40px 0 32px" }}
         >
-          © 2026 RANKMYSEO · Created by nikhiladwaan@gmail.com
+          © 2026 RANKMYSEO · Contact: {SUPPORT_EMAIL}
         </p>
       </Container>
     </footer>

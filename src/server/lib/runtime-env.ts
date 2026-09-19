@@ -41,6 +41,15 @@ export async function isHostedServerAuthMode(): Promise<boolean> {
   return isHostedAuthMode(await getOptionalEnvValue("AUTH_MODE"));
 }
 
+export const DEFAULT_SUPPORT_EMAIL = "nikhiladwaan@gmail.com";
+
+export async function getServerSupportEmail(): Promise<string> {
+  const email =
+    (await getOptionalEnvValue("SUPPORT_EMAIL")) ||
+    (await getOptionalEnvValue("VITE_SUPPORT_EMAIL"));
+  return email?.trim() || DEFAULT_SUPPORT_EMAIL;
+}
+
 async function getWorkersEnv(): Promise<Record<string, unknown> | null> {
   if (!workersEnvPromise) {
     workersEnvPromise = loadWorkersEnv();

@@ -50,8 +50,7 @@ For each `blocker` and `should-fix` finding, spawn verification subagents (in pa
 
 After verification, route durable learnings without forcing every review to change policy:
 
-- If an **APPLY** or **APPLY-MODIFIED** finding reveals a recurring or high-risk repository invariant that existing `.greptile/` context and CI do not capture, use `maintain-greptile-rules` and apply its promotion bar.
-- Keep one-off bugs as code fixes and regression tests. Put deterministic mechanical checks in CI or lint instead of Greptile.
+- Keep one-off bugs as code fixes and regression tests. Put deterministic mechanical checks in CI or lint.
 - When a small tooling, documentation, or workflow frustration occurs, use `papercuts` to append it to `.agents/PAPERCUTS.md`; do not derail merge-ready work to fix it.
 
 ## 4. Fix, check, loop

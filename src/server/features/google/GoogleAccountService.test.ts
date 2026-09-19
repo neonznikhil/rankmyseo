@@ -72,7 +72,11 @@ beforeAll(async () => {
 
 afterAll(() => {
   client.close();
-  rmSync(directory, { recursive: true });
+  try {
+    rmSync(directory, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 });
+  } catch {
+    // Ignore Windows temp directory file lock on closed SQLite db
+  }
 });
 beforeEach(async () => {
   await client.executeMultiple(

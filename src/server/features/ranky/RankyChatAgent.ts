@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Think } from "@cloudflare/think";
 import type {
   ChatErrorContext,
@@ -36,6 +37,7 @@ import {
 import { buildChatAgentModel } from "@/server/lib/openrouter";
 import {
   getEnvValueSync,
+  getServerSupportEmail,
   isHostedServerAuthMode,
 } from "@/server/lib/runtime-env";
 import {
@@ -272,6 +274,7 @@ export class RankyChatAgent extends Think {
       const context = await ProjectContextService.getProjectContext(
         ctx.project.id,
       );
+      const supportEmail = await getServerSupportEmail();
       return buildRankySystemPrompt(
         {
           projectId: ctx.project.id,
@@ -281,7 +284,10 @@ export class RankyChatAgent extends Think {
           languageCode: ctx.project.languageCode,
         },
         // Nothing recorded about the business yet: RANKY runs its intake flow.
-        { intakeMode: context.missingSections.includes("business_overview") },
+        {
+          intakeMode: context.missingSections.includes("business_overview"),
+          supportEmail,
+        },
       );
     });
   }

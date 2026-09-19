@@ -138,10 +138,9 @@ function LinkBuildingLibraryPage() {
           strategy built on the score would have counted that as a win.
         </p>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-neutral-700">
-          The practitioners on the Unscripted SEO podcast, people who build
-          links for clients and test on their own sites, describe a different
-          order of operations. Relevance first: a link from a site about your
-          subject, to a page about that subject. Then diversity: how many
+          Experienced practitioners who build links for clients and test on their
+          own sites describe a different order of operations. Relevance first: a
+          link from a site about your subject, to a page about that subject. Then diversity: how many
           different sites, not how many links. The three strategies above follow
           that order, and each one starts from a real backlink profile rather
           than a hypothetical one.

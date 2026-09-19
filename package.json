@@ -4,7 +4,7 @@
   "sideEffects": false,
   "version": "1.0.0",
   "description": "RANKMYSEO — open source, pay-as-you-go SEO toolkit (keywords, rank tracking, audits, backlinks, AI visibility) for you and your AI agent.",
-  "author": "nikhiladwaan@gmail.com",
+  "author": "RANKMYSEO",
   "homepage": "https://rankmyseo.com",
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
     "build": "vite build && tsc --noEmit",
     "lint": "oxlint . --type-aware",
     "lint:fix": "oxlint . --type-aware --fix",
+    "package:delivery": "node scripts/package-delivery.mjs",
     "preview": "npm run build && vite preview --port 3001",
     "deploy": "npm run db:migrate:prod && npm run build && wrangler deploy -c dist/rankmyseo_audit/wrangler.json && wrangler deploy",
     "deploy:selfhost": "node scripts/selfhost-deploy-preflight.mjs && vite build --mode selfhost && tsc --noEmit && pnpm alchemy deploy --env-file .env.selfhost --stage selfhost",

@@ -3,7 +3,7 @@ title: Roadmap
 description: Features we plan to add to RANKMYSEO over the next three months.
 ---
 
-Have a feature request that belongs here? Email nikhiladwaan@gmail.com.
+Have a feature request that belongs here? Contact the support team via our in-app support page.
 
 ## Evergreen
 
@@ -48,4 +48,4 @@ Have a feature request that belongs here? Email nikhiladwaan@gmail.com.
 - Keyword Gap Analysis Page
   - We will support this as a skill. You can ask Claude to turn it into a report.
 
-Have a feature request that belongs here? Email nikhiladwaan@gmail.com.
+Have a feature request that belongs here? Contact the support team via our in-app support page.
