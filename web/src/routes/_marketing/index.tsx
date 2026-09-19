@@ -17,19 +17,7 @@ export const Route = createFileRoute("/_marketing/")({
 
     return {
       ...seo,
-      links: [
-        ...(seo.links ?? []),
-        { rel: "preconnect", href: "https://fonts.googleapis.com" },
-        {
-          rel: "preconnect",
-          href: "https://fonts.gstatic.com",
-          crossOrigin: "anonymous",
-        },
-        {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap",
-        },
-      ],
+      links: [...(seo.links ?? [])],
     };
   },
   component: LandingPage,
