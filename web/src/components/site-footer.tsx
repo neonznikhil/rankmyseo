@@ -60,7 +60,7 @@ export function SiteFooter({ className }: { className?: string }) {
         <div>
           <p className="font-semibold text-neutral-900">Company</p>
           <div className="mt-2 flex flex-col gap-1.5">
-            <Link to="/support">Support</Link>
+            <Link to="/support">Contact</Link>
             <Link to="/roadmap">Roadmap</Link>
             <Link to="/pricing">Pricing</Link>
             <a
@@ -69,13 +69,6 @@ export function SiteFooter({ className }: { className?: string }) {
               rel="noopener noreferrer"
             >
               GitHub
-            </a>
-            <a
-              href="https://discord.gg/c9uGs3cFXr"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Discord
             </a>
             <Link to="/privacy">Privacy</Link>
             <Link to="/terms-and-conditions">Terms</Link>

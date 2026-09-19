@@ -3,9 +3,7 @@ import { Check, Copy } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-// TODO: update these contacts/URLs to your own.
-const SUPPORT_EMAIL = "support@rankmyseo.com";
-const DISCORD_URL = "https://discord.gg/c9uGs3cFXr";
+const SUPPORT_EMAIL = "nikhiladwaan@gmail.com";
 const GITHUB_URL = "https://github.com/rankmyseo/rankmyseo";
 
 export const Route = createFileRoute("/_app/support")({
@@ -26,7 +24,7 @@ function SupportPage() {
     <div className="h-full overflow-auto bg-base-100 px-4 py-8 pb-24 md:px-6 md:py-12 md:pb-8">
       <div className="mx-auto max-w-xl">
         <p className="text-sm font-medium text-base-content/40">
-          Help & Community
+          Help & Feedback
         </p>
         <h1 className="mt-1 text-2xl font-bold tracking-tight">
           We want to hear from you
@@ -55,22 +53,6 @@ function SupportPage() {
               )}
             </button>
           </div>
-
-          <a
-            href={DISCORD_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="block rounded-lg border border-base-300 px-5 py-4 transition-colors hover:border-base-content/20"
-          >
-            <p className="text-sm font-semibold">Discord</p>
-            <p className="mt-1 text-sm text-base-content/60">
-              Ask for help, share ideas and learn from the community.
-            </p>
-            <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-base-content">
-              Join the Discord
-              <span aria-hidden="true">&rarr;</span>
-            </span>
-          </a>
 
           <a
             href={`${GITHUB_URL}/issues`}

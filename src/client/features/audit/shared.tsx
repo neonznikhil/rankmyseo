@@ -1,7 +1,6 @@
 import { AlertCircle, CheckCircle, Loader2 } from "lucide-react";
 
-// TODO: update to your own support email.
-export const SUPPORT_EMAIL = "support@rankmyseo.com";
+export const SUPPORT_EMAIL = "nikhiladwaan@gmail.com";
 
 export function extractPathname(url: string): string {
   try {

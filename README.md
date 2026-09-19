@@ -7,11 +7,8 @@ competitor insights, backlinks, site audits, and AI visibility — without the
 enterprise bloat. Bring your own DataForSEO key, pay only for what you use, and
 drive it all from a modern UI or straight from your AI agent via MCP + skills.
 
-<!-- TODO: update support@rankmyseo.com, https://rankmyseo.com, and community links to your own. -->
-
 - Website: [https://rankmyseo.com](https://rankmyseo.com)
-- Support: `support@rankmyseo.com`
-- Chat: [Discord](https://discord.gg/c9uGs3cFXr)
+- Contact: `nikhiladwaan@gmail.com`
 
 ## Features
 

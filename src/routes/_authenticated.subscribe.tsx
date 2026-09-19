@@ -17,8 +17,7 @@ import {
   AUTUMN_PAID_PLAN_ID,
 } from "@/shared/billing";
 
-// TODO: update to your own support email.
-const SUPPORT_EMAIL = "support@rankmyseo.com";
+const SUPPORT_EMAIL = "nikhiladwaan@gmail.com";
 
 const PLAN_FEATURES = [
   "Keyword research, backlinks, rank tracking, and site audits",

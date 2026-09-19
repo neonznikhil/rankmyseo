@@ -55,8 +55,4 @@ These are planned features and improvements. If you'd like to create an issue an
 
 I know that this may be disappointing for some people. I hope that in 6 months, we have some awesome review process that alleviates my concerns leading to current process.
 
-If you would like to be more involved though, the best way is to [Join our Discord](https://discord.com/invite/c9uGs3cFXr) :
-
-- Help others when they ask questions
-- Share your experiences doing SEO
-- Share things you learned while building your fork
+If you would like to be more involved, feel free to open an issue on GitHub or reach out via email at nikhiladwaan@gmail.com.

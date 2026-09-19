@@ -5,8 +5,6 @@ author: "RANKMYSEO Team"
 date: "2026-06-05"
 ---
 
-<!-- TODO: update support@rankmyseo.com to your own contact. -->
-
 There are a lot of open source SEO projects on GitHub, but only a handful are mature enough to rely on. This guide covers those, plus a few honorable mentions worth watching or testing.
 
 In the past, open source SEO tools struggled because they lacked quality data. Beyond auditing, most SEO tasks have a cost, so most of the projects in this guide aren't totally free. For example, rank tracking requires SERP results from around the world. Coming up with a content strategy means you need accurate search volumes and backlink indexes. Most of the tools in this list rely on paid third-party services, but they still cost far less than the equivalent legacy SaaS tools.
@@ -73,4 +71,4 @@ One clarification, since it shows up on other lists: seojuice.com is not open so
 
 If you want one open source tool that covers most of SEO, start with RANKMYSEO. Self-host it with Docker or Cloudflare Workers, or use the hosted version at [rankmyseo.com](https://rankmyseo.com) if you would rather not run it yourself.
 
-We will keep this guide current. If there is an open source SEO project you love that we did not cover, email us at support@rankmyseo.com and we will test it and consider adding it.
+We will keep this guide current. If there is an open source SEO project you love that we did not cover, email us at nikhiladwaan@gmail.com and we will test it and consider adding it.

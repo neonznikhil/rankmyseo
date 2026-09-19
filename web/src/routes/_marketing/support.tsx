@@ -2,9 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { buildPageSeo } from "@/lib/seo";
 
-// TODO: update these contacts/URLs to your own.
-const SUPPORT_EMAIL = "support@rankmyseo.com";
-const DISCORD_URL = "https://discord.gg/c9uGs3cFXr";
+const SUPPORT_EMAIL = "nikhiladwaan@gmail.com";
 const GITHUB_ISSUES_URL = "https://github.com/rankmyseo/rankmyseo/issues";
 
 export const Route = createFileRoute("/_marketing/support")({
@@ -12,7 +10,7 @@ export const Route = createFileRoute("/_marketing/support")({
     buildPageSeo({
       title: "Support",
       description:
-        "Get help with RANKMYSEO, share feedback, or report an issue by email, Discord, or GitHub.",
+        "Get help with RANKMYSEO, share feedback, or report an issue by email or GitHub.",
       path: "/support",
       titleSuffix: "RANKMYSEO",
     }),
@@ -32,7 +30,7 @@ function SupportPage() {
     <article className="mx-auto max-w-4xl">
       <header className="max-w-3xl">
         <p className="text-sm font-medium text-[var(--color-brand-accent)]">
-          Help &amp; Community
+          Help &amp; Feedback
         </p>
         <h1 className="mt-3 text-4xl font-semibold leading-tight tracking-tight text-neutral-950 md:text-6xl">
           We want to hear from you
@@ -43,7 +41,7 @@ function SupportPage() {
         </p>
       </header>
 
-      <div className="mt-12 grid gap-4 md:grid-cols-3">
+      <div className="mt-12 grid gap-4 md:grid-cols-2">
         <section className="flex min-h-64 flex-col rounded-xl border border-[var(--color-border-subtle)] bg-white p-6">
           <p className="font-mono text-xs text-[var(--color-brand-accent)]">
             01
@@ -68,14 +66,6 @@ function SupportPage() {
 
         <SupportCard
           number="02"
-          title="Discord"
-          description="Ask for help, share ideas and learn from the community."
-          href={DISCORD_URL}
-          linkText="Join the Discord"
-        />
-
-        <SupportCard
-          number="03"
           title="GitHub Issues"
           description="Report bugs or request features on GitHub."
           href={GITHUB_ISSUES_URL}
