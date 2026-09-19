@@ -11,7 +11,10 @@ const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, "..");
 const DIST_DELIVERY = path.join(ROOT_DIR, "dist-delivery");
 const STAGING_DIR = path.join(DIST_DELIVERY, ".staging");
-const ZIP_NAME = "rankmyseo-v1.0.0-delivery.zip";
+const PACKAGE_VERSION = JSON.parse(
+  fs.readFileSync(path.join(ROOT_DIR, "package.json"), "utf8"),
+).version;
+const ZIP_NAME = `rankmyseo-v${PACKAGE_VERSION}-delivery.zip`;
 const ZIP_PATH = path.join(DIST_DELIVERY, ZIP_NAME);
 const MANIFEST_PATH = path.join(DIST_DELIVERY, "MANIFEST.txt");
 const SHA_PATH = path.join(DIST_DELIVERY, `${ZIP_NAME}.sha256`);
@@ -36,7 +39,12 @@ function findEnvFiles(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   const results = [];
   for (const entry of entries) {
-    if (entry.name === "node_modules" || entry.name === ".git" || entry.name === "dist" || entry.name === "dist-delivery") {
+    if (
+      entry.name === "node_modules" ||
+      entry.name === ".git" ||
+      entry.name === "dist" ||
+      entry.name === "dist-delivery"
+    ) {
       continue;
     }
     const fullPath = path.join(dir, entry.name);
@@ -53,11 +61,15 @@ const foundEnvs = findEnvFiles(ROOT_DIR);
 const disallowedEnvs = foundEnvs.filter((f) => !ALLOWED_ENV_FILES.has(f));
 
 if (disallowedEnvs.length > 0) {
-  console.error("\n❌ FATAL: Disallowed environment files found in repository:");
+  console.error(
+    "\n❌ FATAL: Disallowed environment files found in repository:",
+  );
   for (const envFile of disallowedEnvs) {
     console.error(`   - ${path.relative(ROOT_DIR, envFile)}`);
   }
-  console.error("Remove or move active .env files before creating delivery build.");
+  console.error(
+    "Remove or move active .env files before creating delivery build.",
+  );
   process.exit(1);
 }
 console.log("   ✔ Only permitted .env.example files present.");
@@ -88,13 +100,17 @@ for (const relPath of MUST_NOT_EXIST) {
 }
 
 if (foundPurged.length > 0) {
-  console.error("\n❌ FATAL: Upstream governance/plumbing artifacts still exist:");
+  console.error(
+    "\n❌ FATAL: Upstream governance/plumbing artifacts still exist:",
+  );
   for (const item of foundPurged) {
     console.error(`   - ${item}`);
   }
   process.exit(1);
 }
-console.log("   ✔ All required upstream governance and plumbing files confirmed absent.");
+console.log(
+  "   ✔ All required upstream governance and plumbing files confirmed absent.",
+);
 
 // --- 3. STAGING COPY ---
 console.log("\n[3/5] Preparing clean staged directory...");
@@ -158,7 +174,9 @@ function copyRecursive(srcDir, destDir, currentRel = "") {
 }
 
 copyRecursive(ROOT_DIR, STAGING_DIR);
-console.log("   ✔ Staged copy created without development caches and git history.");
+console.log(
+  "   ✔ Staged copy created without development caches and git history.",
+);
 
 // --- 4. STRING GATE SCAN ---
 console.log("\n[4/5] Running strict string-gate on staged delivery copy...");
@@ -174,13 +192,30 @@ const BLOCKLIST = [
   { name: "sk-or-v1-", regex: /sk-or-v1-/ },
   { name: "quote-never-used-semrush", regex: /quote-never-used-semrush/i },
   { name: "quote-one-thing", regex: /quote-one-thing/i },
-  { name: "hardcoded-posthog-key", regex: /phc_xaXj4vE4LikxfvR7q6EHemAYNBSZW4hQkqor7fpf8aGT/ },
+  {
+    name: "hardcoded-posthog-key",
+    regex: /phc_xaXj4vE4LikxfvR7q6EHemAYNBSZW4hQkqor7fpf8aGT/,
+  },
 ];
 
 const BINARY_EXTENSIONS = new Set([
-  ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico", ".svg",
-  ".woff", ".woff2", ".ttf", ".eot", ".zip", ".tar", ".gz",
-  ".sqlite", ".db", ".pdf"
+  ".png",
+  ".jpg",
+  ".jpeg",
+  ".gif",
+  ".webp",
+  ".ico",
+  ".svg",
+  ".woff",
+  ".woff2",
+  ".ttf",
+  ".eot",
+  ".zip",
+  ".tar",
+  ".gz",
+  ".sqlite",
+  ".db",
+  ".pdf",
 ]);
 
 function isAllowed(relPath, line) {
@@ -202,13 +237,19 @@ function isAllowed(relPath, line) {
 
   // README.md: only lines in the License & Provenance section
   if (normalizedPath === "README.md") {
-    if (line.includes("Copyright (c) 2026 Ben Senescu") || line.includes("open-source software")) {
+    if (
+      line.includes("Copyright (c) 2026 Ben Senescu") ||
+      line.includes("open-source software")
+    ) {
       return true;
     }
   }
 
   // Allowlist packages in lockfile or package dependencies if legitimate
-  if (normalizedPath.endsWith("pnpm-lock.yaml") && line.includes("@every-app/sdk")) {
+  if (
+    normalizedPath.endsWith("pnpm-lock.yaml") &&
+    line.includes("@every-app/sdk")
+  ) {
     return true;
   }
 
@@ -262,7 +303,9 @@ function scanDir(dir, currentRel = "") {
 const violations = scanDir(STAGING_DIR);
 
 if (violations.length > 0) {
-  console.error(`\n❌ STRING-GATE FAILED: Found ${violations.length} forbidden occurrences in staged copy:\n`);
+  console.error(
+    `\n❌ STRING-GATE FAILED: Found ${violations.length} forbidden occurrences in staged copy:\n`,
+  );
   for (const v of violations) {
     console.error(`   [${v.matched}] ${v.file}:${v.line}`);
     console.error(`      "${v.content}"\n`);
@@ -282,7 +325,7 @@ if (fs.existsSync(ZIP_PATH)) {
 
 // Generate MANIFEST.txt
 const manifestContent = `RANKMYSEO Delivery Manifest
-Version: 1.0.0
+Version: ${PACKAGE_VERSION}
 Build Date: ${new Date().toISOString()}
 Archive: ${ZIP_NAME}
 
@@ -311,7 +354,11 @@ Quality & Security Gates Passed:
 `;
 
 fs.writeFileSync(MANIFEST_PATH, manifestContent, "utf8");
-fs.writeFileSync(path.join(STAGING_DIR, "MANIFEST.txt"), manifestContent, "utf8");
+fs.writeFileSync(
+  path.join(STAGING_DIR, "MANIFEST.txt"),
+  manifestContent,
+  "utf8",
+);
 
 // Use system tar (bsdtar) to zip the staged contents cleanly
 try {
@@ -333,7 +380,9 @@ fs.writeFileSync(SHA_PATH, `${hash}  ${ZIP_NAME}\n`, "utf8");
 
 // Verify Contract Annex exists outside zip
 if (!fs.existsSync(CONTRACT_ANNEX_PATH)) {
-  console.warn("⚠️ Warning: dist-delivery/OSS_PROVENANCE_ANNEX.md was missing, re-creating it.");
+  console.warn(
+    "⚠️ Warning: dist-delivery/OSS_PROVENANCE_ANNEX.md was missing, re-creating it.",
+  );
   const annexContent = `# Appendix A — Open Source Software Provenance
 
 The Software incorporates third-party open-source software. Core search, ranking, and site-audit orchestration modules are derived from an MIT-licensed codebase, Copyright (c) 2026 Ben Senescu. All other third-party components and their licenses are declared in the package manifest shipped with the Software. Except for the rights granted under those licenses, all customization, branding, configuration, documentation, and deployment work in the Software were supplied by the Seller. The third-party components are provided under their existing licenses, including their warranty disclaimers.
@@ -353,5 +402,7 @@ console.log("==================================================");
 console.log(`  Archive:    dist-delivery/${ZIP_NAME} (${sizeMb} MB)`);
 console.log(`  SHA-256:    ${hash}`);
 console.log(`  Manifest:   dist-delivery/MANIFEST.txt`);
-console.log(`  Contract:   dist-delivery/OSS_PROVENANCE_ANNEX.md (Outside Zip)`);
+console.log(
+  `  Contract:   dist-delivery/OSS_PROVENANCE_ANNEX.md (Outside Zip)`,
+);
 console.log("==================================================\n");

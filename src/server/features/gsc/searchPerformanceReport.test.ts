@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  buildCannibalizationRows,
   buildStrikingDistanceRows,
   previousPeriod,
   sumSearchTotals,
@@ -136,5 +137,102 @@ describe("previousPeriod", () => {
       startDate: "2026-06-09",
       endDate: "2026-06-09",
     });
+  });
+});
+
+const cannibalRow = (
+  query: string,
+  page: string,
+  impressions: number,
+  clicks = 1,
+  position = 8,
+) => ({ keys: [query, page], clicks, impressions, ctr: 0.01, position });
+
+describe("buildCannibalizationRows", () => {
+  it("excludes a single-URL query", () => {
+    const rows = buildCannibalizationRows([
+      cannibalRow("solo", "https://x.com/a", 500, 50),
+    ]);
+    expect(rows).toHaveLength(0);
+  });
+
+  it("flags a 3-URL query with impressions-based topShare math", () => {
+    const rows = buildCannibalizationRows([
+      cannibalRow("shoes", "https://x.com/a", 100, 10, 6),
+      cannibalRow("shoes", "https://x.com/b", 60, 90, 9),
+      cannibalRow("shoes", "https://x.com/c", 40, 5, 12),
+    ]);
+    expect(rows).toHaveLength(1);
+    expect(rows[0].urlCount).toBe(3);
+    expect(rows[0].totalImpressions).toBe(200);
+    expect(rows[0].topPage).toBe("https://x.com/a");
+    expect(rows[0].topShare).toBeCloseTo(0.5);
+    expect(rows[0].risk).toBe("high");
+    // Pages sorted by impressions desc.
+    expect(rows[0].urls.map((u) => u.page)).toEqual([
+      "https://x.com/a",
+      "https://x.com/b",
+      "https://x.com/c",
+    ]);
+    expect(rows[0].bestPosition).toBe(6);
+  });
+
+  it("normalizes queries across casing and whitespace", () => {
+    const rows = buildCannibalizationRows([
+      cannibalRow(" Best Shoes ", "https://x.com/a", 100),
+      cannibalRow("best  shoes", "https://x.com/b", 100),
+    ]);
+    expect(rows).toHaveLength(1);
+    expect(rows[0].urlCount).toBe(2);
+  });
+
+  it("drops low-impression noise and keyless rows", () => {
+    const rows = buildCannibalizationRows([
+      cannibalRow("tiny", "https://x.com/a", 4),
+      cannibalRow("tiny", "https://x.com/b", 5),
+      {
+        keys: ["only-query"],
+        clicks: 1,
+        impressions: 50,
+        ctr: 0.02,
+        position: 8,
+      },
+    ]);
+    expect(rows).toHaveLength(0);
+  });
+
+  it("scores zero-click groups on impression split, not clicks", () => {
+    const split = buildCannibalizationRows([
+      cannibalRow("split", "https://x.com/a", 50, 0),
+      cannibalRow("split", "https://x.com/b", 50, 0),
+    ]);
+    expect(split).toHaveLength(1);
+    expect(split[0].risk).toBe("high");
+
+    const dominated = buildCannibalizationRows([
+      cannibalRow("owned", "https://x.com/a", 90, 0),
+      cannibalRow("owned", "https://x.com/b", 10, 0),
+    ]);
+    expect(dominated).toHaveLength(1);
+    expect(dominated[0].risk).toBe("low");
+  });
+
+  it("marks a dominant page (>=85% impression share) as low risk", () => {
+    const rows = buildCannibalizationRows([
+      cannibalRow("brand", "https://x.com/home", 900, 400, 2),
+      cannibalRow("brand", "https://x.com/mcp", 100, 1, 6),
+    ]);
+    expect(rows).toHaveLength(1);
+    expect(rows[0].topShare).toBeCloseTo(0.9);
+    expect(rows[0].risk).toBe("low");
+  });
+
+  it("preserves the first-seen display casing", () => {
+    const rows = buildCannibalizationRows([
+      cannibalRow("Best Shoes", "https://x.com/a", 100),
+      cannibalRow("best shoes", "https://x.com/b", 100),
+    ]);
+    expect(rows).toHaveLength(1);
+    expect(rows[0].query).toBe("Best Shoes");
   });
 });

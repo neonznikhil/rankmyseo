@@ -9,6 +9,7 @@ import {
   type GscPerformanceFilter,
 } from "@/server/features/gsc/searchAnalytics";
 import {
+  buildCannibalizationRows,
   buildStrikingDistanceRows,
   previousPeriod,
   sumSearchTotals,
@@ -120,6 +121,7 @@ export const getSearchPerformanceReport = createServerFn({ method: "POST" })
         totals: sumSearchTotals(current.rows),
         prevTotals: sumSearchTotals(previous.rows),
         strikingDistance: buildStrikingDistanceRows(queryPages.rows),
+        cannibalization: buildCannibalizationRows(queryPages.rows),
         countries: toDimensionRows(countries.rows),
       };
     } catch (error) {

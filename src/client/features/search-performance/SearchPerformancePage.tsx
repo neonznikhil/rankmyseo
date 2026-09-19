@@ -22,6 +22,10 @@ import {
   type ExportTarget,
   type Tab,
 } from "@/client/features/search-performance/SearchPerformanceParts";
+import {
+  CannibalizationTable,
+  exportCannibalization,
+} from "@/client/features/search-performance/CannibalizationTable";
 import { getStandardErrorMessage } from "@/client/lib/error-messages";
 import {
   exportSearchPerformanceTable,
@@ -179,6 +183,10 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
         exportStriking(report, target);
         return;
       }
+      if (tab === "cannibalization") {
+        exportCannibalization(report, target);
+        return;
+      }
       const data = await exportSearchPerformanceTable({
         data: { projectId, dimension, ...filterInput },
       });
@@ -242,6 +250,11 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                     active={tab === "pages"}
                     onClick={() => setTab("pages")}
                     label="Pages"
+                  />
+                  <TabButton
+                    active={tab === "cannibalization"}
+                    onClick={() => setTab("cannibalization")}
+                    label={`Cannibalization (${report.cannibalization.length})`}
                   />
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
@@ -317,6 +330,8 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                   projectId={projectId}
                   rows={report.strikingDistance}
                 />
+              ) : tab === "cannibalization" ? (
+                <CannibalizationTable rows={report.cannibalization} />
               ) : tableQuery.isPending ? (
                 <div className="flex items-center gap-2 p-8 text-sm text-base-content/60">
                   <Loader2 className="size-4 animate-spin" /> Loading…

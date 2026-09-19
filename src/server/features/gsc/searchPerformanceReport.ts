@@ -32,11 +32,43 @@ type StrikingDistanceRow = {
   position: number;
 };
 
+type CannibalizationUrlRow = {
+  page: string;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+};
+
+type CannibalizationRow = {
+  query: string;
+  urls: CannibalizationUrlRow[];
+  urlCount: number;
+  totalClicks: number;
+  totalImpressions: number;
+  topPage: string;
+  /** Top page impressions / group total impressions (0..1). */
+  topShare: number;
+  /** Best (lowest) average position across the group's pages. */
+  bestPosition: number;
+  risk: "high" | "medium" | "low";
+};
+
 // "Striking distance" = already ranking, not yet in the top spots: the queries
 // where a content improvement most plausibly moves real traffic.
 const STRIKING_DISTANCE_MIN_POSITION = 5;
 const STRIKING_DISTANCE_MAX_POSITION = 20;
 const STRIKING_DISTANCE_ROW_LIMIT = 100;
+
+// "Cannibalization" = two or more of the site's own pages appear in Google
+// results for the same query, splitting impressions between them. Risk is
+// scored on impression share (not clicks): GSC queries with impressions but
+// zero clicks are common, and a clicks-based share would auto-flag every
+// zero-click query as "high". The impression split IS the signal.
+const CANNIBALIZATION_MIN_IMPRESSIONS = 10;
+const CANNIBALIZATION_ROW_LIMIT = 100;
+const CANNIBALIZATION_HIGH_SHARE = 0.6;
+const CANNIBALIZATION_MEDIUM_SHARE = 0.85;
 
 export function sumSearchTotals(
   rows: GscSearchAnalyticsRow[],
@@ -120,6 +152,97 @@ export function buildStrikingDistanceRows(
     ),
     (a, b) => b.impressions - a.impressions,
   ).slice(0, limit);
+}
+
+/** Reduce `["query","page"]` rows to one cannibalization row per query where
+ *  two or more of the site's pages appear for the same query.
+ *
+ *  Queries are normalized (trim, lowercase, collapse whitespace) so " Best
+ *  Shoes " and "best  shoes" group together; the display query keeps the
+ *  first-seen original casing. Groups with fewer than two pages or fewer than
+ *  CANNIBALIZATION_MIN_IMPRESSIONS total impressions are dropped as noise.
+ *  Pages sort by impressions desc (ties broken by clicks desc). Risk scores
+ *  the top page's impression share: below 0.6 is high (split traffic), below
+ *  0.85 is medium, otherwise low (one page dominates). Result is sorted by
+ *  total impressions desc. */
+export function buildCannibalizationRows(
+  rows: GscSearchAnalyticsRow[],
+  limit: number = CANNIBALIZATION_ROW_LIMIT,
+): CannibalizationRow[] {
+  const displayByNormalized = new Map<string, string>();
+  const urlsByNormalized = new Map<string, CannibalizationUrlRow[]>();
+  for (const row of rows) {
+    const query = row.keys?.[0];
+    const page = row.keys?.[1];
+    if (!query || !page) continue;
+
+    const normalized = query.trim().toLowerCase().replace(/\s+/g, " ");
+    if (!normalized) continue;
+    if (!displayByNormalized.has(normalized)) {
+      displayByNormalized.set(normalized, query);
+    }
+
+    const list = urlsByNormalized.get(normalized);
+    const urlRow: CannibalizationUrlRow = {
+      page,
+      clicks: row.clicks,
+      impressions: row.impressions,
+      ctr: row.ctr,
+      position: row.position,
+    };
+    if (list) {
+      list.push(urlRow);
+    } else {
+      urlsByNormalized.set(normalized, [urlRow]);
+    }
+  }
+
+  const output: CannibalizationRow[] = [];
+  for (const [normalized, urls] of urlsByNormalized) {
+    if (urls.length < 2) continue;
+
+    let totalClicks = 0;
+    let totalImpressions = 0;
+    let bestPosition = 0;
+    for (const url of urls) {
+      totalClicks += url.clicks;
+      totalImpressions += url.impressions;
+      if (bestPosition === 0 || url.position < bestPosition) {
+        bestPosition = url.position;
+      }
+    }
+    if (totalImpressions < CANNIBALIZATION_MIN_IMPRESSIONS) continue;
+
+    const sortedUrls = sort(
+      urls,
+      (a, b) => b.impressions - a.impressions || b.clicks - a.clicks,
+    );
+    const topPage = sortedUrls[0].page;
+    const topShare =
+      totalImpressions > 0 ? sortedUrls[0].impressions / totalImpressions : 0;
+
+    output.push({
+      query: displayByNormalized.get(normalized) ?? normalized,
+      urls: sortedUrls,
+      urlCount: sortedUrls.length,
+      totalClicks,
+      totalImpressions,
+      topPage,
+      topShare,
+      bestPosition,
+      risk:
+        topShare < CANNIBALIZATION_HIGH_SHARE
+          ? "high"
+          : topShare < CANNIBALIZATION_MEDIUM_SHARE
+            ? "medium"
+            : "low",
+    });
+  }
+
+  return sort(output, (a, b) => b.totalImpressions - a.totalImpressions).slice(
+    0,
+    limit,
+  );
 }
 
 /** The same-length period immediately before [startDate, endDate], for the
