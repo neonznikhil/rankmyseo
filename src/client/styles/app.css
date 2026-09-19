@@ -1,7 +1,12 @@
+@import "@fontsource-variable/inter";
 @import "tailwindcss";
 
 @theme {
   --container-8xl: 88rem;
+  --font-sans: "Inter Variable", system-ui, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-display: "Inter Variable", system-ui, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
 }
 
 :root {
@@ -94,12 +99,26 @@ html,
 body {
   @apply m-0 bg-base-200;
   font-family:
-    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
+    "Inter Variable", system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   overflow: hidden;
+}
+
+/* Heading scale: semibold Inter with tight tracking — the "tight" headline
+   cadence. Display sizes step down on small screens via the utilities
+   already on each heading. */
+h1,
+h2,
+h3 {
+  font-family:
+    "Inter Variable", system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 
 /* Prevent Safari mobile from zooming on input focus (requires 16px minimum) */
