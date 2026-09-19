@@ -10,6 +10,11 @@ import {
 } from "recharts";
 import { formatCount } from "@/client/features/ai-search/platformLabels";
 import type { BrandLookupResult } from "@/types/schemas/ai-search";
+import {
+  chartAccent,
+  chartGridStroke,
+  chartTickFill,
+} from "@/client/lib/chart-palette";
 
 type Props = {
   result: BrandLookupResult;
@@ -40,19 +45,15 @@ export function BrandLookupMentionTrendCard({ result }: Props) {
           data={chartData}
           margin={{ top: 12, right: 12, bottom: 4, left: 0 }}
         >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="currentColor"
-            opacity={0.12}
-          />
+          <CartesianGrid stroke={chartGridStroke} vertical={false} />
           <XAxis
             dataKey="label"
-            tick={{ fontSize: 11, fill: "#888" }}
+            tick={{ fontSize: 11, fill: chartTickFill }}
             tickLine={false}
             axisLine={false}
           />
           <YAxis
-            tick={{ fontSize: 11, fill: "#888" }}
+            tick={{ fontSize: 11, fill: chartTickFill }}
             tickLine={false}
             axisLine={false}
             allowDecimals={false}
@@ -64,7 +65,7 @@ export function BrandLookupMentionTrendCard({ result }: Props) {
           <Line
             type="monotone"
             dataKey="volume"
-            stroke="hsl(220 70% 50%)"
+            stroke={chartAccent}
             strokeWidth={2}
             dot={false}
           />

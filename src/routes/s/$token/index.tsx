@@ -79,7 +79,8 @@ function SharedReportMessage({
 }) {
   return (
     <div className="flex min-h-full flex-col items-center justify-center gap-3 px-6 text-center">
-      <h1 className="text-lg font-medium">{heading}</h1>
+      <img src="/logo.svg" alt="RANKMYSEO" className="size-10 rounded-[10px]" />
+      <h1 className="text-lg font-semibold tracking-tight">{heading}</h1>
       <p className="max-w-md text-sm text-base-content/60">{detail}</p>
       <a
         href={MARKETING_URL}
@@ -117,32 +118,47 @@ function SharedReportPage() {
 
   return (
     <div className="flex h-full flex-col bg-base-200">
-      <header className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-base-300 bg-base-100 px-4 py-2">
+      <header className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-base-300 bg-base-100 px-4 py-2.5">
         {/* Full width below `sm` so the title owns its own row and the buttons
             wrap under it instead of squeezing it to an ellipsis. */}
-        <div className="w-full min-w-0 sm:w-auto sm:flex-1">
-          <h1 className="truncate text-sm font-medium">{data.title}</h1>
-          <p className="text-xs text-base-content/50">
-            Made with RANKMYSEO · Updated {formatRelativeTime(data.updatedAt)}
-          </p>
+        <div className="flex w-full min-w-0 items-center gap-2.5 sm:w-auto sm:flex-1">
+          <img
+            src="/logo.svg"
+            alt=""
+            aria-hidden="true"
+            className="size-7 shrink-0 rounded-lg"
+          />
+          <div className="min-w-0">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-base-content/45">
+              RANKMYSEO
+            </p>
+            <h1 className="truncate text-sm font-semibold tracking-tight">
+              {data.title}
+            </h1>
+          </div>
         </div>
-        <div className="flex shrink-0 items-center gap-2">
-          <button
-            type="button"
-            className="btn btn-ghost btn-sm gap-1.5"
-            onClick={() => void shareLink(data.title)}
-          >
-            <Share2 className="size-4" />
-            <span className="hidden sm:inline">Share</span>
-          </button>
-          <a
-            href={MARKETING_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-primary btn-sm"
-          >
-            Try RANKMYSEO
-          </a>
+        <div className="flex w-full flex-col gap-1 sm:w-auto sm:items-end">
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              className="btn btn-ghost btn-sm gap-1.5"
+              onClick={() => void shareLink(data.title)}
+            >
+              <Share2 className="size-4" />
+              <span className="hidden sm:inline">Share</span>
+            </button>
+            <a
+              href={MARKETING_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary btn-sm"
+            >
+              Try RANKMYSEO
+            </a>
+          </div>
+          <p className="text-xs text-base-content/50">
+            Updated {formatRelativeTime(data.updatedAt)}
+          </p>
         </div>
       </header>
       <ReportViewer

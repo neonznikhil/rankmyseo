@@ -11,6 +11,7 @@ import type { RankKeywordHistoryPoint } from "@/serverFunctions/rank-tracking";
 import { LOCATIONS } from "@/client/features/keywords/locations";
 import { formatLocationLabel } from "@/shared/keyword-locations";
 import { csvChange, DeviceRankCell } from "./RankTrackingTableParts";
+import { chartAccent, chartAccentSoft } from "@/client/lib/chart-palette";
 import {
   RankTrendChart,
   TrendRangeToggle,
@@ -21,8 +22,8 @@ const DEVICE_STYLE: Record<
   "desktop" | "mobile",
   { label: string; color: string }
 > = {
-  desktop: { label: "Desktop", color: "#2563eb" },
-  mobile: { label: "Mobile", color: "#14b8a6" },
+  desktop: { label: "Desktop", color: chartAccent },
+  mobile: { label: "Mobile", color: chartAccentSoft },
 };
 
 export interface KeywordTrendTarget {

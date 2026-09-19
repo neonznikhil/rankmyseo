@@ -459,3 +459,20 @@ html[data-theme="rankmyseo-dark"] .link-primary {
 html[data-theme="rankmyseo-dark"] .link-primary:hover {
   color: #53a8ff;
 }
+
+/* Data-table fingerprint: tracked uppercase headers over a hairline rule,
+   primary-tinted row hover. Density stays table-sm. */
+.table thead th {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in oklab, var(--color-base-content) 55%, transparent);
+  border-bottom: 1px solid var(--color-base-300);
+}
+.table tbody tr {
+  transition: background-color 150ms ease;
+}
+.table tbody tr:hover {
+  background-color: color-mix(in oklab, var(--color-primary) 7%, transparent);
+}

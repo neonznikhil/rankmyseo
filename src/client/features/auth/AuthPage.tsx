@@ -126,8 +126,45 @@ export function AuthPageShell({ children }: { children: React.ReactNode }) {
     // auto-margin child centers when it fits but stays fully reachable (top and
     // bottom) when it's taller than the viewport. Plain `justify-center` clips
     // the overflow with no way to scroll to it.
-    <div className="h-[100dvh] flex flex-col items-center overflow-y-auto p-4 bg-base-200">
-      <div className="m-auto flex w-full flex-col items-center">{children}</div>
+    <div className="h-[100dvh] overflow-y-auto bg-base-200 md:grid md:grid-cols-[minmax(320px,0.9fr)_1.4fr]">
+      <aside className="hidden flex-col bg-[#1d1d1f] p-10 text-white md:flex lg:p-14">
+        <div className="flex items-center gap-2.5">
+          <img src="/logo.svg" alt="" className="size-8 rounded-lg" />
+          <span className="text-sm font-semibold tracking-tight">
+            RANKMYSEO
+          </span>
+        </div>
+        <div className="my-auto max-w-sm py-10">
+          <p className="text-3xl font-semibold leading-tight tracking-tight lg:text-4xl">
+            SEO your agent
+            <br />
+            can run with.
+          </p>
+          <ul className="mt-8 space-y-4 text-sm text-white/70">
+            {[
+              "Keyword research, rank tracking, and site audits",
+              "An MCP server plus guided skills for your AI agent",
+              "Your own DataForSEO key — pay only for what you use",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-2.5">
+                <span
+                  aria-hidden="true"
+                  className="mt-1.5 size-1.5 shrink-0 rounded-full bg-[#2997ff]"
+                />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p className="text-xs text-white/40">
+          Open source. Self-hostable. Yours.
+        </p>
+      </aside>
+      <div className="flex min-h-full flex-col items-center p-4">
+        <div className="m-auto flex w-full flex-col items-center">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

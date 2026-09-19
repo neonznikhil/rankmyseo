@@ -28,9 +28,9 @@ export function SortableHeader({
     >
       {helpText ? <HeaderHelpLabel label={label} helpText={helpText} /> : label}
       {sorted === "asc" ? (
-        <ArrowUp className="size-3 shrink-0" />
+        <ArrowUp className="size-3 shrink-0 text-primary" />
       ) : sorted === "desc" ? (
-        <ArrowDown className="size-3 shrink-0" />
+        <ArrowDown className="size-3 shrink-0 text-primary" />
       ) : null}
     </button>
   );

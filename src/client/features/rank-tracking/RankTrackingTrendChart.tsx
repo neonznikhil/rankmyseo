@@ -76,12 +76,7 @@ export function RankTrendChart({
             data={data}
             margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
           >
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="currentColor"
-              opacity={0.1}
-              vertical={false}
-            />
+            <CartesianGrid stroke="var(--color-base-300)" vertical={false} />
             {/* Muted bottom band: not in top {serpDepth} */}
             {showBottomBand && (
               <ReferenceArea
@@ -98,7 +93,7 @@ export function RankTrendChart({
               scale="time"
               domain={["dataMin", "dataMax"]}
               tickFormatter={formatDateTick}
-              tick={{ fontSize: 10, fill: "#888" }}
+              tick={{ fontSize: 10, fill: "var(--trend-axis-color)" }}
               tickLine={false}
               axisLine={false}
               minTickGap={32}
@@ -107,7 +102,7 @@ export function RankTrendChart({
               reversed
               domain={[1, serpDepth]}
               allowDecimals={false}
-              tick={{ fontSize: 10, fill: "#888" }}
+              tick={{ fontSize: 10, fill: "var(--trend-axis-color)" }}
               tickLine={false}
               axisLine={false}
               width={32}

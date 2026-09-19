@@ -10,6 +10,14 @@ import {
 } from "recharts";
 import type { BacklinksOverviewData } from "./backlinksPageTypes";
 import {
+  chartAccent,
+  chartAccentSoft,
+  chartGridStroke,
+  chartMuted,
+  chartTooltipContentStyle,
+  chartTooltipLabelStyle,
+} from "@/client/lib/chart-palette";
+import {
   formatCompactDate,
   formatMonthLabel,
   formatTooltipValue,
@@ -39,11 +47,7 @@ export function BacklinksTrendChart({
           data={data}
           margin={{ left: 8, right: 8, top: 8, bottom: 0 }}
         >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="currentColor"
-            opacity={0.12}
-          />
+          <CartesianGrid stroke={chartGridStroke} vertical={false} />
           <XAxis
             dataKey="date"
             tickFormatter={formatChartTick}
@@ -59,13 +63,15 @@ export function BacklinksTrendChart({
           <Tooltip
             formatter={formatTooltipValue}
             labelFormatter={formatChartLabel}
+            contentStyle={chartTooltipContentStyle}
+            labelStyle={chartTooltipLabelStyle}
           />
           <Legend />
           <Line
             yAxisId="left"
             type="monotone"
             dataKey="backlinks"
-            stroke="#2563eb"
+            stroke={chartAccent}
             strokeWidth={2}
             dot={false}
             name="Backlinks"
@@ -74,7 +80,7 @@ export function BacklinksTrendChart({
             yAxisId="right"
             type="monotone"
             dataKey="referringDomains"
-            stroke="#14b8a6"
+            stroke={chartAccentSoft}
             strokeWidth={2}
             dot={false}
             name="Referring domains"
@@ -109,11 +115,7 @@ export function BacklinksNewLostChart({
           data={data}
           margin={{ left: 8, right: 8, top: 8, bottom: 0 }}
         >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="currentColor"
-            opacity={0.12}
-          />
+          <CartesianGrid stroke={chartGridStroke} vertical={false} />
           <XAxis
             dataKey="date"
             tickFormatter={formatChartTick}
@@ -123,12 +125,14 @@ export function BacklinksNewLostChart({
           <Tooltip
             formatter={formatTooltipValue}
             labelFormatter={formatChartLabel}
+            contentStyle={chartTooltipContentStyle}
+            labelStyle={chartTooltipLabelStyle}
           />
           <Legend />
           <Line
             type="monotone"
             dataKey="lostBacklinks"
-            stroke="#ef4444"
+            stroke={chartMuted}
             strokeWidth={2}
             dot={false}
             name="Lost backlinks"
@@ -136,7 +140,7 @@ export function BacklinksNewLostChart({
           <Line
             type="monotone"
             dataKey="newBacklinks"
-            stroke="#16a34a"
+            stroke={chartAccent}
             strokeWidth={2}
             dot={false}
             name="New backlinks"

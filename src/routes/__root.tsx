@@ -152,8 +152,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 {children}
                 <ExportToSheetsModal />
                 <Toaster
-                  position="bottom-right"
-                  mobileOffset={{ bottom: 100 }}
+                  position="top-center"
+                  mobileOffset={{ top: 72 }}
+                  toastOptions={{
+                    style: {
+                      borderRadius: "12px",
+                      fontFamily: "inherit",
+                    },
+                  }}
                 />
                 {showDevtools ? (
                   <TanStackDevtools

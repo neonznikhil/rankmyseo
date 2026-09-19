@@ -6,6 +6,11 @@ import {
   AUTUMN_SEO_DATA_TOPUP_BALANCE_FEATURE_ID,
   autumnSeoDataCreditsToUsd,
 } from "@/shared/billing";
+import {
+  chartAccent,
+  chartGridStroke,
+  chartTickFill,
+} from "@/client/lib/chart-palette";
 
 const BILLING_USAGE_FEATURE_IDS: string[] = [
   AUTUMN_SEO_DATA_BALANCE_FEATURE_ID,
@@ -71,23 +76,18 @@ export function BillingUsageChart() {
             data={chartData}
             margin={{ top: 4, right: 0, bottom: 0, left: 0 }}
           >
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="currentColor"
-              opacity={0.06}
-              vertical={false}
-            />
+            <CartesianGrid stroke={chartGridStroke} vertical={false} />
             <XAxis
               dataKey="date"
               tickFormatter={formatShortDate}
-              tick={{ fontSize: 10, fill: "#888" }}
+              tick={{ fontSize: 10, fill: chartTickFill }}
               tickLine={false}
               axisLine={false}
               minTickGap={40}
             />
             <YAxis
               tickFormatter={formatUsdAxis}
-              tick={{ fontSize: 10, fill: "#888" }}
+              tick={{ fontSize: 10, fill: chartTickFill }}
               tickLine={false}
               axisLine={false}
               width={44}
@@ -98,7 +98,7 @@ export function BillingUsageChart() {
             />
             <Bar
               dataKey="credits"
-              fill="#7c3aed"
+              fill={chartAccent}
               radius={[2, 2, 0, 0]}
               maxBarSize={12}
             />

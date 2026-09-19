@@ -35,18 +35,16 @@ interface SidebarProps {
 }
 
 const navItemBaseClass =
-  "relative flex items-center gap-2.5 rounded-md px-3 py-1.5 text-sm text-base-content/70";
+  "relative flex items-center gap-2.5 rounded-lg px-3 py-1.5 text-sm text-base-content/70";
 
-// Hover uses a lighter tint than the active background (bg-base-300/50) so a
-// hovered item next to the active one stays visually distinct instead of
-// merging into a single block.
+// Hover uses a neutral wash; the active item is marked by the accent bar,
+// tinted wash, and primary icon instead of a filled block.
 const navItemClass = `${navItemBaseClass} transition-colors hover:bg-base-300/30 hover:text-base-content`;
 
 const navItemActiveProps = {
-  // Keep the active tint on hover so the active item does not fall back to the
-  // lighter hover background of navItemClass.
-  className:
-    "bg-base-300/50 hover:bg-base-300/50 font-medium text-base-content",
+  // Keep the active treatment on hover so the active item never falls back
+  // to the neutral hover wash of navItemClass.
+  className: "bg-primary/10 hover:bg-primary/10 font-medium text-primary",
 };
 
 function SidebarNavLink({
@@ -73,7 +71,9 @@ function SidebarNavLink({
           {isActive ? (
             <div className="absolute left-0 top-1 bottom-1 w-[3px] rounded-r-full bg-primary" />
           ) : null}
-          <Icon className="h-4 w-4 shrink-0" />
+          <Icon
+            className={`h-4 w-4 shrink-0 ${isActive ? "text-primary" : ""}`}
+          />
           <span className="truncate">{label}</span>
         </>
       )}
@@ -152,10 +152,14 @@ export function Sidebar({ projectId, onNavigate, onClose }: SidebarProps) {
       </div>
 
       {projectId ? (
-        // Same underline tab idiom as the in-page tab strips (e.g. Domain
-        // Overview's Top Keywords / Top Pages).
+        // Segmented control: the active view reads as a raised segment on a
+        // recessed track, distinct from the underline tab strips in-page.
         <div className="px-3 pb-1">
-          <div role="tablist" className="tabs tabs-border w-full">
+          <div
+            role="tablist"
+            aria-label="Sidebar view"
+            className="grid w-full grid-cols-2 gap-0.5 rounded-full border border-base-300 bg-base-300/40 p-1"
+          >
             <SidebarViewTab
               icon={LayoutGrid}
               label="Browse"
@@ -178,7 +182,7 @@ export function Sidebar({ projectId, onNavigate, onClose }: SidebarProps) {
         <nav className="min-h-0 flex-1 overflow-y-auto px-2 py-2">
           {navGroups.map((group) => (
             <div key={group.label} className="mb-1">
-              <div className="px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-base-content/40">
+              <div className="px-3 pb-1 pt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-base-content/45">
                 {group.label}
               </div>
               {group.items.map((item) => {
@@ -220,9 +224,13 @@ function SidebarViewTab({
       role="tab"
       aria-selected={active}
       onClick={onClick}
-      className={`tab flex-1 gap-1.5 ${active ? "tab-active" : ""}`}
+      className={`flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+        active
+          ? "bg-base-100 text-base-content"
+          : "text-base-content/55 hover:text-base-content"
+      }`}
     >
-      <Icon className="size-4" />
+      <Icon className="size-3.5" />
       {label}
     </button>
   );
@@ -260,7 +268,7 @@ function SidebarFooter({ onNavigate }: { onNavigate?: () => void }) {
   }
 
   return (
-    <div className="shrink-0 border-t border-base-300 px-2 py-2 pb-safe">
+    <div className="shrink-0 border-t border-base-300 bg-base-100/50 px-2 py-2 pb-safe">
       <SidebarNavLink
         icon={CircleHelp}
         label="Help & Community"

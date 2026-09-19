@@ -16,12 +16,20 @@ import {
   TrendRangeToggle,
   useChartWidth,
 } from "./RankTrackingTrendChart";
+import {
+  chartAccent,
+  chartAccentMist,
+  chartAccentSoft,
+  chartGridStroke,
+  chartNeutral,
+  chartTickFill,
+} from "@/client/lib/chart-palette";
 
 const BUCKETS = [
-  { key: "top3", label: "Top 3", color: "#16a34a" },
-  { key: "top4to10", label: "4–10", color: "#2563eb" },
-  { key: "top11to20", label: "11–20", color: "#f59e0b" },
-  { key: "notRanking", label: "Not in top 20", color: "#6b7280" },
+  { key: "top3", label: "Top 3", color: chartAccent },
+  { key: "top4to10", label: "4–10", color: chartAccentSoft },
+  { key: "top11to20", label: "11–20", color: chartAccentMist },
+  { key: "notRanking", label: "Not in top 20", color: chartNeutral },
 ] as const;
 
 /** Narrowed recharts tooltip payload entry (typed `any` upstream). */
@@ -109,26 +117,21 @@ export function RankTrackingOverview({
                 data={chartData}
                 margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
               >
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke="currentColor"
-                  opacity={0.1}
-                  vertical={false}
-                />
+                <CartesianGrid stroke={chartGridStroke} vertical={false} />
                 <XAxis
                   dataKey="checkedAt"
                   type="number"
                   scale="time"
                   domain={["dataMin", "dataMax"]}
                   tickFormatter={formatDateTick}
-                  tick={{ fontSize: 10, fill: "#888" }}
+                  tick={{ fontSize: 10, fill: chartTickFill }}
                   tickLine={false}
                   axisLine={false}
                   minTickGap={32}
                 />
                 <YAxis
                   allowDecimals={false}
-                  tick={{ fontSize: 10, fill: "#888" }}
+                  tick={{ fontSize: 10, fill: chartTickFill }}
                   tickLine={false}
                   axisLine={false}
                   width={28}
