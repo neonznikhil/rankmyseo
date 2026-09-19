@@ -30,7 +30,7 @@ export function RankTrackingHistoryMatrix({
   if (runs.length === 0 || keywords.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-base-300 p-10 text-center text-sm text-base-content/55">
-        No history yet. Run a check to start building the timeline.
+        No checks yet. Run one to start filling the timeline.
       </div>
     );
   }

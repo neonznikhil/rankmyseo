@@ -251,7 +251,7 @@ export function exportRankTrackingCsv(
   locationName?: string | null,
 ) {
   if (sorted.length === 0) {
-    toast.error("No data to export");
+    toast.error("Nothing to export yet");
     return;
   }
   const { headers, rows } = buildRankTrackingExport(

@@ -162,8 +162,8 @@ function ProseSections({
     <form onSubmit={handleSubmit} className="space-y-5">
       {missingSections.length === PROJECT_CONTEXT_SECTION_KEYS.length ? (
         <EmptyState>
-          Nothing written down yet. Fill in what you can — or ask RANKY to draft
-          it from your site and confirm what it got right.
+          A blank page. Jot down what you know — or let RANKY draft it it from
+          your site and confirm what it got right.
         </EmptyState>
       ) : null}
 
@@ -242,8 +242,8 @@ function CustomSections({
 
       {customSections.length === 0 ? (
         <EmptyState>
-          Nothing here yet. Agents add a section when they learn something
-          important that has nowhere else to live.
+          Quiet so far. Agents add sections as they learn things important that
+          has nowhere else to live.
         </EmptyState>
       ) : (
         <div className="space-y-3">
@@ -370,7 +370,7 @@ function ResearchLog({
 
       {researchLog.length === 0 ? (
         <EmptyState>
-          Nothing logged yet. Agents record paid research here as they run it.
+          Nothing logged yet. Agents note paid research here as they run it.
         </EmptyState>
       ) : (
         <ul className={listClass}>

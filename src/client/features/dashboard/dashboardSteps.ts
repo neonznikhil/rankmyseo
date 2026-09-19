@@ -10,39 +10,38 @@ export const setupSteps: {
 }[] = [
   {
     id: "domain",
-    label: "Add your website",
-    detail: "Set the website and country for this project.",
+    label: "Add your site",
+    detail: "Tell us which website and country this project covers.",
     icon: Globe,
   },
   {
     id: "project",
-    label: "Working on multiple websites?",
-    detail:
-      "Create another project, or let your AI agent set up a list of sites.",
+    label: "Juggling several sites?",
+    detail: "Spin up another project — or hand your AI agent a list to set up.",
     icon: FolderPlus,
   },
   {
     id: "competitor",
-    label: "Explore a competitor",
-    detail: "Find topics and links worth learning from.",
+    label: "Study a competitor",
+    detail: "See which topics and links are winning for them.",
     icon: Search,
   },
   {
     id: "mcp",
-    label: "Connect your AI agent",
-    detail: "Use RANKMYSEO inside Claude or your favorite agent.",
+    label: "Link your AI agent",
+    detail: "Bring RANKMYSEO into Claude or whichever agent you use.",
     icon: Bot,
   },
   {
     id: "gsc",
-    label: "Connect Search Console",
-    detail: "Bring your real clicks and queries into view.",
+    label: "Add Search Console",
+    detail: "Pull your actual clicks and queries in.",
     icon: Search,
   },
   {
     id: "team",
-    label: "Invite a teammate",
-    detail: "Share the work, or keep things solo for now.",
+    label: "Add a teammate",
+    detail: "Share the load — or keep flying solo for now.",
     icon: Users,
   },
 ];

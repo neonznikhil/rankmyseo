@@ -19,15 +19,15 @@ function SeoApiStatusBanners({
             <div className="alert alert-warning">
               <AlertTriangle className="size-4 shrink-0" />
               <span className="text-sm">
-                Setup needed: add your DataForSEO API key to use RANKMYSEO
-                features. See the quick steps on the{" "}
+                Almost there: add your DataForSEO key to switch on RANKMYSEO
+                features. The{" "}
                 <Link
                   {...dataforseoHelpLinkOptions}
                   className="link link-primary font-medium"
                 >
                   help page
-                </Link>
-                .
+                </Link>{" "}
+                walks through it.
               </span>
             </div>
           </div>
@@ -40,8 +40,8 @@ function SeoApiStatusBanners({
             <div className="alert alert-info">
               <AlertTriangle className="size-4 shrink-0" />
               <span className="text-sm">
-                We could not verify your DataForSEO setup. If features are not
-                working, check the setup steps on the{" "}
+                We couldn’t confirm your DataForSEO setup. If things look empty,
+                revisit the steps on the{" "}
                 <Link
                   {...dataforseoHelpLinkOptions}
                   className="link link-primary font-medium"
@@ -113,13 +113,13 @@ const MissingSeoSetupModal = React.forwardRef<
               id="dataforseo-setup-title"
               className="text-lg font-semibold text-base-content"
             >
-              One quick setup step
+              One thing to set up
             </h2>
             <p
               id="dataforseo-setup-description"
               className="text-sm text-base-content/75"
             >
-              Add your DataForSEO API key to start using RANKMYSEO.
+              RANKMYSEO needs your DataForSEO key before it can fetch data.
             </p>
           </div>
         </div>

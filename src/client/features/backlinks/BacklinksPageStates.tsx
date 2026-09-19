@@ -47,9 +47,9 @@ export function BacklinksErrorState({
           <ShieldAlert className="size-5" />
         </div>
         <div className="space-y-1">
-          <h2 className="text-lg font-semibold">Could not load backlinks</h2>
+          <h2 className="text-lg font-semibold">Backlinks didn’t load</h2>
           <p className="text-sm text-base-content/70">
-            {errorMessage ?? "Please try again in a moment."}
+            {errorMessage ?? "Give it a moment, then try again."}
           </p>
         </div>
       </div>

@@ -5,15 +5,14 @@ const STANDARD_MESSAGES: Record<ErrorCode, string> = {
   UNAUTHENTICATED: "Please sign in and try again.",
   AUTH_CONFIG_MISSING:
     "RANKMYSEO auth is not configured. Follow the README setup steps for Cloudflare Access.",
-  PAYMENT_REQUIRED:
-    "An active hosted subscription is required before you can use RANKMYSEO.",
+  PAYMENT_REQUIRED: "This needs an active hosted subscription first.",
   INSUFFICIENT_CREDITS:
-    "You've run out of credits. Add more credits or upgrade your plan to continue.",
+    "You're out of credits. Top up or upgrade to keep going.",
   FORBIDDEN: "You do not have access to this resource.",
   NOT_FOUND: "The requested resource was not found.",
   AUDIT_CAPACITY_REACHED:
     "You've reached audit capacity for your account. Delete old audits from your projects to start a new one.",
-  AUDIT_PAGE_LIMIT_EXCEEDED: `Free plan audits are limited to ${FREE_MAX_AUDIT_PAGES} pages. Upgrade to run larger audits.`,
+  AUDIT_PAGE_LIMIT_EXCEEDED: `Free plan audits top out at ${FREE_MAX_AUDIT_PAGES} pages. Upgrade for bigger crawls.`,
   AUDIT_ALREADY_RUNNING:
     "You've reached the limit of audits running at once. Wait for one to finish or delete it before starting another.",
   VALIDATION_ERROR: "Please check your input and try again.",

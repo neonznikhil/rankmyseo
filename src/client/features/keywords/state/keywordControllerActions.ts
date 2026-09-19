@@ -151,7 +151,7 @@ export function useSaveAndExportActions(params: SaveExportActionParams) {
 
   const exportCsv = () => {
     if (sheetsExportRows.length === 0) {
-      toast.error("No data to export");
+      toast.error("Nothing to export yet");
       return;
     }
     downloadKeywordResearchCsv(sheetsExportRows);

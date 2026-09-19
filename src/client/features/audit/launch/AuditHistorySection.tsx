@@ -20,7 +20,7 @@ export function AuditHistorySection({
       <div className="flex items-center justify-center py-16">
         <div className="text-center text-base-content/40 space-y-3">
           <ScanSearch className="size-12 mx-auto opacity-30" />
-          <p className="text-lg font-medium">No audits yet</p>
+          <p className="text-lg font-medium">No audits so far</p>
         </div>
       </div>
     );

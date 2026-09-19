@@ -169,12 +169,12 @@ export function SamConversation({
           {messages.length === 0 ? (
             <div className="space-y-2 text-sm text-base-content/80">
               <p>
-                Hey, I’m RANKY — your in-app SEO agent. I can research keywords,
-                size up competitors, read your SERPs, backlinks, rank tracking
-                and Search Console, and turn it into next steps for this
-                project.
+                I’m RANKY, the SEO agent living inside RANKMYSEO. Point me at
+                keywords, competitors, SERPs, backlinks, rank tracking, or
+                Search Console, and I’ll turn what I find into next steps for
+                this project.
               </p>
-              <p>Ask me anything, or start with one of these:</p>
+              <p>Pick a suggestion, or just ask:</p>
             </div>
           ) : null}
 
@@ -222,7 +222,7 @@ export function SamConversation({
 
           {status === "error" ? (
             <div className="flex flex-wrap items-center gap-3 text-sm text-error">
-              <span>RANKY stopped before finishing this reply.</span>
+              <span>RANKY didn’t finish this reply.</span>
               {lastUserMessage ? (
                 <button
                   type="button"
@@ -260,7 +260,7 @@ export function SamConversation({
             busy={isBusy}
             onSend={sendText}
             onStop={() => void stop()}
-            placeholder="Ask RANKY to research, analyze, or track anything…"
+            placeholder="Ask RANKY anything — research, analysis, tracking…"
           />
         </div>
       </div>

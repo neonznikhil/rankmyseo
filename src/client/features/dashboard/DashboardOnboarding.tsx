@@ -70,9 +70,9 @@ export function DashboardOnboarding({
       className="overflow-hidden rounded-xl border border-base-300 bg-base-100"
     >
       <header className="border-b border-base-300 px-5 py-5 sm:px-6">
-        <h2 className="text-lg font-semibold">Set up your workspace</h2>
+        <h2 className="text-lg font-semibold">Get your workspace ready</h2>
         <p className="mt-1 text-sm text-base-content/65">
-          Add your website, connect your tools, and invite your team.
+          Add your site, hook up your tools, and bring your team.
         </p>
       </header>
       {remaining.map((item) => {
@@ -129,7 +129,7 @@ export function DashboardOnboarding({
                       }
                     >
                       {item.id === "project"
-                        ? "I only need one project"
+                        ? "One project is enough"
                         : "Skip for now"}
                     </button>
                   </div>
@@ -143,7 +143,7 @@ export function DashboardOnboarding({
         <details className="group border-t border-base-300">
           <summary className="flex cursor-pointer list-none items-center gap-2 px-5 py-4 text-sm text-base-content/65 sm:px-6 [&::-webkit-details-marker]:hidden">
             <ChevronRight className="size-4 transition-transform group-open:rotate-90" />
-            {deferred.length} saved for later
+            {deferred.length} parked for later
           </summary>
           <ul className="space-y-1 px-5 pb-4 sm:px-6">
             {deferred.map((item) => (
@@ -172,7 +172,7 @@ export function DashboardOnboarding({
         <details className="group border-t border-base-300">
           <summary className="flex cursor-pointer list-none items-center gap-2 px-5 py-4 text-sm sm:px-6 [&::-webkit-details-marker]:hidden">
             <Check className="size-4 text-success" />
-            {completed.length} completed
+            {completed.length} done
             <ChevronRight className="ml-auto size-4 text-base-content/60 transition-transform group-open:rotate-90" />
           </summary>
           <ul className="space-y-3 px-5 pb-5 sm:px-6">

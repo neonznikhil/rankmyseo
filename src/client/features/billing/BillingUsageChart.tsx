@@ -66,7 +66,7 @@ export function BillingUsageChart() {
         {eventsQuery.isLoading ? null : chartData.length === 0 ? (
           <div className="flex h-full items-center justify-center">
             <span className="text-sm text-base-content/40">
-              No usage recorded yet
+              No usage on the books yet
             </span>
           </div>
         ) : chartWidth > 0 ? (

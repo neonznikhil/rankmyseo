@@ -190,7 +190,7 @@ export function SavedKeywordsBulkTagsModal({
               {filteredAvailable.length === 0 && !showCreate ? (
                 <div className="px-3 py-6 text-center text-xs text-base-content/55">
                   {availableTags.length === 0
-                    ? "No tags yet. Type a name above to create one."
+                    ? "No tags yet — type a name above to make one."
                     : "No tags match that search."}
                 </div>
               ) : null}

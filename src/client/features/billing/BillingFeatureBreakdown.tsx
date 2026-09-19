@@ -161,7 +161,7 @@ export function BillingFeatureBreakdown() {
         </div>
       ) : rows.length === 0 ? (
         <div className="text-sm text-base-content/40">
-          No usage recorded yet
+          No usage on the books yet
         </div>
       ) : (
         <ul className="space-y-2.5">

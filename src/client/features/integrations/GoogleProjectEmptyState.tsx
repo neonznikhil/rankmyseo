@@ -22,7 +22,7 @@ export function GoogleProjectEmptyState({
     <div className="space-y-4">
       <p className="text-sm text-base-content/70">
         {hasGrant
-          ? `Choose a ${name} property to finish connecting this project.`
+          ? `Pick a ${name} property to finish hooking up this project.`
           : `Connect ${name} to see this project’s data.`}
       </p>
       <div className="flex flex-wrap items-center gap-1">
@@ -43,7 +43,7 @@ export function GoogleProjectEmptyState({
               ? "Opening Google…"
               : canManage
                 ? hasGrant
-                  ? "Choose property"
+                  ? "Pick a property"
                   : "Connect"
                 : "Manage Google accounts"}
           </button>

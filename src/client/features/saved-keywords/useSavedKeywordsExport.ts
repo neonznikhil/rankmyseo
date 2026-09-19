@@ -53,7 +53,7 @@ export function useSavedKeywordsExport(params: {
     try {
       const rows = await loadFilteredRows();
       if (rows.length === 0) {
-        toast.error("No keywords to export");
+        toast.error("No keywords to export yet");
         return;
       }
       downloadKeywordCsv(rows);

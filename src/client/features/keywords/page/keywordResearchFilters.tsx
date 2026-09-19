@@ -161,7 +161,7 @@ export function EmptyFilterResults({
   return (
     <div className="h-full flex flex-col items-center justify-center text-center px-4 text-base-content/50 gap-3">
       <p className="text-sm font-medium">
-        No keywords match your current filters.
+        Nothing matches those filters. Loosen one and try again.
       </p>
       {activeFilterCount > 0 ? (
         <button className="btn btn-ghost btn-sm" onClick={resetFilters}>

@@ -159,8 +159,8 @@ export function RankTrackingTable({
     return (
       <div className="rounded-xl border border-dashed border-base-300 p-10 text-center text-sm text-base-content/55">
         {totalCount === 0
-          ? 'No rank data yet. Click "Check Now" to run your first check.'
-          : "No keywords match your search."}
+          ? 'Nothing tracked yet. Press "Check Now" to run your first check.'
+          : "No keywords match that search."}
       </div>
     );
   }

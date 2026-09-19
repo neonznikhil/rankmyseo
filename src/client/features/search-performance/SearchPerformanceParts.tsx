@@ -239,7 +239,7 @@ export function DimensionTable({
       wrapperClassName="overflow-x-auto"
       empty={
         <p className="p-6 text-sm text-base-content/60">
-          No data for this period yet. Search Console data trails by a few days.
+          Nothing for this stretch yet — Search Console runs a few days behind.
         </p>
       }
     />

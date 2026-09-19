@@ -121,7 +121,7 @@ export function RankTrackingDomainList({
                 <Globe className="size-5 text-base-content/40" />
               </div>
               <p className="text-sm font-medium text-base-content/70">
-                No tracked domains yet
+                No domains on the radar yet
               </p>
               <p className="text-xs text-base-content/40">
                 Add a domain to start monitoring keyword rankings over time.

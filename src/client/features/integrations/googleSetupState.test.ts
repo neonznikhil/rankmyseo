@@ -76,20 +76,20 @@ describe.each(["gsc", "ga4", "onboarding"] as const)(
   (surface) => {
     it("opens property selection without a browser resume flag after authorization", () => {
       const html = renderSetup(surface, true);
-      expect(html).toContain("Choose property");
-      expect(html).toContain("Select a property");
-      expect(html).not.toContain("Connect with Google");
+      expect(html).toContain("Pick a property");
+      expect(html).toContain("Pick a property…");
+      expect(html).not.toContain("Continue with Google");
     });
     it("offers authorization when no account has been linked", () => {
       const html = renderSetup(surface, false);
-      expect(html).not.toContain("Select a property");
+      expect(html).not.toContain("Pick a property");
       expect(html).toContain(
-        surface === "onboarding" ? "Connect with Google" : "Connect",
+        surface === "onboarding" ? "Continue with Google" : "Connect",
       );
     });
     it("shows the saved connection rather than reopening setup", () => {
       const html = renderSetup(surface, true, true);
-      expect(html).not.toContain("Select a property");
+      expect(html).not.toContain("Pick a property");
       expect(html).toContain(
         surface === "ga4" ? "Example" : "https://example.com/",
       );
@@ -101,7 +101,7 @@ it.each(["gsc", "ga4"] as const)(
   "does not automatically open property editing for a %s viewer",
   (surface) => {
     const html = renderSetup(surface, true, false, false);
-    expect(html).not.toContain("Select a property");
+    expect(html).not.toContain("Pick a property");
     expect(html).toContain("Manage Google accounts");
   },
 );

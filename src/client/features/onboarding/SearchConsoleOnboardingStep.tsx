@@ -170,7 +170,7 @@ function GscConnect({ projectId }: { projectId: string }) {
         ) : (
           <GoogleGlyph className="size-[18px]" />
         )}
-        {linking ? "Opening Google…" : "Connect with Google"}
+        {linking ? "Opening Google…" : "Continue with Google"}
       </button>
     </div>
   );

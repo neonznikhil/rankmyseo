@@ -120,7 +120,7 @@ export function Ga4Card({
         // otherwise render an all-zero flatline chart in an empty box.
         !report.totals.sessions ? (
           <p className="text-sm text-base-content/60">
-            No organic search traffic recorded in the last 28 days yet.
+            No organic search traffic in the last 28 days.
           </p>
         ) : (
           <div className="space-y-4">

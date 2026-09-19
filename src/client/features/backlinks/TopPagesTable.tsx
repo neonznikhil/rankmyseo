@@ -107,7 +107,7 @@ export function TopPagesTable({
   });
 
   if (rows.length === 0) {
-    return <EmptyTableState label="No top pages match this filter." />;
+    return <EmptyTableState label="No top pages match that filter." />;
   }
 
   return (

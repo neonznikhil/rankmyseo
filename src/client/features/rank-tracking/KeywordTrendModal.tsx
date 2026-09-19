@@ -283,7 +283,7 @@ function EmptyState({ count }: { count: number }) {
   return (
     <div className="rounded-lg border border-dashed border-base-300 p-10 text-center text-sm text-base-content/60">
       {count === 0
-        ? "No history yet — run a check to start tracking position over time."
+        ? "No checks yet — run one and this keyword's trend will draw here."
         : "Only 1 check so far — the trend chart fills in after the next check."}
     </div>
   );

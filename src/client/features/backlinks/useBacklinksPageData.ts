@@ -198,7 +198,7 @@ export function useBacklinksPageData({
 
   const overviewErrorMessage = getBacklinksErrorMessage(
     overviewQuery.error,
-    "Could not load backlinks data.",
+    "Backlinks data failed to load.",
   );
   const activeTabQuery =
     tab === "backlinks"

@@ -106,7 +106,7 @@ export function BacklinksTable({
   });
 
   if (rows.length === 0) {
-    return <EmptyTableState label="No backlinks match this filter." />;
+    return <EmptyTableState label="No backlinks match that filter." />;
   }
 
   return (

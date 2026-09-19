@@ -109,7 +109,7 @@ export function GooglePropertyPicker({
       ) : null}
       <div>
         <p className="mb-2 text-sm font-medium">
-          {readOnly ? "Manage Google accounts" : "Choose property"}
+          {readOnly ? "Manage Google accounts" : "Pick a property"}
         </p>
         <button
           ref={trigger}
@@ -125,7 +125,7 @@ export function GooglePropertyPicker({
         >
           <span className="min-w-0">
             <span className="block truncate">
-              {selected?.name ?? "Select a property…"}
+              {selected?.name ?? "Pick a property…"}
             </span>
             {selectedAccount ? (
               <span className="mt-0.5 block truncate text-xs text-base-content/50">

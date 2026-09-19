@@ -93,7 +93,7 @@ export function KeyPagesSection({
       {keyPages.length === 0 ? (
         adding ? null : (
           <EmptyState>
-            No key pages yet. Add the handful that has to rank, or let an agent
+            No key pages yet. Add the few that must rank, or let an agent
             propose them from your last site audit.
           </EmptyState>
         )

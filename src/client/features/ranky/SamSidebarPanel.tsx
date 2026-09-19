@@ -124,7 +124,7 @@ export function SamSidebarPanel({
           ) : (
             <Plus className="size-4" />
           )}
-          New chat
+          New conversation
         </button>
       </div>
 
@@ -135,7 +135,7 @@ export function SamSidebarPanel({
           </div>
         ) : sessions.length === 0 ? (
           <p className="px-2 py-6 text-center text-xs text-base-content/50">
-            No chats yet. Start a new one.
+            No conversations yet. Start one above.
           </p>
         ) : (
           sessions.map((session) => {

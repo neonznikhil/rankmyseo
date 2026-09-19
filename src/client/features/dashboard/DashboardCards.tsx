@@ -164,7 +164,7 @@ export function AuditHealthCard({
       {audit.topIssues.length === 0 ? (
         <div className="flex items-center gap-2 text-sm text-base-content/70">
           <Check className="size-4 text-success" />
-          No issues found — your site looks healthy.
+          All clear — nothing wrong found on your site.
         </div>
       ) : (
         <ul className="space-y-2">

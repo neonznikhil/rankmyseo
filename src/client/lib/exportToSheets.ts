@@ -53,7 +53,7 @@ export async function exportTableToSheets(args: {
 }) {
   const { headers, rows, feature } = args;
   if (rows.length === 0) {
-    toast.error("No data to export");
+    toast.error("Nothing to export yet");
     return;
   }
   try {

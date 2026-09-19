@@ -191,7 +191,7 @@ export function ReferringDomainsTable({
   });
 
   if (rows.length === 0) {
-    return <EmptyTableState label="No referring domains match this filter." />;
+    return <EmptyTableState label="No referring domains match that filter." />;
   }
 
   return (

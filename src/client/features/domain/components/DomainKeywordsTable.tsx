@@ -180,7 +180,7 @@ function DomainKeywordsTableComponent({
         wrapperClassName=""
         empty={
           <div className="py-6 text-center text-base-content/60">
-            No keywords match this search.
+            No keywords match that search.
           </div>
         }
       />

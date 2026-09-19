@@ -196,7 +196,7 @@ function SavedKeywordsEmptyState({
       <p>
         {hasActiveFilters
           ? "No saved keywords match the current filters."
-          : "No saved keywords yet. Use the Keyword Research page to find and save keywords."}
+          : "Your shelf is empty. Find keywords on the Keyword Research page and save them here."}
       </p>
     </div>
   );

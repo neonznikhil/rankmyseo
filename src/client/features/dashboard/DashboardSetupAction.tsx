@@ -68,8 +68,8 @@ export function DashboardSetupAction({
     return (
       <div className="max-w-2xl space-y-4">
         <p className="text-sm leading-relaxed text-base-content/65">
-          Paste this prompt into your agent to automatically configure RANKMYSEO
-          for you.
+          Paste this prompt into your agent and it will set RANKMYSEO up for
+          you, automatically.
         </p>
         <div className="flex flex-col gap-4 rounded-lg border border-base-300 bg-base-200/25 p-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -110,8 +110,8 @@ export function DashboardSetupAction({
     return (
       <div className="space-y-4">
         <p className="text-sm leading-relaxed text-base-content/65">
-          Explore a competitor’s domain to discover the topics they rank for and
-          the websites linking to them.
+          Pick a competitor’s domain to learn which topics they rank for and who
+          links to them.
         </p>
         <button
           type="button"
@@ -159,8 +159,8 @@ export function DashboardSetupAction({
     return (
       <div className="space-y-4">
         <p className="text-sm leading-relaxed text-base-content/65">
-          Keep each website’s research, rankings, and connections in its own
-          project. Use the project switcher in the sidebar → New project
+          Give every website its own home for research, rankings, and
+          connections. The project switcher in the sidebar → New project,
           anytime.
         </p>
         <button
@@ -199,7 +199,7 @@ export function DashboardSetupAction({
   return (
     <div className="space-y-4">
       <p className="text-sm leading-relaxed text-base-content/65">
-        Bring a teammate into your workspace to share projects, research, and
+        Bring a teammate into the workspace to split projects, research, and
         results.
       </p>
       <button
@@ -285,8 +285,8 @@ function WebsiteForm({
       }}
     >
       <p className="text-sm leading-relaxed text-base-content/65">
-        Add the website for this project and choose the country your customers
-        search from. You can change these in project settings anytime.
+        Name the website for this project and where its customers search from.
+        Change either anytime in project settings.
       </p>
       <form.Field
         name="domain"

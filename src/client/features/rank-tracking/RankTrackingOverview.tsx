@@ -101,7 +101,7 @@ export function RankTrackingOverview({
         ) : chartData.length <= 1 ? (
           <div className="rounded-lg border border-dashed border-base-300 p-8 text-center text-xs text-base-content/60">
             {chartData.length === 0
-              ? "No history yet — run a check to start tracking positions over time."
+              ? "No checks yet — run one and positions will plot here."
               : "Only 1 check so far — the trend fills in after the next check."}
           </div>
         ) : (
