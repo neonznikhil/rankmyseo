@@ -12,9 +12,9 @@ There are two self-hosting paths:
 
 ## DataForSEO API key setup
 
-RANKMYSEO uses [DataForSEO](https://dataforseo.com/?aff=255379) to fetch SEO data. DataForSEO is a paid third-party service unaffiliated with RANKMYSEO. You need an API key to connect RANKMYSEO to it.
+RANKMYSEO uses [DataForSEO](https://dataforseo.com) to fetch SEO data. DataForSEO is a paid third-party service unaffiliated with RANKMYSEO. You need an API key to connect RANKMYSEO to it.
 
-1. Go to [DataForSEO API Access](https://app.dataforseo.com/api-access?aff=255379).
+1. Go to [DataForSEO API Access](https://app.dataforseo.com/api-access).
 2. Click "Send by email" to get your credentials.
 3. Copy the longer credentials labelled "Base64" credentials.
 4. Set this as `DATAFORSEO_API_KEY` in your environment:

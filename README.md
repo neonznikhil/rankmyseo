@@ -29,7 +29,7 @@ drive it all from a modern UI or straight from your AI agent via MCP + skills.
 
 - Node.js 20+
 - [Corepack](https://nodejs.org/api/corepack.html) (bundled through Node.js 24)
-- A [DataForSEO](https://dataforseo.com/?aff=255379) account (you pay them
+- A [DataForSEO](https://dataforseo.com) account (you pay them
   directly — see [`docs/DATAFORSEO_API_KEY.md`](./docs/DATAFORSEO_API_KEY.md))
 - Optional: an [OpenRouter](https://openrouter.ai/settings/keys) key to enable
   Ranky, the in-app AI agent
@@ -132,7 +132,3 @@ proxies it beyond your own usage.
 Clear issues are the best contribution — see
 [`docs/CONTRIBUTING.md`](./docs/CONTRIBUTING.md). Maintainer notes live in
 [`docs/MAINTAINERS.md`](./docs/MAINTAINERS.md).
-
----
-
-_Based on OpenSEO (MIT, © 2026 Ben Senescu)._

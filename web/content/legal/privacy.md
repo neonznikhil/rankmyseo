@@ -7,9 +7,9 @@ description: How RANKMYSEO collects, uses, and stores personal data.
 
 _Last updated: August 24, 2026_
 
-Every App, Inc PRIVACY POLICY
+RANKMYSEO PRIVACY POLICY
 
-Every App, Inc (the “Company”) is committed to maintaining robust privacy protections for its users. Our Privacy Policy (“Privacy Policy”) is designed to help you understand how we collect, use and safeguard the information you provide to us and to assist you in making informed decisions when using our Service.
+RANKMYSEO (the “Company”) is committed to maintaining robust privacy protections for its users. Our Privacy Policy (“Privacy Policy”) is designed to help you understand how we collect, use and safeguard the information you provide to us and to assist you in making informed decisions when using our Service.
 
 For purposes of this Agreement, “Site” refers to the Company’s website, which can be accessed at https://rankmyseo.com/.  
 “Service” refers to the Company’s hosted RANKMYSEO product accessed via the Site.  
@@ -17,7 +17,7 @@ The terms “we,” “us,” and “our” refer to the Company.
 “You” refers to you, as a user of our Site or our Service.  
 By accessing our Site or our Service, you accept our Privacy Policy and Terms of Use (found here: [Terms and Conditions](/terms-and-conditions)), and you consent to our collection, storage, use and disclosure of your Personal Information as described in this Privacy Policy.
 
-If you operate or use a self-hosted deployment of RANKMYSEO that is not run by Every App, Inc, the operator of that deployment controls the information processed there. This Privacy Policy applies to information collected by Every App, Inc through the Site and Every App-operated hosted services.
+If you operate or use a self-hosted deployment of RANKMYSEO that is not run by RANKMYSEO, the operator of that deployment controls the information processed there. This Privacy Policy applies to information collected by RANKMYSEO through the Site and RANKMYSEO-operated hosted services.
 
 I. INFORMATION WE COLLECT  
 We collect “Non-Personal Information” and “Personal Information.” **Non-Personal Information** includes aggregate or de-identified usage information such as referring/exit pages and URLs, page visits, browser type, operating system, device type, approximate location derived from IP address, and similar analytics information. **Personal Information** includes information such as your name, email address, password, account and session information, organization information, billing or customer identifiers, and other information that you submit to us through the Site or Service.

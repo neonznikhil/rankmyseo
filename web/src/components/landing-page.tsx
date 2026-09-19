@@ -48,7 +48,7 @@ const TESTIMONIALS: Testimonial[] = [
     handle: "Subclip",
     href: "https://www.subclip.app/",
     network: "web",
-    avatarSrc: "/avatars/samik-avatar.jpg",
+    avatarSrc: "/avatars/rankyik-avatar.jpg",
   },
   {
     quote:
@@ -881,7 +881,7 @@ function Footer() {
           className="itc-caption itc-subtle"
           style={{ margin: 0, padding: "40px 0 32px" }}
         >
-          © 2026 Every App, Inc.
+          © 2026 RANKMYSEO
         </p>
       </Container>
     </footer>
