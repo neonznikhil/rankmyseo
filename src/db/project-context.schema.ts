@@ -1,6 +1,8 @@
 import {
   index,
+  integer,
   primaryKey,
+  real,
   sqliteTable,
   text,
   uniqueIndex,
@@ -113,6 +115,54 @@ export const projectResearchLog = sqliteTable(
     index("project_research_log_project_date_idx").on(
       table.projectId,
       table.entryDate,
+    ),
+  ],
+);
+
+export const competitorKeywordSnapshots = sqliteTable(
+  "competitor_keyword_snapshots",
+  {
+    id: text("id").primaryKey(),
+    competitorId: text("competitor_id")
+      .notNull()
+      .references(() => projectCompetitors.id, { onDelete: "cascade" }),
+    keyword: text("keyword").notNull(),
+    position: real("position").notNull(),
+    url: text("url"),
+    searchVolume: integer("search_volume"),
+    snapshotDate: text("snapshot_date").notNull(),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(current_timestamp)`),
+  },
+  (table) => [
+    index("competitor_keyword_snapshots_comp_kw_idx").on(
+      table.competitorId,
+      table.keyword,
+    ),
+    index("competitor_keyword_snapshots_date_idx").on(
+      table.snapshotDate,
+    ),
+  ],
+);
+
+export const competitorNewPages = sqliteTable(
+  "competitor_new_pages",
+  {
+    id: text("id").primaryKey(),
+    competitorId: text("competitor_id")
+      .notNull()
+      .references(() => projectCompetitors.id, { onDelete: "cascade" }),
+    url: text("url").notNull(),
+    title: text("title"),
+    firstDetectedAt: text("first_detected_at")
+      .notNull()
+      .default(sql`(current_timestamp)`),
+  },
+  (table) => [
+    uniqueIndex("competitor_new_pages_comp_url_idx").on(
+      table.competitorId,
+      table.url,
     ),
   ],
 );

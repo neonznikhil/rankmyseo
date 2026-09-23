@@ -114,4 +114,10 @@ export const {
   ga4Connections,
   gscConnections,
   telemetryState,
+  projectActionItems,
+  projectLeadSettings,
+  siteModifications,
+  trackedRemediations,
+  competitorKeywordSnapshots,
+  competitorNewPages,
 } = schema;

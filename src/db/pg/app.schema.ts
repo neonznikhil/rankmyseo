@@ -432,3 +432,125 @@ export const dashboardStepDismissals = pgTable(
     index("dashboard_step_dismissals_project_idx").on(table.projectId),
   ],
 );
+
+// One prioritized action list: ranked tasks sorted by estimated traffic impact
+export const projectActionItems = pgTable(
+  "project_action_items",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    issueKey: text("issue_key").notNull(),
+    category: text("category").notNull(),
+    title: text("title").notNull(),
+    description: text("description").notNull(),
+    recommendedAction: text("recommended_action").notNull(),
+    targetUrl: text("target_url"),
+    estimatedTrafficImpact: integer("estimated_traffic_impact")
+      .notNull()
+      .default(0),
+    effort: text("effort").notNull().default("medium"),
+    status: text("status").notNull().default("pending"),
+    source: text("source").notNull().default("audit"),
+    resolvedAt: timestampColumn("resolved_at"),
+    createdAt: timestampColumn("created_at").notNull().default(isoNow),
+    updatedAt: timestampColumn("updated_at").notNull().default(isoNow),
+  },
+  (table) => [
+    index("project_action_items_project_idx").on(table.projectId),
+    index("project_action_items_project_status_idx").on(
+      table.projectId,
+      table.status,
+    ),
+  ],
+);
+
+// Conversion and lead settings per project for keyword cost-per-lead tying
+export const projectLeadSettings = pgTable("project_lead_settings", {
+  projectId: text("project_id")
+    .primaryKey()
+    .references(() => projects.id, { onDelete: "cascade" }),
+  primaryConversionEvent: text("primary_conversion_event")
+    .notNull()
+    .default("generate_lead"),
+  secondaryConversionEvents: text("secondary_conversion_events")
+    .notNull()
+    .default("[]"),
+  targetCostPerLead: real("target_cost_per_lead"),
+  defaultLeadValue: real("default_lead_value"),
+  monthlyAdSpend: real("monthly_ad_spend"),
+  updatedAt: timestampColumn("updated_at").notNull().default(isoNow),
+});
+
+// Guardrails & live site modifications with diff preview, YMYL checks, and rollback log
+export const siteModifications = pgTable(
+  "site_modifications",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    targetUrl: text("target_url").notNull(),
+    changeType: text("change_type").notNull(),
+    title: text("title").notNull(),
+    description: text("description"),
+    beforePayload: text("before_payload").notNull(),
+    afterPayload: text("after_payload").notNull(),
+    diffPreview: text("diff_preview").notNull(),
+    isYmyl: boolean("is_ymyl").notNull().default(false),
+    ymylCategory: text("ymyl_category"),
+    status: text("status").notNull().default("staged"),
+    appliedAt: timestampColumn("applied_at"),
+    revertedAt: timestampColumn("reverted_at"),
+    appliedByUserId: text("applied_by_user_id").references(() => user.id, {
+      onDelete: "set null",
+    }),
+    createdAt: timestampColumn("created_at").notNull().default(isoNow),
+    updatedAt: timestampColumn("updated_at").notNull().default(isoNow),
+  },
+  (table) => [
+    index("site_modifications_project_status_idx").on(
+      table.projectId,
+      table.status,
+    ),
+    index("site_modifications_project_target_url_idx").on(
+      table.projectId,
+      table.targetUrl,
+    ),
+  ],
+);
+
+// 28-day lift tracking for proving ROI after a fix ships
+export const trackedRemediations = pgTable(
+  "tracked_remediations",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    modificationId: text("modification_id").references(
+      () => siteModifications.id,
+      { onDelete: "set null" },
+    ),
+    targetUrl: text("target_url").notNull(),
+    actionDescription: text("action_description").notNull(),
+    appliedAt: timestampColumn("applied_at").notNull(),
+    trackingEndAt: timestampColumn("tracking_end_at").notNull(),
+    preClicks28d: integer("pre_clicks_28d").notNull().default(0),
+    postClicks28d: integer("post_clicks_28d").notNull().default(0),
+    prePositionAvg: real("pre_position_avg"),
+    postPositionAvg: real("post_position_avg"),
+    status: text("status").notNull().default("tracking"),
+    lastEvaluatedAt: timestampColumn("last_evaluated_at"),
+    createdAt: timestampColumn("created_at").notNull().default(isoNow),
+  },
+  (table) => [
+    index("tracked_remediations_project_status_idx").on(
+      table.projectId,
+      table.status,
+    ),
+    index("tracked_remediations_target_url_idx").on(table.targetUrl),
+  ],
+);
+

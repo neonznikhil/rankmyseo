@@ -3,6 +3,7 @@ import { AuditHistorySection } from "@/client/features/audit/launch/AuditHistory
 import { LaunchFormCard } from "@/client/features/audit/launch/LaunchFormCard";
 import { useLaunchController } from "@/client/features/audit/launch/useLaunchController";
 import { getCustomerPlanStatus } from "@/client/features/billing/plan-detection";
+import { ChangeLogTable } from "@/client/features/guardrails/ChangeLogTable";
 import { useSession } from "@/lib/auth-client";
 import { isHostedClientAuthMode } from "@/lib/auth-mode";
 
@@ -51,7 +52,7 @@ function LaunchContent({
 
   return (
     <div className="px-4 py-4 md:px-6 md:py-6 pb-24 md:pb-8 overflow-auto">
-      <div className="mx-auto max-w-5xl space-y-4">
+      <div className="mx-auto max-w-5xl space-y-6">
         <h1 className="text-2xl font-semibold">Site Audit</h1>
 
         <LaunchFormCard
@@ -66,6 +67,10 @@ function LaunchContent({
           isLoading={controller.historyQuery.isLoading}
           onDelete={controller.deleteAudit}
         />
+
+        <div className="pt-4 border-t border-base-300">
+          <ChangeLogTable projectId={projectId} />
+        </div>
       </div>
     </div>
   );

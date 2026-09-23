@@ -9,6 +9,9 @@ import {
 } from "@/client/features/dashboard/DashboardCards";
 import { Ga4Card } from "@/client/features/dashboard/Ga4Card";
 import { WorkspaceMergeBanner } from "@/client/features/dashboard/WorkspaceMergeBanner";
+import { Top10ActionFeed } from "@/client/features/actions/Top10ActionFeed";
+import { RoiEvidenceCard } from "@/client/features/roi/RoiEvidenceCard";
+import { CompetitorIntelligenceCard } from "@/client/features/competitors/CompetitorIntelligenceCard";
 import { getStandardErrorMessage } from "@/client/lib/error-messages";
 import {
   getDashboardActivation,
@@ -143,6 +146,15 @@ export function DashboardPage({ projectId }: { projectId: string }) {
           projectId={projectId}
           activation={activation}
         />
+
+        {/* Prioritized Top 10 Action Engine: Replaces fragmented workflow hunting */}
+        <Top10ActionFeed projectId={projectId} />
+
+        {/* Prove the Work: 28-Day Impact & ROI Proof Engine */}
+        <RoiEvidenceCard projectId={projectId} />
+
+        {/* Competitor Intelligence & Share of Voice */}
+        <CompetitorIntelligenceCard projectId={projectId} />
 
         {/* Every card is half width on large screens (only the checklist spans).
           Cards with data render before setup pitches and empty states. */}

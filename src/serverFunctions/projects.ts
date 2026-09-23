@@ -75,3 +75,12 @@ export const setProjectWebsite = createServerFn({ method: "POST" })
   .handler(({ data, context }) =>
     ProjectService.setProjectWebsite(context.organizationId, data),
   );
+
+export const getNetworkOverview = createServerFn({ method: "POST" })
+  .middleware(requireAuthenticatedContext)
+  .handler(async ({ context }) => {
+    const { NetworkOverviewService } = await import(
+      "@/server/features/projects/services/NetworkOverviewService"
+    );
+    return NetworkOverviewService.getOverview(context.organizationId);
+  });

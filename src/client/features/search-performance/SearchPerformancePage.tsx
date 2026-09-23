@@ -26,6 +26,7 @@ import {
   CannibalizationTable,
   exportCannibalization,
 } from "@/client/features/search-performance/CannibalizationTable";
+import { KeywordLeadAttributionTable } from "@/client/features/leads/KeywordLeadAttributionTable";
 import { getStandardErrorMessage } from "@/client/lib/error-messages";
 import {
   exportSearchPerformanceTable,
@@ -187,6 +188,9 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
         exportCannibalization(report, target);
         return;
       }
+      if (tab === "leads") {
+        return;
+      }
       const data = await exportSearchPerformanceTable({
         data: { projectId, dimension, ...filterInput },
       });
@@ -255,6 +259,11 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                     active={tab === "cannibalization"}
                     onClick={() => setTab("cannibalization")}
                     label={`Cannibalization (${report.cannibalization.length})`}
+                  />
+                  <TabButton
+                    active={tab === "leads"}
+                    onClick={() => setTab("leads")}
+                    label="Leads & CPL (ROI)"
                   />
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
@@ -325,7 +334,11 @@ export function SearchPerformancePage({ projectId }: { projectId: string }) {
                 </div>
               </div>
 
-              {tab === "striking" ? (
+              {tab === "leads" ? (
+                <div className="p-4">
+                  <KeywordLeadAttributionTable projectId={projectId} />
+                </div>
+              ) : tab === "striking" ? (
                 <StrikingDistanceTable
                   projectId={projectId}
                   rows={report.strikingDistance}

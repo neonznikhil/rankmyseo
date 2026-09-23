@@ -36,7 +36,7 @@ import {
 } from "@/types/schemas/search-performance";
 import { saveKeywords } from "@/serverFunctions/keywords";
 
-export type Tab = "striking" | "queries" | "pages" | "cannibalization";
+export type Tab = "striking" | "queries" | "pages" | "cannibalization" | "leads";
 export type ExportTarget = "csv" | "sheets";
 
 type ExportTable = { filename: string; headers: string[]; rows: CsvValue[][] };
